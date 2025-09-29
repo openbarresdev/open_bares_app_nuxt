@@ -1,2 +1,2 @@
-# open_bares_app_frontend
-Open Bares Investment App | Frontend | React
+# open_bares_app_nuxt
+Open Bares Investment App | NUXT
