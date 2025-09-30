@@ -41,28 +41,22 @@
                                 />
                             </div>
                             <div class="col-span-1">
-                                <CommonInputsVariant
-                                    type="text"
+                                 <CommonSelectVariant
                                     label="Title"
-                                    placeholder="Mr"
-                                />
+                                    :options="titles"/>
+                                </div>
                             </div>
-                        </div>
 
                         <div class="grid grid-cols-2 max-sm:grid-cols-1 w-full gap-4">
                             <div class="col-span-1">
-                                <CommonInputsVariant
-                                    type="text"
-                                    label="Country"
-                                    placeholder="Cameroon"
-                                />
+                                <CommonSelectVariant
+                                    label="County"
+                                    :options="countries"/>
                             </div>
                             <div class="col-span-1">
-                                <CommonInputsVariant
-                                    type="text"
-                                    label="Industry sector"
-                                    placeholder="Agriculture"
-                                />
+                                <CommonSelectVariant
+                                    label="Industrial sector"
+                                    :options="industries"/>
                             </div>
                         </div>
 
@@ -124,6 +118,8 @@
 </template>
 
 <script setup>
+import { titles, countries, industries } from "/assets/data/data";
+
 const submitSignupForm = () => {
     console.log('Submitting signup form')
 }
