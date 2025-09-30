@@ -1,6 +1,12 @@
 @import "tailwindcss";
 @plugin "flyonui";
 @import "flyonui/variants.css";
+@plugin "flyonui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: #1D3A8A;
+  --color-secondary: #FF6700;
+}
 
 @source "../../node_modules/flyonui/flyonui.js";
 @plugin "@iconify/tailwind4";
@@ -10,19 +16,13 @@
   --breakpoint-2xl: 100rem;
 }
 
-body {
+h1, h2, h3, h4 {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
 }
 
-h1, h2, h3, h4 {
-  font-family: 'Open sans', sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
-}
-
-p, span, div {
+p, span, div, body {
   font-family: 'Open sans', sans-serif;
   font-optical-sizing: auto;
   font-style: normal;

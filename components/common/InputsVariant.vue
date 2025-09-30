@@ -6,11 +6,11 @@
           :type="currentType"
           :placeholder="placeholder"
           :id="id"
-          class="input input-xl pr-10"
+          class="input input-xl pr-10 bg-gray-100 border-none rounded-xl text-[1rem]"
         />
 
         <!-- Floating label for all inputs -->
-        <label class="input-floating-label" :for="id">{{ label }}</label>
+        <label class="input-floating-label text-[1rem]!" :for="id">{{ label }}</label>
 
         <!-- Password toggle button -->
         <button
@@ -20,8 +20,8 @@
           class="absolute top-1/2 right-2 -translate-y-1/2 flex items-center justify-center"
           :aria-label="`Toggle password visibility for ${label}`"
         >
-          <span v-if="showPassword" class="icon-[tabler--eye-off] size-5 shrink-0"></span>
-          <span v-else class="icon-[tabler--eye] size-5 shrink-0"></span>
+          <span v-if="showPassword" class="icon-[tabler--eye-off] size-5 shrink-0 mr-1"></span>
+          <span v-else class="icon-[tabler--eye] size-5 shrink-0 mr-1"></span>
         </button>
 
       </div>
