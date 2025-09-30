@@ -1,5 +1,5 @@
 <template>
-  <div class="select-floating max-w-sm relative">
+  <div class="select-floating relative">
     <select
       :id="selectId"
       class="select w-full bg-gray-100 h-14 border-none rounded-xl"
