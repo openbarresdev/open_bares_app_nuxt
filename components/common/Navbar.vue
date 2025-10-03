@@ -13,19 +13,4 @@
 
 <script setup></script>
 
-<style scoped>
-[data-theme="dark"] :where(li:not(.menu-title, .menu-disabled) > :not(ul, .menu-title, .collapse, .accordion-content, .btn).menu-active) {
-    background-color: var(--color-primary);
-    color: var(--color-primary-content);
-}
-
-[data-theme="black"] :where(li:not(.menu-title, .menu-disabled) > :not(ul, .menu-title, .collapse, .accordion-content, .btn).menu-active) {
-    background-color: var(--color-primary);
-    color: var(--color-primary-content);
-}
-
-[data-theme="luxury"] :where(li:not(.menu-title, .menu-disabled) > :not(ul, .menu-title, .collapse, .accordion-content, .btn).menu-active) {
-    background-color: var(--color-primary);
-    color: var(--color-primary-content);
-}
-</style>
+<style scoped></style>

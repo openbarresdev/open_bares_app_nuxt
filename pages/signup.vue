@@ -25,7 +25,7 @@
 
                     <form @submit.prevent="submitSignupForm" class="mb-4 space-y-4">
                    
-                        <div class="grid grid-cols-5 w-full gap-4">
+                        <div class="grid grid-cols-5 w-full gap-4 hidden">
                             <div class="col-span-4">
                                 <CommonInputsVariant
                                     type="text"
@@ -37,27 +37,28 @@
                                  <CommonSelectVariant
                                     label="Title"
                                     :options="titles"/>
+                            </div>
+                        </div>
+                            
+
+                            <div class="grid grid-cols-2 max-sm:grid-cols-1 w-full gap-4">
+                                <div class="col-span-1">
+                                    <CommonSelectVariant
+                                        label="County"
+                                        :options="countries"/>
+                                </div>
+                                <div class="col-span-1">
+                                    <CommonSelectVariant
+                                        label="Industrial sector"
+                                        :options="industries"/>
                                 </div>
                             </div>
 
-                        <div class="grid grid-cols-2 max-sm:grid-cols-1 w-full gap-4">
-                            <div class="col-span-1">
-                                <CommonSelectVariant
-                                    label="County"
-                                    :options="countries"/>
-                            </div>
-                            <div class="col-span-1">
-                                <CommonSelectVariant
-                                    label="Industrial sector"
-                                    :options="industries"/>
-                            </div>
-                        </div>
-
-                        <CommonInputsVariant
-                            type="email"
-                            label="Email address"
-                            placeholder="john@example.com"
-                        />
+                            <CommonInputsVariant
+                                type="email"
+                                label="Email address"
+                                placeholder="john@example.com"
+                            />
 
                            <div class="grid grid-cols-2 max-sm:grid-cols-1 w-full gap-4">
                             <div class="col-span-1">

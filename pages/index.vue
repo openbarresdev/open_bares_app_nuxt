@@ -17,7 +17,7 @@
                         <CommonAppLogo :variant="'black'" :size="'32'" class="px-4 py-3.5" />
 
                         <div class="h-full overflow-y-auto">
-                            <ul class="accordion menu menu-sm gap-1 overflow-y-auto p-3">
+                            <ul class="accordion menu menu-sm lg:gap-2 gap-3 overflow-y-auto p-3">
                                 
                                 <li> <a href="#" class="px-2"> <span class="icon-[tabler--smart-home] size-4.5"></span>
                                         <span class="grow">Dashboard</span> </a> </li>
