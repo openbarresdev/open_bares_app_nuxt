@@ -13,237 +13,44 @@
                             aria-label="Close" data-overlay="#layout-toggle">
                             <span class="icon-[tabler--x] size-4.5"></span>
                         </button>
-                        
-                        <CommonAppLogo :variant="'black'" :size="'32'" class="px-4 py-3.5"/>
-                        
+
+                        <CommonAppLogo :variant="'black'" :size="'32'" class="px-4 py-3.5" />
+
                         <div class="h-full overflow-y-auto">
                             <ul class="accordion menu menu-sm gap-1 overflow-y-auto p-3">
-                                <!-- Dashboard -->
-                                <li>
-                                    <a href="#" class="px-2">
-                                        <span class="icon-[tabler--smart-home] size-4.5"></span>
-                                        <span class="grow">Dashboard</span>
-                                    </a>
-                                </li>
-                                <!-- Wallet Management -->
-                                <li class="accordion-item active" id="wallet">
-                                    <button
-                                        class="accordion-toggle accordion-item-active:bg-neutral/10 inline-flex items-center p-2 text-start text-sm font-normal"
-                                        aria-controls="wallet-collapse" aria-expanded="true">
-                                        <span class="icon-[tabler--wallet] size-4.5"></span>
-                                        <span class="grow">Wallet Management</span>
-                                        <span
-                                            class="icon-[tabler--chevron-right] accordion-item-active:rotate-90 size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"></span>
+                                
+                                <li> <a href="#" class="px-2"> <span class="icon-[tabler--smart-home] size-4.5"></span>
+                                        <span class="grow">Dashboard</span> </a> </li>
+
+                                <li v-for="section in sections" :key="section.id" class="accordion-item">
+                                    <!-- Titre du panneau -->
+                                   <button class="accordion-toggle inline-flex items-center p-2 text-start text-sm font-normal w-full"
+                                            :class="{ 'bg-neutral/10': openSection === section.id }"
+                                            @click="toggleSection(section.id)"
+                                        >
+
+                                        <!-- <span :class="`icon-[tabler--${section.iconName}] size-4.5`"></span> -->
+
+                                        <span class="grow">{{ section.title }}</span>
+
+                                        <span class="size-4.5 shrink-0 transition-transform duration-300 icon-[tabler--chevron-right]"
+                                            :class="{ 'rotate-90': openSection === section.id }">
+                                        </span>
                                     </button>
-                                    <div id="wallet-collapse"
-                                        class="accordion-content mt-1 w-full overflow-hidden transition-[height] duration-300"
-                                        aria-labelledby="wallet" role="region">
-                                        <ul class="space-y-1">
-                                            <!-- Overview -->
-                                            <li>
-                                                <a href="#" class="menu-active px-2">Account Overview</a>
-                                            </li>
-                                            <!-- Available Funds -->
-                                            <li>
-                                                <a href="#" class="px-2">Available Funds</a>
-                                            </li>
-                                            <!-- Transaction History -->
-                                            <li>
-                                                <a href="#" class="px-2">Transaction History</a>
+
+                                    <!-- Contenu -->
+                                    <div class="accordion-content mt-1 w-full overflow-hidden transition-[height] duration-300"
+                                        v-show="openSection === section.id">
+                                        <ul class="space-y-1 p-2">
+                                            <li v-for="item in section.items" :key="item">
+                                                <a href="#" class="px-2">{{ item }}</a>
                                             </li>
                                         </ul>
                                     </div>
-                                </li>
-
-                                <!-- Money Transfers -->
-                                <li class="accordion-item" id="money-transfers">
-                                    <button
-                                        class="accordion-toggle accordion-item-active:bg-neutral/10 inline-flex items-center p-2 text-start text-sm font-normal"
-                                        aria-controls="money-transfers-collapse" aria-expanded="true">
-                                        <span class="icon-[tabler--arrows-left-right] size-4.5"></span>
-                                        <span class="grow">Money Transfers</span>
-                                        <span
-                                            class="icon-[tabler--chevron-right] accordion-item-active:rotate-90 size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"></span>
-                                    </button>
-                                    <div id="money-transfers-collapse"
-                                        class="accordion-content mt-1 hidden w-full overflow-hidden transition-[height] duration-300"
-                                        aria-labelledby="money-transfers" role="region">
-                                        <ul class="space-y-1">
-                                            <!-- Transfer Overview -->
-                                            <li>
-                                                <a href="#" class="px-2">Transfer Overview</a>
-                                            </li>
-                                            <!-- Transfer Method -->
-                                            <li>
-                                                <a href="#" class="px-2">Transfer Methods</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-
-                                <!-- Deposit Funds -->
-                                <li class="accordion-item" id="deposit-funds">
-                                    <button
-                                        class="accordion-toggle accordion-item-active:bg-neutral/10 inline-flex items-center p-2 text-start text-sm font-normal"
-                                        aria-controls="deposit-funds-collapse" aria-expanded="true">
-                                        <span class="icon-[tabler--circle-plus] size-4.5"></span>
-                                        <span class="grow">Deposit Funds</span>
-                                        <span
-                                            class="icon-[tabler--chevron-right] accordion-item-active:rotate-90 size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"></span>
-                                    </button>
-                                    <div id="deposit-funds-collapse"
-                                        class="accordion-content mt-1 hidden w-full overflow-hidden transition-[height] duration-300"
-                                        aria-labelledby="deposit-funds" role="region">
-                                        <ul class="space-y-1">
-                                            <!-- Amount to Deposit -->
-                                            <li>
-                                                <a href="#" class="px-2">Deposit Amount</a>
-                                            </li>
-                                            <!-- Payment Method -->
-                                            <li>
-                                                <a href="#" class="px-2">Payment Method</a>
-                                            </li>
-                                            <!-- Confirmation -->
-                                            <li>
-                                                <a href="#" class="px-2">Confirmation</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-
-                                <!-- Request Funds -->
-                                <li class="accordion-item" id="request-funds">
-                                    <button
-                                        class="accordion-toggle accordion-item-active:bg-neutral/10 inline-flex items-center p-2 text-start text-sm font-normal"
-                                        aria-controls="request-funds-collapse" aria-expanded="true">
-                                        <span class="icon-[tabler--arrow-down-left] size-4.5"></span>
-                                        <span class="grow">Request Funds</span>
-                                        <span
-                                            class="icon-[tabler--chevron-right] accordion-item-active:rotate-90 size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"></span>
-                                    </button>
-                                    <div id="request-funds-collapse"
-                                        class="accordion-content mt-1 hidden w-full overflow-hidden transition-[height] duration-300"
-                                        aria-labelledby="request-funds" role="region">
-                                        <ul class="space-y-1">
-                                            <!-- Request Details -->
-                                            <li>
-                                                <a href="#" class="px-2">Request Details</a>
-                                            </li>
-                                            <!-- Amount to Request -->
-                                            <li>
-                                                <a href="#" class="px-2">Amount to Request</a>
-                                            </li>
-                                            <!-- Share Request -->
-                                            <li>
-                                                <a href="#" class="px-2">Share Request</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-
-                                <!-- Payment Requests -->
-                                <li class="accordion-item" id="payment-requests">
-                                    <button
-                                        class="accordion-toggle accordion-item-active:bg-neutral/10 inline-flex items-center p-2 text-start text-sm font-normal"
-                                        aria-controls="payment-requests-collapse" aria-expanded="true">
-                                        <span class="icon-[tabler--currency-dollar] size-4.5"></span>
-                                        <span class="grow">Payment Requests</span>
-                                        <span
-                                            class="icon-[tabler--chevron-right] accordion-item-active:rotate-90 size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"></span>
-                                    </button>
-                                    <div id="payment-requests-collapse"
-                                        class="accordion-content mt-1 hidden w-full overflow-hidden transition-[height] duration-300"
-                                        aria-labelledby="payment-requests" role="region">
-                                        <ul class="space-y-1">
-                                            <!-- Requested Overview -->
-                                            <li>
-                                                <a href="#" class="px-2">Requested Overview</a>
-                                            </li>
-                                            <!-- Payment Details -->
-                                            <li>
-                                                <a href="#" class="px-2">Payment Details</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-
-                                <!-- Order Management -->
-                                <li class="accordion-item" id="order-management">
-                                    <button
-                                        class="accordion-toggle accordion-item-active:bg-neutral/10 inline-flex items-center p-2 text-start text-sm font-normal"
-                                        aria-controls="order-management-collapse" aria-expanded="true">
-                                        <span class="icon-[tabler--credit-card] size-4.5"></span>
-                                        <span class="grow">Order Management</span>
-                                        <span
-                                            class="icon-[tabler--chevron-right] accordion-item-active:rotate-90 size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"></span>
-                                    </button>
-                                    <div id="order-management-collapse"
-                                        class="accordion-content mt-1 hidden w-full overflow-hidden transition-[height] duration-300"
-                                        aria-labelledby="order-management" role="region">
-                                        <ul class="space-y-1">
-                                            <!-- Order Overview -->
-                                            <li>
-                                                <a href="#" class="px-2">Order Overview</a>
-                                            </li>
-                                            <!-- Add New Order -->
-                                            <li>
-                                                <a href="#" class="px-2">Add New Order</a>
-                                            </li>
-                                            <!-- View Orders -->
-                                            <li>
-                                                <a href="#" class="px-2">View Orders</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-
-                                <!-- User Management -->
-                                <li class="accordion-item" id="user-management">
-                                    <button
-                                        class="accordion-toggle accordion-item-active:bg-neutral/10 inline-flex items-center p-2 text-start text-sm font-normal"
-                                        aria-controls="user-management-collapse" aria-expanded="true">
-                                        <span class="icon-[tabler--users] size-4.5"></span>
-                                        <span class="grow">User Management</span>
-                                        <span
-                                            class="icon-[tabler--chevron-right] accordion-item-active:rotate-90 size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"></span>
-                                    </button>
-                                    <div id="user-management-collapse"
-                                        class="accordion-content mt-1 hidden w-full overflow-hidden transition-[height] duration-300"
-                                        aria-labelledby="user-management" role="region">
-                                        <ul class="space-y-1">
-                                            <!-- Users Overview -->
-                                            <li>
-                                                <a href="#" class="px-2">Users Overview</a>
-                                            </li>
-                                            <!-- Active Users -->
-                                            <li>
-                                                <a href="#" class="px-2">Active Users</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-
-                                <!-- Recipients Section -->
-                                <li class="text-base-content/50 mt-2.5 p-2 text-xs uppercase">
-                                    Recipients
-                                </li>
-                                <!-- Liam Anderson -->
-                                <li>
-                                    <a href="#" class="group px-2">
-                                        <span class="icon-[tabler--circle-filled] text-base-content/50 size-2.5"></span>
-                                        Website Redesign for Z Corp
-                                    </a>
-                                </li>
-                                <!-- Mobile App Launch – TaskPro -->
-                                <li>
-                                    <a href="#" class="group px-2">
-                                        <span
-                                            class="icon-[tabler--circle-filled] text-base-content/50 group-[.menu-active]:text-primary size-2.5"></span>
-                                        Mobile App Launch – TaskPro
-                                    </a>
                                 </li>
                             </ul>
                         </div>
+
                     </div>
                 </div>
             </aside>
@@ -272,27 +79,20 @@
 
                 <!-- ---------- FOOTER CONTENT ---------- -->
                 <!-- <footer class="bg-base-100 rounded-box shadow-base-300/20 h-16 shadow-md"></footer> -->
-                <!-- ---------- END FOOTER CONTENT ---------- -->
-            </div>
+            <!-- ---------- END FOOTER CONTENT ---------- -->
         </div>
     </div>
-</template>
+</div></template>
 
-<script setup></script>
+<script setup>
+import { sections } from "/assets/data/data";
 
-<style scoped>
-[data-theme="dark"] :where(li:not(.menu-title, .menu-disabled) > :not(ul, .menu-title, .collapse, .accordion-content, .btn).menu-active) {
-    background-color: var(--color-primary);
-    color: var(--color-primary-content);
+const openSection = ref(null)
+const toggleSection = (section) => {
+    openSection.value = openSection.value === section ? null : section
 }
 
-[data-theme="black"] :where(li:not(.menu-title, .menu-disabled) > :not(ul, .menu-title, .collapse, .accordion-content, .btn).menu-active) {
-    background-color: var(--color-primary);
-    color: var(--color-primary-content);
-}
 
-[data-theme="luxury"] :where(li:not(.menu-title, .menu-disabled) > :not(ul, .menu-title, .collapse, .accordion-content, .btn).menu-active) {
-    background-color: var(--color-primary);
-    color: var(--color-primary-content);
-}
-</style>
+</script>
+
+<style scoped></style>
