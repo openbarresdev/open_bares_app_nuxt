@@ -75,6 +75,7 @@
 
 <script setup>
 const submitLoginForm = () => {
+    navigateTo('/')
     console.log('Submitting login data')
 }
 </script>

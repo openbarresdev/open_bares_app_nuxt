@@ -13,18 +13,9 @@
                             aria-label="Close" data-overlay="#layout-toggle">
                             <span class="icon-[tabler--x] size-4.5"></span>
                         </button>
+                        
                         <CommonAppLogo :variant="'black'" :size="'32'" class="px-4 py-3.5"/>
-                        <!-- <div class="flex items-center gap-3 px-4 py-3.5">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="text-red-500" width="32" height="32"
-                                viewBox="0 0 24 24">
-                                <path fill="currentColor" fill-rule="evenodd"
-                                    d="m12 2l-.516-.544zm.517-.544l.001.002l.005.004l.018.018l.07.067l.26.254a53 53 0 0 1 3.71 4.068c1.014 1.24 2.043 2.64 2.823 4.024c.768 1.364 1.346 2.805 1.346 4.107a8.75 8.75 0 1 1-17.5 0c0-1.302.578-2.743 1.346-4.107c.78-1.384 1.81-2.783 2.823-4.024a53 53 0 0 1 3.97-4.322l.07-.067l.018-.018l.007-.006l.516-.49zM12 2l.517-.544zm.75 8a.75.75 0 0 0-1.5 0v2.194l-1.872-1.092a.75.75 0 1 0-.756 1.296l1.89 1.102l-1.89 1.102a.75.75 0 1 0 .756 1.296l1.872-1.092V17a.75.75 0 0 0 1.5 0v-2.194l1.872 1.092a.75.75 0 0 0 .756-1.296l-1.89-1.102l1.89-1.102a.75.75 0 1 0-.756-1.296l-1.872 1.092z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <div>
-                                <h2 class="text-base-content text-2xl font-bold">Open Barres</h2>
-                            </div>
-                        </div> -->
+                        
                         <div class="h-full overflow-y-auto">
                             <ul class="accordion menu menu-sm gap-1 overflow-y-auto p-3">
                                 <!-- Dashboard -->
@@ -258,7 +249,7 @@
             </aside>
             <!-- ---------- END MAIN SIDEBAR ---------- -->
 
-            <div class="z-1 flex flex-col justify-between space-y-6 p-6 lg:ms-81">
+            <div class="z-1 flex flex-col justify-between space-y-6 lg:p-6 p-3 lg:ms-81">
                 <!-- ---------- HEADER ---------- -->
                 <CommonNavbar />
                 <!-- ---------- END HEADER ---------- -->
