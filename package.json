@@ -4,12 +4,15 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
+    "start": "node .output/server/index.mjs",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.19",
+    "tailwindcss": "^4.1.13",
     "@tailwindcss/vite": "^4.1.13",
     "@vueuse/core": "^10.11.0",
     "animate.css": "^4.1.1",
@@ -20,8 +23,6 @@
   "devDependencies": {
     "@iconify/json": "^2.2.390",
     "@iconify/tailwind4": "^1.0.6",
-    "@tailwindcss/postcss": "^4.1.13",
-    "autoprefixer": "^10.4.19",
-    "tailwindcss": "^4.1.13"
+    "@tailwindcss/postcss": "^4.1.13"
   }
 }
