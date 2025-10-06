@@ -3,7 +3,9 @@
         <div class="lg:grid lg:grid-cols-2 bg-white">
 
             <div class="h-screen p-5 max-lg:hidden">
-                <div class="bg-[url('https://img.freepik.com/premium-photo/coins-background-chart-finance-concept_367038-1804.jpg?w=1480')] bg-cover bg-top-left bg-no-repeat flex h-full flex-col justify-between rounded-2xl p-8">
+                <div :style="{ backgroundImage: `url(${bgImageUrl})` }"
+                    class="bg-cover bg-top-left bg-no-repeat flex h-full flex-col justify-between rounded-2xl p-8"
+                    >
                     <div class="max-w-[400px]">
                         <CommonAppLogo :variant="'white'" :size="'48'" class="max-lg:hidden mb-8"/>
                         <p class="text-4xl text-white font-medium capitalize">
@@ -17,6 +19,8 @@
                 <div class="flex w-full flex-col space-y-6 max-sm:px-10 sm:max-w-md">
 
                     <CommonAppLogo :variant="'black'" :size="'64'" class="lg:hidden -mx-4!"/>
+                    <h3 class="text-3xl mb-10 max-sm:text-2xl font-semibold max-lg:font-medium">Login</h3>
+
                     <div>
                         <h3 class="text-3xl mb-1.5 text-xl font-medium">Welcome back</h3>
                         <p class="text-base-content/80 text-sm">Login now to explore all the features of our plateform</p>
@@ -24,17 +28,25 @@
 
                     <form @submit.prevent="submitLoginForm" class="mb-4 space-y-4">
                    
-                        <CommonInputsVariant
-                            type="email"
-                            label="Email address"
-                            placeholder="john@example.com"
-                        />
+                        <div>
+                            <CommonInputsVariant
+                                type="email"
+                                label="Email address"
+                                placeholder="john@example.com"
+                                v-model="values.email"
+                            />
+                            <span v-if="errors.email">{{ errors.email }}</span>
+                        </div>
 
-                        <CommonInputsVariant
-                            type="password"
-                            label="Password"
-                            placeholder="············"
-                        />
+                        <div>
+                            <CommonInputsVariant
+                                type="password"
+                                label="Password"
+                                placeholder="············"
+                                v-model="values.password"
+                            />
+                            <span v-if="values.password">{{ errors.password }}</span>
+                        </div>
 
                         <div class="flex items-center justify-end gap-y-2">
                             <NuxtLink to="/reset-password" class="link link-animated link-primary font-normal text-sm">Forgot Password?</NuxtLink>
@@ -48,7 +60,7 @@
                             </div>
                         </div>
 
-                        <button @click="submitLoginForm" type="submit" class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none">Log in</button>
+                        <button type="submit" class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none">Log in</button>
 
                     </form>
 
@@ -74,8 +86,23 @@
 </template>
 
 <script setup>
-const submitLoginForm = () => {
-    navigateTo('/')
-    console.log('Submitting login data')
-}
+import { useForm } from 'vee-validate'
+// import { loginHandler } from "~/handlers/loginHandler";
+import * as yup from 'yup'
+
+const bgImageUrl = ref('https://img.freepik.com/premium-photo/coins-background-chart-finance-concept_367038-1804.jpg?w=1480');
+
+const schema = yup.object({
+    email: yup.string().email().required(),
+    password: yup.string().min(6).required(),
+});
+
+const { handleSubmit, errors, values } = useForm({
+    validationSchema: schema,
+});
+
+const submitLoginForm = handleSubmit((values) => {
+  console.log('Submitting form:', values)
+  // Here call your API to submit data
+})
 </script>

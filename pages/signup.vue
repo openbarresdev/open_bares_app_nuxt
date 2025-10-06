@@ -1,9 +1,10 @@
 <template>
     <div>
-        <div class="lg:grid lg:grid-cols-5 bg-white">
+        <div class="lg:grid lg:grid-cols-2 bg-white">
 
-            <div class="h-screen p-5 col-span-2 max-lg:hidden">
-                <div class="bg-primary/10 bg-cover bg-top-left bg-no-repeat flex h-full flex-col justify-between rounded-2xl p-8">
+            <div class="h-screen p-5 max-lg:hidden">
+                <div :style="{ backgroundImage: `url(${bgImageUrl})` }"
+                class="bg-cover bg-top-left bg-no-repeat flex h-full flex-col justify-between rounded-2xl p-8">
                     <div class="max-w-[400px]">
                         <CommonAppLogo :variant="'white'" :size="'48'" class="max-lg:hidden mb-8"/>
                         <p class="text-4xl text-white font-medium capitalize">
@@ -13,11 +14,11 @@
                 </div>
             </div>
 
-            <div class="col-span-3 flex h-screen flex-col items-center justify-center space-y-6">
-                <div class="flex w-full flex-col space-y-6 max-sm:px-10 sm:max-w-2xl">
+            <div class="flex h-screen flex-col items-center justify-center space-y-6">
+                <div class="flex w-full flex-col space-y-6 max-sm:px-10 sm:max-w-xl">
 
                     <CommonAppLogo :variant="'black'" :size="'64'" class="lg:hidden -mx-4!"/>
-                    <!-- <h3 class="text-3xl mb-10 max-sm:text-2xl font-semibold max-lg:font-medium">Register</h3> -->
+                    <h3 class="text-3xl mb-10 max-sm:text-2xl font-semibold max-lg:font-medium">Register</h3>
                     <div>
                         <h3 class="text-3xl mb-1.5 text-xl font-medium">Get start now</h3>
                         <p class="text-base-content/80 text-sm">Login now to explore all the features of our plateform</p>
@@ -41,7 +42,7 @@
                         </div>
                             
 
-                            <div class="grid grid-cols-2 max-sm:grid-cols-1 w-full gap-4">
+                            <div class="grid grid-cols-2 max-sm:grid-cols-1 w-full gap-4 hidden">
                                 <div class="col-span-1">
                                     <CommonSelectVariant
                                         label="County"
@@ -54,11 +55,16 @@
                                 </div>
                             </div>
 
-                            <CommonInputsVariant
-                                type="email"
-                                label="Email address"
-                                placeholder="john@example.com"
-                            />
+                            <div>
+                                <CommonInputsVariant
+                                    type="email"
+                                    label="Email address"
+                                    placeholder="john@example.com"
+                                    v-model="email"
+                                />
+                                <span v-if="emailError" class="text-red-500 text-[0.85rem]">{{ errors.email }}</span>
+                                <!-- <ErrorMessage name="email" /> -->
+                            </div>
 
                            <div class="grid grid-cols-2 max-sm:grid-cols-1 w-full gap-4">
                             <div class="col-span-1">
@@ -66,14 +72,18 @@
                                     type="password"
                                     label="Password"
                                     placeholder="············"
+                                    v-model="password"
                                 />
+                                <span v-if="passwordError" class="text-red-500 text-[0.85rem]">{{ errors.password }}</span>
                             </div>
                             <div class="col-span-1">
                                 <CommonInputsVariant
                                     type="password"
                                     label="Repeat password"
                                     placeholder="············"
+                                    v-model="confirmPassword"
                                 />
+                                <span v-if="confirmPasswordError" class="text-red-500 text-[0.85rem]">{{ errors.confirmPassword }}</span>
                             </div>
                            </div>
                         
@@ -86,7 +96,7 @@
                             </div>
                         </div>
 
-                        <button @click="submitSignupForm" type="submit" class="btn btn-xl rounded-xl btn-secondary btn-gradient btn-block text-base border-none">Sign up</button>
+                        <button type="submit" class="btn btn-xl rounded-xl btn-secondary btn-gradient btn-block text-base border-none">Sign up</button>
 
                     </form>
 
@@ -113,8 +123,23 @@
 
 <script setup>
 import { titles, countries, industries } from "/assets/data/data";
+import { useForm, useField } from "vee-validate";
+import { registerSchema } from "~/validation/registerSchema";
+import { signupHandler } from "~/handlers/signupHandler";
 
-const submitSignupForm = () => {
-    console.log('Submitting signup form')
-}
+const bgImageUrl = ref('https://img.freepik.com/premium-photo/variety-beautiful-designs-modern-technologies-news-presenters-illustration-background_824086-1484.jpg');
+
+const { handleSubmit, errors, defineField } = useForm({
+  validationSchema: registerSchema,
+});
+
+const { value: email, errorMessage: emailError } = useField('email')
+const { value: password, errorMessage: passwordError } = useField('password')
+const { value: confirmPassword, errorMessage: confirmPasswordError } = useField('confirmPassword')
+
+
+const submitSignupForm = handleSubmit(async (values) => {
+    console.log('onSubmit values:', values);
+    await signupHandler(values);
+});
 </script>
