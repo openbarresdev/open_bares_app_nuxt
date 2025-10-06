@@ -129,7 +129,7 @@ import { signupHandler } from "~/handlers/signupHandler";
 
 const bgImageUrl = ref('https://img.freepik.com/premium-photo/variety-beautiful-designs-modern-technologies-news-presenters-illustration-background_824086-1484.jpg');
 
-const { handleSubmit, errors, defineField } = useForm({
+const { handleSubmit, errors } = useForm({
   validationSchema: registerSchema,
 });
 

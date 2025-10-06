@@ -1,3 +1,4 @@
+import { compare } from "bcryptjs";
 import { prisma } from "~/server/lib/prisma";
 
 export default defineEventHandler(async (event) => {
@@ -7,9 +8,27 @@ export default defineEventHandler(async (event) => {
     where: { email: body.email },
   });
 
-  if (!user || user.password !== body.password) {
-    throw createError({ statusCode: 401, message: "Invalid credentials" });
+  if (!user) {
+    throw createError({
+      statusCode: 401,
+      message: "Invalid email or password",
+    });
   }
 
-  return { success: true, user };
+  const isPasswordValid = await compare(body.password, user.password);
+
+  if (!isPasswordValid) {
+    throw createError({
+      statusCode: 401,
+      message: "Invalid email or password",
+    });
+  }
+
+  return {
+    success: true,
+    user: {
+      id: user.id,
+      email: user.email,
+    },
+  };
 });

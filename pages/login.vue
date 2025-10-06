@@ -33,9 +33,9 @@
                                 type="email"
                                 label="Email address"
                                 placeholder="john@example.com"
-                                v-model="values.email"
+                                v-model="email"
                             />
-                            <span v-if="errors.email">{{ errors.email }}</span>
+                            <span v-if="emailError" class="text-red-500 text-[0.85rem]">{{ emailError }}</span>
                         </div>
 
                         <div>
@@ -43,9 +43,9 @@
                                 type="password"
                                 label="Password"
                                 placeholder="············"
-                                v-model="values.password"
+                                v-model="password"
                             />
-                            <span v-if="values.password">{{ errors.password }}</span>
+                            <span v-if="passwordError" class="text-red-500 text-[0.85rem]">{{ passwordError }}</span>
                         </div>
 
                         <div class="flex items-center justify-end gap-y-2">
@@ -86,23 +86,22 @@
 </template>
 
 <script setup>
-import { useForm } from 'vee-validate'
-// import { loginHandler } from "~/handlers/loginHandler";
-import * as yup from 'yup'
+import { loginHandler } from "~/handlers/loginHandler";
+import { useForm, useField } from "vee-validate";
+import { loginSchema } from "~/validation/loginSchema";
 
 const bgImageUrl = ref('https://img.freepik.com/premium-photo/coins-background-chart-finance-concept_367038-1804.jpg?w=1480');
 
-const schema = yup.object({
-    email: yup.string().email().required(),
-    password: yup.string().min(6).required(),
+const { handleSubmit, errors } = useForm({
+    validationSchema: loginSchema,
 });
 
-const { handleSubmit, errors, values } = useForm({
-    validationSchema: schema,
-});
+const { value: email, errorMessage: emailError } = useField('email')
+const { value: password, errorMessage: passwordError } = useField('password')
 
-const submitLoginForm = handleSubmit((values) => {
-  console.log('Submitting form:', values)
+const submitLoginForm = handleSubmit( async (values) => {
+    console.log('Submitting form:', values)
+    await loginHandler(values)
   // Here call your API to submit data
 })
 </script>
