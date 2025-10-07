@@ -8,14 +8,143 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum Role {
+  USER
+  ADMIN
+  SUPER_ADMIN
+}
+
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "mysql"
+  url      = env("DATABASE_URL_MYSQL")
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  password String
-  createdAt DateTime @default(now())
+  id            Int       @id @default(autoincrement())
+  email         String    @unique
+  password      String
+  role          Role      @default(USER)
+  isActive      Boolean   @default(true)
+  recoveryEmail String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // 1:1 relationship — Each user can have only one project
+  project       Project?
+}
+
+model Project {
+  id            Int       @id @default(autoincrement())
+  title         String
+  description   String?
+  type          String?
+  industry      String?
+  userId        Int       @unique  // Ensures one project per user
+  user          User      @relation(fields: [userId], references: [id])
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Section relations (1:1 each)
+  sponsorship   Sponsorship?
+  market        MarketAnalysis?
+  technical     TechnicalFeasibility?
+  investment    InvestmentRequirement?
+  government    GovernmentSupport?
+  timeline      ProjectTimeline?
+  documents     SupportingDocuments?
+}
+
+/////////////////////////////////////////////////////
+// SECTION 2 — SPONSORSHIP, MANAGEMENT & TECHNICAL
+/////////////////////////////////////////////////////
+
+model Sponsorship {
+  id                   Int       @id @default(autoincrement())
+  projectId            Int       @unique
+  sponsorInfo          String?
+  sponsorBusinessHist  String?
+  managementStructure  String?
+  technicalAssistance  String?
+  project              Project   @relation(fields: [projectId], references: [id])
+}
+
+/////////////////////////////////////////////////////
+// SECTION 3 — MARKET & SALES ANALYSIS
+/////////////////////////////////////////////////////
+
+model MarketAnalysis {
+  id                     Int      @id @default(autoincrement())
+  projectId              Int      @unique
+  productionSalesProj    String?
+  targetMarket           String?
+  marketEnvironment      String?
+  project                Project  @relation(fields: [projectId], references: [id])
+}
+
+/////////////////////////////////////////////////////
+// SECTION 4 — TECHNICAL FEASIBILITY & RESOURCES
+/////////////////////////////////////////////////////
+
+model TechnicalFeasibility {
+  id                       Int      @id @default(autoincrement())
+  projectId                Int      @unique
+  technicalComplexity      String?
+  humanResources           String?
+  infrastructure           String?
+  operatingCosts           Float?
+  rawMaterials             String?
+  plantLocationSize        String?
+  environmentalImpact      String?
+  project                  Project  @relation(fields: [projectId], references: [id])
+}
+
+/////////////////////////////////////////////////////
+// SECTION 5 — INVESTMENT REQUIREMENTS & FINANCING
+/////////////////////////////////////////////////////
+
+model InvestmentRequirement {
+  id                       Int      @id @default(autoincrement())
+  projectId                Int      @unique
+  totalInvestment          Float?
+  financingStructure       String?
+  financingType            String?
+  financialProjections     String?
+  successFactors           String?
+  project                  Project  @relation(fields: [projectId], references: [id])
+}
+
+/////////////////////////////////////////////////////
+// SECTION 6 — GOVERNMENT SUPPORT & REGULATIONS
+/////////////////////////////////////////////////////
+
+model GovernmentSupport {
+  id                    Int      @id @default(autoincrement())
+  projectId             Int      @unique
+  incentives            String?
+  economicImpact        String?
+  regulatoryEnvironment String?
+  project               Project  @relation(fields: [projectId], references: [id])
+}
+
+/////////////////////////////////////////////////////
+// SECTION 7 — PROJECT TIMELINE
+/////////////////////////////////////////////////////
+
+model ProjectTimeline {
+  id                Int      @id @default(autoincrement())
+  projectId         Int      @unique
+  implementationSchedule String?
+  project           Project  @relation(fields: [projectId], references: [id])
+}
+
+/////////////////////////////////////////////////////
+// SECTION 8 — SUPPORTING DOCUMENTS
+/////////////////////////////////////////////////////
+
+model SupportingDocuments {
+  id                Int      @id @default(autoincrement())
+  projectId         Int      @unique
+  documentLinks     String?  // JSON array of URLs
+  notes             String?
+  project           Project  @relation(fields: [projectId], references: [id])
 }

@@ -1,6 +1,8 @@
+import { Role } from "@prisma/client";
 import { hash } from "bcryptjs";
 import prisma from "~/server/lib/prisma";
 import { registerSchema } from "~/validation/registerSchema";
+import { roleAttribSchema } from "~/validation/roleAttribSchema";
 
 export default defineEventHandler(async (event) => {
   try {
@@ -8,6 +10,8 @@ export default defineEventHandler(async (event) => {
       email: string;
       password: string;
       confirmPassword: string;
+      role: "USER" | "ADMIN" | "SUPER_ADMIN";
+      recoveryEmail: string | null;
     }>(event);
 
     if (!body.email || !body.password || !body.confirmPassword) {
@@ -15,6 +19,27 @@ export default defineEventHandler(async (event) => {
         statusCode: 400,
         message: "All fields are required",
       });
+    }
+
+    await roleAttribSchema.validate(body);
+    if (body.role === "SUPER_ADMIN") {
+      const existingSuper = await prisma.user.findFirst({
+        where: { role: "SUPER_ADMIN" },
+      });
+
+      if (existingSuper) {
+        throw createError({
+          statusCode: 403,
+          message: "Admin already exists.",
+        });
+      }
+
+      if (!body.recoveryEmail) {
+        throw createError({
+          statusCode: 400,
+          message: "Admin must have a recovery email.",
+        });
+      }
     }
 
     await registerSchema.validate(body);
@@ -36,6 +61,8 @@ export default defineEventHandler(async (event) => {
       data: {
         email: body.email,
         password: hashedPassword,
+        role: body.role || "USER",
+        recoveryEmail: body.recoveryEmail || null,
       },
     });
 
@@ -44,6 +71,8 @@ export default defineEventHandler(async (event) => {
       user: {
         id: newUser.id,
         email: newUser.email,
+        role: newUser.role,
+        recoveryEmail: newUser.recoveryEmail
       },
     };
   } catch (error: any) {
