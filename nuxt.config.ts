@@ -15,10 +15,9 @@ export default defineNuxtConfig({
     public: {
       baseURL: process.env.BASE_URL || "https://",
       apiKey: process.env.API_KEY || "",
+      jwtSecret: process.env.JWT_SECRET,
     },
-    private: {
-      
-    },
+    private: {},
   },
   // SEO Config for the entire app
   app: {

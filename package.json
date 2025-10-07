@@ -17,6 +17,7 @@
     "animate.css": "^4.1.1",
     "bcryptjs": "^3.0.2",
     "flyonui": "^2.4.0",
+    "jsonwebtoken": "^9.0.2",
     "nuxt": "^3.12.4",
     "vee-validate": "^4.15.1",
     "vue": "latest",
@@ -26,6 +27,7 @@
     "@iconify/json": "^2.2.390",
     "@iconify/tailwind4": "^1.0.6",
     "@tailwindcss/postcss": "^4.1.13",
+    "@types/jsonwebtoken": "^9.0.10",
     "autoprefixer": "^10.4.19",
     "tailwindcss": "^4.1.13"
   }

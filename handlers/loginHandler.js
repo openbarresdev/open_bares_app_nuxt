@@ -5,8 +5,11 @@ export const loginHandler = async (values) => {
         body: values,
       });
 
-    //   notify.success("Welcome back!"); 
-      navigateTo("/");
+      //   notify.success("Welcome back!");
+      //   notify.success("Redirecting");
+      setTimeout(() => {
+        navigateTo("/");
+      }, 5000);
     } catch (err) {
       if (err.statusCode === 401) {
         console.error("Invalid email or password");
