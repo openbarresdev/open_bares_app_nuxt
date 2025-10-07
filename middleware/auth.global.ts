@@ -1,20 +1,25 @@
-export default defineNuxtRouteMiddleware(async (to, from) => {
+// auth.global.ts
+export default defineNuxtRouteMiddleware(async (to) => {
   const token = useCookie("auth_token").value;
 
-    const protectedRoute = !["/", "/login", "/register"].includes(to.path);
-    const isAuthenticated = !!token;
-    // const userSession = await useAsyncData(
-    //     "userSession",
-    //     () => $fetch("/api/session-status") // A new API route we'll create below
-    // );
-    
-  // if user is not logged in and trying to access protected page
-  if (!isAuthenticated && protectedRoute) {
+  const publicRoutes = ["/login", "/signup"];
+  const isProtected = !publicRoutes.includes(to.path);
+
+  if (!token && isProtected) {
     return navigateTo("/login");
   }
 
-  // if logged in and tries to access login/signup again
-  if (isAuthenticated && (to.path === "/login" || to.path === "/signup")) {
+  const { data, error } = await useFetch("/api/auth/session-status", {
+    headers: {
+      // Ensure we're not using cached response
+      "Cache-Control": "no-cache",
+    },
+  }); 
+  if (error.value && isProtected) {
+    return navigateTo("/login");
+  }
+
+  if (data.value?.authenticated && ["/login", "/signup"].includes(to.path)) {
     return navigateTo("/");
   }
 });

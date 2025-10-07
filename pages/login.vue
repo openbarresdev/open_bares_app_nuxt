@@ -102,6 +102,5 @@ const { value: password, errorMessage: passwordError } = useField('password')
 const submitLoginForm = handleSubmit( async (values) => {
     console.log('Submitting form:', values)
     await loginHandler(values)
-  // Here call your API to submit data
 })
 </script>
