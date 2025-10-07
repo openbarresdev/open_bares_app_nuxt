@@ -4,10 +4,12 @@ export const loginHandler = async (values, notyf) => {
       method: "POST", 
       body: values,
     });
+
     notyf.success("Login successful! Redirecting...");
     setTimeout(() => {
       navigateTo("/");
     }, 3000);
+    
   } catch (err) {
     const status = err.statusCode || err.status;
     const message = {

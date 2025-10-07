@@ -127,6 +127,8 @@ import { useForm, useField } from "vee-validate";
 import { registerSchema } from "~/validation/registerSchema";
 import { signupHandler } from "~/handlers/signupHandler";
 
+const $notyf = useNotyf();
+
 const bgImageUrl = ref('https://img.freepik.com/premium-photo/variety-beautiful-designs-modern-technologies-news-presenters-illustration-background_824086-1484.jpg');
 
 const { handleSubmit, errors } = useForm({
@@ -140,6 +142,6 @@ const { value: confirmPassword, errorMessage: confirmPasswordError } = useField(
 
 const submitSignupForm = handleSubmit(async (values) => {
     console.log('onSubmit values:', values);
-    await signupHandler(values);
+    await signupHandler(values, $notyf);
 });
 </script>

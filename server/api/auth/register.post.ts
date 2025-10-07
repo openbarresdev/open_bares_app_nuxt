@@ -1,7 +1,7 @@
 import { hash } from "bcryptjs";
 import prisma from "~/server/lib/prisma";
 import { registerSchema } from "~/validation/registerSchema";
-  
+
 export default defineEventHandler(async (event) => {
   try {
     const body = await readBody<{
@@ -10,6 +10,13 @@ export default defineEventHandler(async (event) => {
       confirmPassword: string;
     }>(event);
 
+    if (!body.email || !body.password || !body.confirmPassword) {
+      throw createError({
+        statusCode: 400,
+        message: "All fields are required",
+      });
+    }
+
     await registerSchema.validate(body);
 
     const existingUser = await prisma.user.findUnique({
@@ -17,7 +24,10 @@ export default defineEventHandler(async (event) => {
     });
 
     if (existingUser) {
-      throw createError({ statusCode: 400, message: "User already exists" });
+      throw createError({
+        statusCode: 409,
+        message: "User already exists",
+      });
     }
 
     const hashedPassword = await hash(body.password, 10);
@@ -29,11 +39,28 @@ export default defineEventHandler(async (event) => {
       },
     });
 
-    return { success: true, user: { id: newUser.id, email: newUser.email } };
-  } catch (err: any) {
+    return {
+      success: true,
+      user: {
+        id: newUser.id,
+        email: newUser.email,
+      },
+    };
+  } catch (error: any) {
+    if (error?.statusCode === 400 || error?.statusCode === 409) {
+      throw error;
+    }
+
+    if (error?.name === "ValidationError") {
+      throw createError({
+        statusCode: 400,
+        message: error.message,
+      });
+    }
+
     throw createError({
-      statusCode: 400,
-      message: err.message || "Registration failed",
+      statusCode: 500,
+      message: "Registration failed. Please try again.",
     });
   }
 });
