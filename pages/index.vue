@@ -19,8 +19,9 @@
                         <div class="h-full overflow-y-auto">
                             <ul class="accordion menu menu-sm lg:gap-2 gap-3 overflow-y-auto p-3">
                                 
-                                <li> <a href="#" class="px-2"> <span class="icon-[tabler--smart-home] size-4.5"></span>
-                                        <span class="grow">Dashboard</span> </a> </li>
+                                <li> <a href="#" class="px-2"> 
+                                    <!-- <span class="icon-[tabler--smart-home] size-4.5"></span> -->
+                                        <span class="grow">1. Setup up profile</span> </a> </li>
 
                                 <li v-for="section in sections" :key="section.id" class="accordion-item">
                                     <!-- Titre du panneau -->

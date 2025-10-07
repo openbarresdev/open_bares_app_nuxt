@@ -1,5 +1,12 @@
 import { jwtDecode } from "jwt-decode";
 
+interface CustomJwtPayload {
+  role: string;
+  userId: string;
+  exp?: number;
+  iat?: number;
+}
+
 export default defineNuxtRouteMiddleware((to) => {
   const token = useCookie("auth_token").value;
 
@@ -13,15 +20,11 @@ export default defineNuxtRouteMiddleware((to) => {
 
   if (isAuthenticated) {
     try {
-      const decoded = jwtDecode(token) as {
-        role: string;
-        userId: string;
-        [key: string]: any;
-      };
-      console.log("Token décodé :", decoded);
+      const decoded = jwtDecode<CustomJwtPayload>(token);
+      // console.log("Token décodé :", decoded);
 
       const role = decoded.role;
-      console.log("Rôle utilisateur :", role);
+      // console.log("Rôle utilisateur :", role);
 
       if ((role === "ADMIN" || role === "SUPER_ADMIN") && to.path === "/") {
         return navigateTo("/admin/dashboard");
