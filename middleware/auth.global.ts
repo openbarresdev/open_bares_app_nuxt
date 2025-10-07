@@ -1,25 +1,14 @@
-// auth.global.ts
-export default defineNuxtRouteMiddleware(async (to) => {
+export default defineNuxtRouteMiddleware((to) => {
   const token = useCookie("auth_token").value;
 
-  const publicRoutes = ["/login", "/signup"];
-  const isProtected = !publicRoutes.includes(to.path);
-
-  if (!token && isProtected) {
+    const protectedRoute = !["/login", "/signup"].includes(to.path);
+    const isAuthenticated = !!token;
+   
+  if (!isAuthenticated && protectedRoute) {
     return navigateTo("/login");
   }
 
-  const { data, error } = await useFetch("/api/auth/session-status", {
-    headers: {
-      // Ensure we're not using cached response
-      "Cache-Control": "no-cache",
-    },
-  }); 
-  if (error.value && isProtected) {
-    return navigateTo("/login");
-  }
-
-  if (data.value?.authenticated && ["/login", "/signup"].includes(to.path)) {
+  if (isAuthenticated && (to.path === "/login" || to.path === "/signup")) {
     return navigateTo("/");
   }
 });
