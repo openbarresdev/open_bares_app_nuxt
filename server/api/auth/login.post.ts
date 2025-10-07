@@ -35,7 +35,7 @@ export default defineEventHandler(async (event) => {
     }
 
     const token = jwt.sign(
-      { userId: user.id },
+      { userId: user.id, role: user.role },
       process.env.JWT_SECRET as string,
       { expiresIn: "24h" }
     );
