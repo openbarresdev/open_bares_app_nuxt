@@ -35,7 +35,7 @@
                                 placeholder="john@example.com"
                                 v-model="email"
                             />
-                            <span v-if="emailError" class="text-red-500 text-[0.85rem]">{{ emailError }}</span>
+                            <span v-if="emailError" class="text-red-500 text-[0.85rem]">{{ errors.email }}</span>
                         </div>
 
                         <div>
@@ -45,7 +45,7 @@
                                 placeholder="············"
                                 v-model="password"
                             />
-                            <span v-if="passwordError" class="text-red-500 text-[0.85rem]">{{ passwordError }}</span>
+                            <span v-if="passwordError" class="text-red-500 text-[0.85rem]">{{ errors.password }}</span>
                         </div>
 
                         <div class="flex items-center justify-end gap-y-2">
@@ -90,6 +90,8 @@ import { loginHandler } from "~/handlers/loginHandler";
 import { useForm, useField } from "vee-validate";
 import { loginSchema } from "~/validation/loginSchema";
 
+const $notyf = useNotyf();
+
 const bgImageUrl = ref('https://img.freepik.com/premium-photo/coins-background-chart-finance-concept_367038-1804.jpg?w=1480');
 
 const { handleSubmit, errors } = useForm({
@@ -99,8 +101,8 @@ const { handleSubmit, errors } = useForm({
 const { value: email, errorMessage: emailError } = useField('email')
 const { value: password, errorMessage: passwordError } = useField('password')
 
-const submitLoginForm = handleSubmit( async (values) => {
-    console.log('Submitting form:', values)
-    await loginHandler(values)
+const submitLoginForm = handleSubmit(async (values) => {
+    // console.log('Submitting form:', values)
+    await loginHandler(values, $notyf)
 })
 </script>

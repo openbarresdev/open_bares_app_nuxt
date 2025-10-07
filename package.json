@@ -18,6 +18,7 @@
     "bcryptjs": "^3.0.2",
     "flyonui": "^2.4.0",
     "jsonwebtoken": "^9.0.2",
+    "notyf": "^3.10.0",
     "nuxt": "^3.12.4",
     "prisma": "^6.16.3",
     "vee-validate": "^4.15.1",

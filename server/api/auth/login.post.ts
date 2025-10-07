@@ -4,32 +4,35 @@ import { setCookie } from "h3";
 import jwt from "jsonwebtoken";
 
 export default defineEventHandler(async (event) => {
-  const body = await readBody(event);
+  try {
+    const body = await readBody(event);
 
-  const user = await prisma.user.findUnique({
-    where: { email: body.email },
-  });
+    if (!body.email || !body.password) {
+      throw createError({
+        statusCode: 400,
+        message: "Email and password are required",
+      });
+    }
 
-  if (!user) {
-    throw createError({
-      statusCode: 401,
-      message: "Invalid email or password",
+    const user = await prisma.user.findUnique({
+      where: { email: body.email },
     });
-  }
 
-  const isPasswordValid = await compare(body.password, user.password);
+    if (!user) {
+      throw createError({
+        statusCode: 401,
+        message: "Invalid email or password",
+      });
+    }
 
-  if (!isPasswordValid) {
-    throw createError({
-      statusCode: 401,
-      message: "Invalid email or password",
-    });
-  }
+    const isPasswordValid = await compare(body.password, user.password);
 
-    // const config = useRuntimeConfig(event);
-    // const token = jwt.sign({ userId: user.id }, config.jwtSecret as string, {
-    //   expiresIn: "1h",
-    // });
+    if (!isPasswordValid) {
+      throw createError({
+        statusCode: 401,
+        message: "Invalid email or password",
+      });
+    }
 
     const token = jwt.sign(
       { userId: user.id },
@@ -40,18 +43,27 @@ export default defineEventHandler(async (event) => {
     setCookie(event, "auth_token", token, {
       httpOnly: false,
       secure: false,
-      // secure: process.env.NODE_ENV === "production",
-      maxAge: 60 * 60,
+      maxAge: 60 * 60 * 24,
       sameSite: "lax",
       path: "/",
     });
 
-  return {
-    success: true,
-    user: {
-      id: user.id,
-      email: user.email,
+    return {
+      success: true,
+      user: {
+        id: user.id,
+        email: user.email,
       },
-    token
-  };
+      token,
+    };
+  } catch (error: any) {
+    if (error?.statusCode === 400 || error?.statusCode === 401) {
+      throw error;
+    }
+
+    throw createError({
+      statusCode: 500,
+      message: "Internal server error",
+    });
+  }
 });

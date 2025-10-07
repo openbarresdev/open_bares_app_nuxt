@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "flyonui/src/vendor/notyf.css";
 @plugin "flyonui";
 @import "flyonui/variants.css";
 @plugin "flyonui/theme" {
