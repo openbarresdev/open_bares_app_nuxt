@@ -141,7 +141,10 @@ const { value: confirmPassword, errorMessage: confirmPasswordError } = useField(
 
 
 const submitSignupForm = handleSubmit(async (values) => {
-    console.log('onSubmit values:', values);
+    // console.log('onSubmit values:', values);
     await signupHandler(values, $notyf);
+    values.email = "";
+    values.password = "";
+    values.confirmPassword = "";
 });
 </script>

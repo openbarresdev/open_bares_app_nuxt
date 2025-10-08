@@ -31,7 +31,7 @@ export default defineNuxtRouteMiddleware((to) => {
       }
 
       if (role === "USER" && to.path.startsWith("/admin")) {
-        return navigateTo("/");
+        return navigateTo("/user/dashboard");
       }
     } catch (err) {
       console.error("Erreur de décodage du token :", err);
@@ -39,7 +39,7 @@ export default defineNuxtRouteMiddleware((to) => {
     }
   }
 
-  if (isAuthenticated && isPublic) {
-    return navigateTo("/");
-  }
+  // if (isAuthenticated && isPublic) {
+  //   return navigateTo("/user/dashboard");
+  // }
 });

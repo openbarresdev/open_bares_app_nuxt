@@ -103,6 +103,8 @@ const { value: password, errorMessage: passwordError } = useField('password')
 
 const submitLoginForm = handleSubmit(async (values) => {
     // console.log('Submitting form:', values)
-    await loginHandler(values, $notyf)
+    await loginHandler(values, $notyf);
+    values.email = "";
+    values.password = "";
 })
 </script>

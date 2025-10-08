@@ -91,3 +91,22 @@ export const sections = [
     items: [],
   },
 ];
+
+export const adminMenu = [
+  {
+    id: 1,
+    title: "Applications",
+    iconName: "smart-home",
+    items: [
+      
+    ],
+  },
+  {
+    id: 2,
+    title: "Users",
+    iconName: "smart-home",
+    items: [
+      
+    ],
+  },
+]

@@ -1,6 +1,6 @@
 <template>
     <div>
-        Home admin
+        User Management
     </div>
 </template>
 
