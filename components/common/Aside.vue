@@ -7,41 +7,39 @@
                 <div class="flex h-full max-h-full flex-col">
                     <button type="button" class="btn btn-text btn-circle btn-sm absolute end-3 top-3 lg:hidden"
                         aria-label="Close" data-overlay="#layout-toggle">
-                        <span class="icon-[tabler--x] size-4.5"></span>
+                        <span class="icon-[tabler--x] size-6"></span>
                     </button>
 
                     <CommonAppLogo :variant="'black'" :size="'32'" class="px-4 py-3.5" />
 
                     <div class="h-full overflow-y-auto">
-                        <ul class="accordion menu menu-sm lg:gap-2 gap-3 overflow-y-auto p-3">
+                        <ul class="accordion menu menu-sm lg:gap-2 overflow-y-auto p-3">
 
-                            <li> <a href="#" class="px-2">
-                                    <!-- <span class="icon-[tabler--smart-home] size-4.5"></span> -->
-                                    <span class="grow">1. Setup up profile</span> </a> </li>
-
-                            <li v-for="section in sections" :key="section.id" class="accordion-item">
+                            <li v-for="section in sections" :key="section.id" class="accordion-item py-">
                                 <!-- Titre du panneau -->
                                 <button
-                                    class="accordion-toggle inline-flex items-center p-2 text-start text-sm font-normal w-full"
-                                    :class="{ 'bg-neutral/10': openSection === section.id }"
-                                    @click="toggleSection(section.id)">
-
-                                    <!-- <span :class="`icon-[tabler--${section.iconName}] size-4.5`"></span> -->
-
+                                    class="accordion-toggle inline-flex items-center p-2 text-start text-sm font-normal w-full h-13!"
+                                    :class="{
+                                        'bg-primary! text-white! h-13!': openSection === section.id,
+                                    }" @click="handleSectionClick(section)">
+                                    <span :class="`icon-[tabler--${section.iconName}] size-6`"></span>
                                     <span class="grow">{{ section.title }}</span>
 
-                                    <span
-                                        class="size-4.5 shrink-0 transition-transform duration-300 icon-[tabler--chevron-right]"
-                                        :class="{ 'rotate-90': openSection === section.id }">
-                                    </span>
+                                    <span v-if="section.items.length"
+                                        class="size-6 shrink-0 transition-transform duration-300 icon-[tabler--chevron-right]"
+                                        :class="{ 'rotate-90': openSection === section.id }"></span>
                                 </button>
 
-                                <!-- Contenu -->
-                                <div class="accordion-content mt-1 w-full overflow-hidden transition-[height] duration-300"
+                                <!-- Sous-éléments -->
+                                <div v-if="section.items.length"
+                                    class="accordion-content mt-1 w-full overflow-hidden transition-[height] duration-300 bg-zinc-100"
                                     v-show="openSection === section.id">
                                     <ul class="space-y-1 p-2">
-                                        <li v-for="item in section.items" :key="item">
-                                            <a href="#" class="px-2">{{ item }}</a>
+                                        <li v-for="(item, index) in section.items" :key="index">
+                                            <a href="#" class="block px-2"
+                                                @click.prevent="handleItemClick(section, item, index)">
+                                                {{ item }}
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -59,10 +57,37 @@ const props = defineProps({
     sections: { type: Array, required: false },
 })
 
-const openSection = ref(null)
-const toggleSection = (section) => {
-    openSection.value = openSection.value === section ? null : section
-    // navigateTo('/admin/dashboard/users')
-}
+const openSection = ref(null);
+const router = useRouter();
+const route = useRoute();
 
+const toggleSection = (id) => {
+  openSection.value = openSection.value === id ? null : id;
+};
+
+const handleSectionClick = (section) => {
+  if (!section.items || section.items.length === 0) {
+    navigateRelative(section.link);
+  } else {
+    toggleSection(section.id);
+  }
+};
+
+const navigateRelative = (path) => {
+  const currentPath = route.path.replace(/\/$/, ""); 
+  const nextPath = path.startsWith("/") ? path : `/${path}`;
+  navigateTo(`${currentPath}${nextPath}`);
+};
+
+
+const handleItemClick = (section, item, index) => {
+  const formattedItem = item
+    .toLowerCase()
+    .replace(/ /g, "-")
+    .replace(/[^\w-]/g, "");
+
+  const relativePath = `${section.link}/${index}`;
+//   const relativePath = `${section.link}/${formattedItem}`;
+  navigateRelative(relativePath);
+};
 </script>

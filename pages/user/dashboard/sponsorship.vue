@@ -1,6 +1,6 @@
 <template>
     <div>
-        Profile
+        Sponsorship
     </div>
 </template>
 

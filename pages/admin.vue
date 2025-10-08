@@ -16,7 +16,7 @@
                 <main class="flex-1">
                     <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                         <div class="card h-200 w-full md:col-span-2">
-                            <div class="card-body border-base-content/20 rounded-box m-6 border">
+                            <div class="card-body">
                                 <NuxtPage/>
                             </div>
                         </div>

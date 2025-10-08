@@ -54,7 +54,7 @@
 
                         <div class="flex justify-start w-full pt-2 pb-4 px-0.5">
                             <div class="flex items-center gap-2">
-                                <input type="checkbox" class="checkbox checkbox-xs checkbox-primary" id="agreement" />
+                                <input type="checkbox" required class="checkbox checkbox-xs checkbox-primary" id="agreement" />
                                 <label class="label-text text-base-content/80 p-0 text-base text-sm" for="agreement">I agree on the
                                     <span class="text-primary">Terms and Services</span></label>
                             </div>
@@ -104,7 +104,5 @@ const { value: password, errorMessage: passwordError } = useField('password')
 const submitLoginForm = handleSubmit(async (values) => {
     // console.log('Submitting form:', values)
     await loginHandler(values, $notyf);
-    values.email = "";
-    values.password = "";
 })
 </script>
