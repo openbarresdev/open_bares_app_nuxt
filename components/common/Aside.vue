@@ -53,43 +53,53 @@
 </template>
 
 <script setup>
+import { useAuth } from "~/composables/useAuth";
+
 const props = defineProps({
-    sections: { type: Array, required: false },
-})
+  sections: { type: Array, required: false },
+});
 
 const openSection = ref(null);
-// const router = useRouter();
-const route = useRoute();
+const { checkAuth } = useAuth(); 
 
 const toggleSection = (id) => {
   openSection.value = openSection.value === id ? null : id;
 };
 
-const handleSectionClick = (section) => {
+const handleSectionClick = async (section) => {
   if (!section.items || section.items.length === 0) {
-    navigateRelative(section.link);
+    await navigateWithRole(section.link);
   } else {
     toggleSection(section.id);
   }
 };
 
-const navigateRelative = (path) => {
-  const currentPath = route.path.replace(/\/$/, ""); 
-  const nextPath = path.startsWith("/") ? path : `/${path}`;
-  navigateTo(`${currentPath}${nextPath}`);
-};
-
-
-const handleItemClick = (section, item, index) => {
+const handleItemClick = async (section, item) => {
   const formattedItem = item
     .toLowerCase()
     .replace(/ /g, "-")
     .replace(/[^\w-]/g, "");
 
-//   const relativePath = `${section.link}/${index}`;
-  const relativePath = `${section.link}/${formattedItem}`;
-  navigateRelative(relativePath);
+  await navigateWithRole(`${section.link}/${formattedItem}`);
 };
 
-console.log(route.path);
+const navigateWithRole = async (path) => {
+  const authUser = await checkAuth();
+
+  if (!authUser) {
+    console.warn("User not authenticated — redirecting to login");
+    return navigateTo("/login");
+  }
+
+  const role = authUser.role;
+  let base = "/";
+
+  if (role === "ADMIN" || role === "SUPER_ADMIN") base = "/admin/dashboard";
+  else if (role === "USER") base = "/user/dashboard";
+
+  const finalPath = `${base}/${path}`.replace(/\/+/g, "/");
+
+  console.log("Navigating to:", finalPath, "| Role:", role);
+  await navigateTo(finalPath, { replace: true });
+};
 </script>

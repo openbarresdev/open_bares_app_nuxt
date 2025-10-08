@@ -1,6 +1,6 @@
 <template>
     <div>
-        Sponsorship
+        Technical Assiance
     </div>
 </template>
 

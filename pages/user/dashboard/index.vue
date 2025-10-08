@@ -1,7 +1,9 @@
 <template>
     <div>
-        Profile
+        <!-- <UserProfile/> -->
     </div>
 </template>
 
-<script setup></script>
+<script setup>
+
+</script>
