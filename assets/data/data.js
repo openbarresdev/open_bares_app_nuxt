@@ -95,27 +95,43 @@ export const sections = [
 export const adminMenu = [
   {
     id: 1,
-    title: "Applications",
+    title: "Admin Profile",
+    link: "/",
+    fullTitle: "Admin profiles infos",
     iconName: "smart-home",
-    items: [
-      
-    ],
+    items: [],
   },
   {
     id: 2,
-    title: "Users",
-    iconName: "smart-home",
-    items: [
-      
-    ],
+    title: "Applicants",
+    link: "/applicants",
+    fullTitle: "Applicants list",
+    iconName: "",
+    items: [],
   },
-]
+  {
+    id: 3,
+    title: "Users",
+    link: "/users-management",
+    fullTitle: "Users Management",
+    iconName: "",
+    items: [],
+  },
+  {
+    id: 4,
+    title: "Settings",
+    link: "/settings",
+    fullTitle: "App parameters",
+    iconName: "",
+    items: [],
+  },
+];
 
 export const userMenu = [
   {
     id: 1,
     title: "Profil",
-    link: "/profil",
+    link: "/",
     fullTitle: "Setting upp your profile",
     iconName: "smart-home",
     items: [],

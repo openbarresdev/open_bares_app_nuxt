@@ -18,9 +18,9 @@
                             <li v-for="section in sections" :key="section.id" class="accordion-item py-">
                                 <!-- Titre du panneau -->
                                 <button
-                                    class="accordion-toggle inline-flex items-center p-2 text-start text-sm font-normal w-full h-13!"
+                                    class="accordion-toggle inline-flex items-center p-2 text-start text-sm font-normal w-full max-lg:h-13!"
                                     :class="{
-                                        'bg-primary! text-white! h-13!': openSection === section.id,
+                                        'bg-primary! text-white!': openSection === section.id,
                                     }" @click="handleSectionClick(section)">
                                     <span :class="`icon-[tabler--${section.iconName}] size-6`"></span>
                                     <span class="grow">{{ section.title }}</span>
@@ -58,7 +58,7 @@ const props = defineProps({
 })
 
 const openSection = ref(null);
-const router = useRouter();
+// const router = useRouter();
 const route = useRoute();
 
 const toggleSection = (id) => {
@@ -86,8 +86,10 @@ const handleItemClick = (section, item, index) => {
     .replace(/ /g, "-")
     .replace(/[^\w-]/g, "");
 
-  const relativePath = `${section.link}/${index}`;
-//   const relativePath = `${section.link}/${formattedItem}`;
+//   const relativePath = `${section.link}/${index}`;
+  const relativePath = `${section.link}/${formattedItem}`;
   navigateRelative(relativePath);
 };
+
+console.log(route.path);
 </script>
