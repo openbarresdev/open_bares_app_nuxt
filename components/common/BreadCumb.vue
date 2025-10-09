@@ -11,7 +11,8 @@
         </li>
 
         <li v-if="index < breadcrumbs.length - 1">
-          <NuxtLink :to="crumb.link">{{ crumb.label }}</NuxtLink>
+          <a href="javascript:void(0)">{{ crumb.label }}</a>
+          <!-- <NuxtLink :to="crumb.link">{{ crumb.label }}</NuxtLink> -->
         </li>
         <li v-else aria-current="page">{{ crumb.label }}</li>
       </template>

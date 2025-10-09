@@ -36,7 +36,7 @@
                                     v-show="openSection === section.id">
                                     <ul class="space-y-1 p-2">
                                         <li v-for="(item, index) in section.items" :key="index">
-                                            <a href="#" class="block px-2"
+                                            <a href="#" class="block px-2 max-lg:py-3.5" 
                                                 @click.prevent="handleItemClick(section, item, index)">
                                                 {{ item }}
                                             </a>
@@ -54,6 +54,8 @@
 
 <script setup>
 import { useAuth } from "~/composables/useAuth";
+
+const route = useRoute();
 
 const props = defineProps({
   sections: { type: Array, required: false },
@@ -74,12 +76,13 @@ const handleSectionClick = async (section) => {
   }
 };
 
-const handleItemClick = async (section, item) => {
+const handleItemClick = async (section, item, index) => {
   const formattedItem = item
     .toLowerCase()
     .replace(/ /g, "-")
     .replace(/[^\w-]/g, "");
 
+  // await navigateWithRole(`${section.link}/${index}`);
   await navigateWithRole(`${section.link}/${formattedItem}`);
 };
 
@@ -99,7 +102,7 @@ const navigateWithRole = async (path) => {
 
   const finalPath = `${base}/${path}`.replace(/\/+/g, "/");
 
-  console.log("Navigating to:", finalPath, "| Role:", role);
+  // console.log("Navigating to:", finalPath, "| Role:", role);
   await navigateTo(finalPath, { replace: true });
 };
 </script>

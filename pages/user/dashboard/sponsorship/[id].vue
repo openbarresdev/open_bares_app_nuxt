@@ -9,10 +9,10 @@ const route = useRoute()
 const { id } = route.params
 
 const componentMap = {
-  '1': defineAsyncComponent(() => import('~/components/sponsorship/BusinessHistory.vue')),
-  '2': defineAsyncComponent(() => import('~/components/sponsorship/Information.vue')),
-  '3': defineAsyncComponent(() => import('~/components/sponsorship/StructureManagement.vue')),
-  '4': defineAsyncComponent(() => import('~/components/sponsorship/TechnicalAssistance.vue')),
+  'sponsor-information': defineAsyncComponent(() => import('~/components/sponsorship/Information.vue')),
+  'sponsor-business-history': defineAsyncComponent(() => import('~/components/sponsorship/BusinessHistory.vue')),
+  'management-structure': defineAsyncComponent(() => import('~/components/sponsorship/StructureManagement.vue')),
+  'technical-assistance': defineAsyncComponent(() => import('~/components/sponsorship/TechnicalAssistance.vue')),
 }
 
 const currentComponent = computed(() => {

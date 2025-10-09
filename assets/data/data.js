@@ -24,7 +24,7 @@ export const industries = [
 export const sections = [
   {
     id: "sponsorship",
-    title: "2. Sponsorship, Management & Technical Assistance",
+    title: "2. Sponsorship, Management and Technical Assistance",
     iconName: "smart-home",
     items: [
       "2.1 Sponsor Information",
@@ -35,31 +35,31 @@ export const sections = [
   },
   {
     id: "market",
-    title: "3. Market & Sales Analysis",
+    title: "3. Market and Sales Analysis",
     iconName: "smart-home",
     items: [
-      "3.1 Production & Sales Projections",
+      "3.1 Production and Sales Projections",
       "3.2 Target Market",
       "3.3 Market Environment",
     ],
   },
   {
     id: "technical",
-    title: "4. Technical Feasibility & Resources",
+    title: "4. Technical Feasibility and Resources",
     iconName: "",
     items: [
       "4.1 Technical Complexity",
       "4.2 Human Resources",
       "4.3 Infrastructure Requirements",
       "4.4 Operating Costs (Annual)",
-      "4.5 Raw Materials & Supply Chain",
-      "4.6 Plant Location & Size",
-      "4.7 Environmental & Social Impact",
+      "4.5 Raw Materials and Supply Chain",
+      "4.6 Plant Location and Size",
+      "4.7 Environmental and Social Impact",
     ],
   },
   {
     id: "investment",
-    title: "5. Investment Requirements & Financing",
+    title: "5. Investment Requirements and Financing",
     iconName: "",
     items: [
       "5.1 Total Investment Requirements",
@@ -71,7 +71,7 @@ export const sections = [
   },
   {
     id: "government",
-    title: "6. Government Support & Regulations",
+    title: "6. Government Support and Regulations",
     iconName: "",
     items: [
       "6.1 Government Incentives",
@@ -140,7 +140,7 @@ export const userMenu = [
     id: 2,
     title: "Sponsorship",
     link: "/sponsorship",
-    fullTitle: "Sponsorship, Management & Technical Assistance",
+    fullTitle: "Sponsorship, Management and Technical Assistance",
     iconName: "smart-home",
     items: [
       "Sponsor Information",
@@ -153,10 +153,10 @@ export const userMenu = [
     id: 3,
     title: "Market",
     link: "/market",
-    fullTitle: "Market & Sales Analysis",
+    fullTitle: "Market and Sales Analysis",
     iconName: "smart-home",
     items: [
-      "Production & Sales Projections",
+      "Production and Sales Projections",
       "Target Market",
       "Market Environment",
     ],
@@ -165,23 +165,23 @@ export const userMenu = [
     id: 4,
     title: "Technical",
     link: "/technical",
-    fullTitle: "Technical Feasibility & Resources",
+    fullTitle: "Technical Feasibility and Resources",
     iconName: "",
     items: [
       "Technical Complexity",
       "Human Resources",
       "Infrastructure Requirements",
       "Operating Costs (Annual)",
-      "Raw Materials & Supply Chain",
-      "Plant Location & Size",
-      "Environmental & Social Impact",
+      "Raw Materials and Supply Chain",
+      "Plant Location and Size",
+      "Environmental and Social Impact",
     ],
   },
   {
     id: 5,
-    title: "Investment & Financing",
+    title: "Investment and Financing",
     link: "/investment-and-financing",
-    fullTitle: "Investment Requirements & Financing",
+    fullTitle: "Investment Requirements and Financing",
     iconName: "",
     items: [
       "Total Investment Requirements",
@@ -195,7 +195,7 @@ export const userMenu = [
     id: 6,
     title: "Government Support",
     link: "/government-support",
-    fullTitle: "Government Support & Regulations",
+    fullTitle: "Government Support and Regulations",
     iconName: "",
     items: [
       "Government Incentives",
