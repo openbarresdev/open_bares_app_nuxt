@@ -22,7 +22,7 @@
                                     :class="{
                                         'bg-primary text-white': openSection === section.id,
                                     }" @click="handleSectionClick(section)">
-                                    <span :class="`icon-[tabler--${section.iconName}] size-6`"></span>
+                                    <span :class="`${section.iconName} size-6`"></span>
                                     <span class="grow">{{ section.title }}</span>
 
                                     <span v-if="section.items.length"
@@ -106,7 +106,7 @@ const navigateWithRole = async (path) => {
 
   const finalPath = `${base}/${path}`.replace(/\/+/g, "/");
 
-  console.log("Navigating to:", finalPath, "| Role:", role);
+  // console.log("Navigating to:", finalPath, "| Role:", role);
   await navigateTo(finalPath, { replace: true });
 };
 </script>
