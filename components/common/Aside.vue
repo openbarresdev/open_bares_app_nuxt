@@ -106,7 +106,7 @@ const navigateWithRole = async (path) => {
 
   const finalPath = `${base}/${path}`.replace(/\/+/g, "/");
 
-  // console.log("Navigating to:", finalPath, "| Role:", role);
+  console.log("Navigating to:", finalPath, "| Role:", role);
   await navigateTo(finalPath, { replace: true });
 };
 </script>

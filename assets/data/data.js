@@ -112,7 +112,7 @@ export const adminMenu = [
   {
     id: 3,
     title: "Users",
-    link: "/users-management",
+    link: "/users",
     fullTitle: "Users Management",
     iconName: "",
     items: [],

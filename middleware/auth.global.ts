@@ -26,7 +26,10 @@ export default defineNuxtRouteMiddleware((to) => {
       const role = decoded.role;
       // console.log("Rôle utilisateur :", role);
 
-      if ((role === "ADMIN" || role === "SUPER_ADMIN") && to.path === "/") {
+      if (
+        ((role === "ADMIN" || role === "SUPER_ADMIN") && to.path === "/") ||
+        isPublic
+      ) {
         return navigateTo("/admin/dashboard");
       }
 

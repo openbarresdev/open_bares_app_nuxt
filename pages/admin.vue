@@ -16,7 +16,8 @@
                 <main class="flex-1">
                     <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                         <div class="card h-200 w-full md:col-span-2">
-                            <div class="card-body">
+                            <div class="card-body max-lg:p-2 py-2">
+                                <CommonBreadCumb />
                                 <NuxtPage/>
                             </div>
                         </div>
