@@ -1,5 +1,5 @@
 <template>
-  <div class="breadcrumbs text-[0.85rem]">
+  <div class="breadcrumbs text-[0.85rem] border-b border-zinc-300">
     <ul>
       <li>
         <NuxtLink to="/">Home</NuxtLink>

@@ -40,7 +40,13 @@ export default defineNuxtConfig({
           rel: "stylesheet",
         },
       ],
-      script: [],
+      script: [
+        {
+          src: "",
+          defer: "true",
+          tagPosition: "bodyClose",
+        },
+      ],
     },
   },
 });

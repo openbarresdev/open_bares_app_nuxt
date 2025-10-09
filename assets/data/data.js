@@ -36,7 +36,7 @@ export const sections = [
   {
     id: "market",
     title: "3. Market and Sales Analysis",
-    iconName: "smart-home",
+    iconName: "tabler--trash",
     items: [
       "3.1 Production and Sales Projections",
       "3.2 Target Market",
@@ -93,14 +93,14 @@ export const sections = [
 ];
 
 export const adminMenu = [
-  {
-    id: 1,
-    title: "Admin Profile",
-    link: "/",
-    fullTitle: "Admin profiles infos",
-    iconName: "smart-home",
-    items: [],
-  },
+  // {
+  //   id: 1,
+  //   title: "Admin Profile",
+  //   link: "/",
+  //   fullTitle: "Admin profiles infos",
+  //   iconName: "smart-home",
+  //   items: [],
+  // },
   {
     id: 2,
     title: "Applicants",
