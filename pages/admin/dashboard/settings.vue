@@ -1,6 +1,6 @@
 <template>
     <div>
-        App settings 
+        <CommonPageHeading title="App settings"/> 
     </div>
 </template>
 

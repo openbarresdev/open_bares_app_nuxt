@@ -1,6 +1,6 @@
 <template>
     <div>
-        Home admin
+        <CommonPageHeading title="Home admin"/>
     </div>
 </template>
 

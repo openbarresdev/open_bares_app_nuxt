@@ -1,6 +1,6 @@
 <template>
     <div>
-        User Management
+        <CommonPageHeading title="Users management"/>
     </div>
 </template>
 

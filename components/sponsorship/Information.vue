@@ -1,6 +1,7 @@
 <template>
     <div>
-        Sponsor Infos
+        <CommonPageHeading title="Sponsor Infos"/>
+        
     </div>
 </template>
 
