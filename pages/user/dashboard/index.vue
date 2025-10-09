@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-xl m-1">
+    <div class="max-w-2xl m-1">
         <CommonPageHeading title="Your Profile"/>
         
             <div class="flex max-lg:flex-col lg:gap-4 lg:items-center my-4 px-2 py-4 text-white bg-primary/60 rounded-md">
@@ -83,19 +83,19 @@
 
                         <CommonSelectVariant
                             label="Project type"
-                            :options="countries"/>
+                            :options="options"/>
 
                         <CommonSelectVariant
                             label="Industrial sector"
-                            :options="countries"/>
+                            :options="sectors"/>
                     </div>
 
-                    <CommonInputsVariant
-                        type="text"
-                        label="Project description"
-                        placeholder="Provide description"
+                     <CommonTextArea 
                         v-model="project"
-                    />
+                        label="Project description"
+                        :rows="3"
+                        placeholder="Provide description of your project"
+                        />
 
                         
                     <div class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-40 lg:h-12">Submit</div>
@@ -106,6 +106,6 @@
 </template>
 
 <script setup>
-import { titles, countries, industries } from "/assets/data/data";
+import { titles, countries, industries, sectors, options  } from "/assets/data/data";
 
 </script>
