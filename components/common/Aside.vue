@@ -20,7 +20,7 @@
                                 <button
                                     class="accordion-toggle inline-flex items-center p-2 text-start text-sm font-normal w-full max-lg:h-13!"
                                     :class="{
-                                        'bg-primary! text-white!': openSection === section.id,
+                                        'bg-primary text-white': openSection === section.id,
                                     }" @click="handleSectionClick(section)">
                                     <span :class="`icon-[tabler--${section.iconName}] size-6`"></span>
                                     <span class="grow">{{ section.title }}</span>
@@ -36,7 +36,10 @@
                                     v-show="openSection === section.id">
                                     <ul class="space-y-1 p-2">
                                         <li v-for="(item, index) in section.items" :key="index">
-                                            <a href="#" class="block px-2 max-lg:py-3.5" 
+                                            <a href="#" class="block px-2 max-lg:py-3.5 transition-colors duration-200" 
+                                                  :class="activeItemId === `${section.id}-${index}` 
+                                                  ? 'bg-zinc-300' 
+                                                  : 'hover:bg-gray-200'"
                                                 @click.prevent="handleItemClick(section, item, index)">
                                                 {{ item }}
                                             </a>
@@ -55,7 +58,7 @@
 <script setup>
 import { useAuth } from "~/composables/useAuth";
 
-const route = useRoute();
+const activeItemId = ref(null)
 
 const props = defineProps({
   sections: { type: Array, required: false },
@@ -77,6 +80,7 @@ const handleSectionClick = async (section) => {
 };
 
 const handleItemClick = async (section, item, index) => {
+  activeItemId.value = `${section.id}-${index}`
   const formattedItem = item
     .toLowerCase()
     .replace(/ /g, "-")
