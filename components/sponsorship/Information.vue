@@ -1,0 +1,71 @@
+<template>
+    <div class="max-w-2xl m-1">
+        <CommonPageHeading title="Sponsor Infos"/>
+        <span class="text-[0.8rem] lg:text-sm leading-4">Complete the following information concerning sponsorship</span>
+                
+            <form action="" class="my-4 space-y-4">
+                <div class="flex flex-col lg:flex-row items-center lg:gap-3 max-lg:space-y-4">
+
+                 <CommonInputsVariant class="lg:w-2/3 w-full"
+                    type="text"
+                    label="Lead Sponsor/Company Name"
+                    placeholder="MTN"
+                    v-model="sponsor"
+                />
+
+                 <CommonInputsVariant class="lg:w-1/3 w-full"
+                    type="text"
+                    label="Registration Number"
+                    placeholder="HSNIW12N3J4"
+                    v-model="regnumber"
+                />
+                </div>
+
+                <div class="flex flex-col lg:flex-row items-center lg:gap-3 max-lg:space-y-4">
+
+                    <CommonSelectVariant class="lg:w-1/2 w-full"
+                        label="Country of Incorporation"
+                        :options="countries"/>
+
+                    <CommonInputsVariant class="lg:w-1/2 w-full"
+                    type="text"
+                    label="Date of Incorporation"
+                    placeholder="YYYY/MM/DD"
+                    v-model="regnumber"
+                />
+                </div>
+
+                <span class="text-sm p-1">Legal structure</span>
+                <div class="flex flex-wrap justify-start items-center gap-4 py-5 p-1">
+
+                    <div class="flex items-center gap-1">
+                        <input type="radio" name="radio-3" class="radio radio-inset radio-secondary radio-xs" id="radioType1"  />
+                        <label class="label-text text-sm" for="radioType1"> Corporation  </label>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <input type="radio" name="radio-3" class="radio radio-inset radio-secondary radio-xs" id="radioType2" checked/>
+                        <label class="label-text text-sm" for="radioType2"> Partnership  </label>
+                    </div>
+                     <div class="flex items-center gap-1">
+                        <input type="radio" name="radio-3" class="radio radio-inset radio-secondary radio-xs" id="radioType3"  />
+                        <label class="label-text text-sm" for="radioType3"> LLC  </label>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <input type="radio" name="radio-3" class="radio radio-inset radio-secondary radio-xs" id="radioType4" checked/>
+                        <label class="label-text text-sm" for="radioType4"> Others  </label>
+                    </div>
+                </div>
+
+               
+
+                    
+                <div class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-40 lg:h-12">Next <span class="icon-[tabler--chevron-right] size-5"></span></div>
+
+            </form>
+    </div>
+</template>
+
+<script setup>
+import { countries, industries } from "/assets/data/data";
+
+</script>

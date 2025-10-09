@@ -24,7 +24,7 @@ export const industries = [
 export const sections = [
   {
     id: "sponsorship",
-    title: "2. Sponsorship, Management & Technical Assistance",
+    title: "2. Sponsorship, Management and Technical Assistance",
     iconName: "smart-home",
     items: [
       "2.1 Sponsor Information",
@@ -35,31 +35,31 @@ export const sections = [
   },
   {
     id: "market",
-    title: "3. Market & Sales Analysis",
-    iconName: "smart-home",
+    title: "3. Market and Sales Analysis",
+    iconName: "tabler--trash",
     items: [
-      "3.1 Production & Sales Projections",
+      "3.1 Production and Sales Projections",
       "3.2 Target Market",
       "3.3 Market Environment",
     ],
   },
   {
     id: "technical",
-    title: "4. Technical Feasibility & Resources",
+    title: "4. Technical Feasibility and Resources",
     iconName: "",
     items: [
       "4.1 Technical Complexity",
       "4.2 Human Resources",
       "4.3 Infrastructure Requirements",
       "4.4 Operating Costs (Annual)",
-      "4.5 Raw Materials & Supply Chain",
-      "4.6 Plant Location & Size",
-      "4.7 Environmental & Social Impact",
+      "4.5 Raw Materials and Supply Chain",
+      "4.6 Plant Location and Size",
+      "4.7 Environmental and Social Impact",
     ],
   },
   {
     id: "investment",
-    title: "5. Investment Requirements & Financing",
+    title: "5. Investment Requirements and Financing",
     iconName: "",
     items: [
       "5.1 Total Investment Requirements",
@@ -71,7 +71,7 @@ export const sections = [
   },
   {
     id: "government",
-    title: "6. Government Support & Regulations",
+    title: "6. Government Support and Regulations",
     iconName: "",
     items: [
       "6.1 Government Incentives",
@@ -91,3 +91,151 @@ export const sections = [
     items: [],
   },
 ];
+
+export const adminMenu = [
+  {
+    id: 1,
+    title: "Admin Profile",
+    link: "/",
+    fullTitle: "Admin profiles infos",
+    iconName: "icon-[tabler--lock]",
+    items: [],
+  },
+  {
+    id: 2,
+    title: "Applicants",
+    link: "/applicants",
+    fullTitle: "Applicants list",
+    iconName: "icon-[tabler--users]",
+    items: [],
+  },
+  {
+    id: 3,
+    title: "Users",
+    link: "/users",
+    fullTitle: "Users Management",
+    iconName: "icon-[tabler--user-search]",
+    items: [],
+  },
+  {
+    id: 4,
+    title: "Settings",
+    link: "/settings",
+    fullTitle: "App parameters",
+    iconName: "icon-[tabler--settings]",
+    items: [],
+  },
+];
+
+export const userMenu = [
+  {
+    id: 1,
+    title: "Profil",
+    link: "/",
+    fullTitle: "Setting upp your profile",
+    iconName: "icon-[tabler--user]",
+    items: [],
+  },
+  {
+    id: 2,
+    title: "Sponsorship",
+    link: "/sponsorship",
+    fullTitle: "Sponsorship, Management and Technical Assistance",
+    iconName: "icon-[tabler--users-group]",
+    items: [
+      "Sponsor Information",
+      "Sponsor Business History",
+      "Management Structure",
+      "Technical Assistance",
+    ],
+  },
+  {
+    id: 3,
+    title: "Market",
+    link: "/market",
+    fullTitle: "Market and Sales Analysis",
+    iconName: "icon-[tabler--chart-bar]",
+    items: [
+      "Production and Sales Projections",
+      "Target Market",
+      "Market Environment",
+    ],
+  },
+  {
+    id: 4,
+    title: "Technical",
+    link: "/technical",
+    fullTitle: "Technical Feasibility and Resources",
+    iconName: "",
+    items: [
+      "Technical Complexity",
+      "Human Resources",
+      "Infrastructure Requirements",
+      "Operating Costs (Annual)",
+      "Raw Materials and Supply Chain",
+      "Plant Location and Size",
+      "Environmental and Social Impact",
+    ],
+  },
+  {
+    id: 5,
+    title: "Investment and Financing",
+    link: "/investment-and-financing",
+    fullTitle: "Investment Requirements and Financing",
+    iconName: "",
+    items: [
+      "Total Investment Requirements",
+      "Financing Structure",
+      "Type of Financing Requested",
+      "Financial Projections",
+      "Critical Success Factors",
+    ],
+  },
+  {
+    id: 6,
+    title: "Government Support",
+    link: "/government-support",
+    fullTitle: "Government Support and Regulations",
+    iconName: "",
+    items: [
+      "Government Incentives",
+      "Economic Development Impact",
+      "Regulatory Environment",
+    ],
+  },
+  {
+    id: 7,
+    title: "Project Timeline",
+    link: "/project-timeline",
+    fullTitle: "Project Timeline",
+    iconName: "",
+    items: ["Implementation Schedule"],
+  },
+  {
+    id: 8,
+    title: "Supporting Documents",
+    link: "/supporting-documents",
+    fullTitle: "Supporting Documents",
+    iconName: "",
+    items: [],
+  },
+];
+
+export const sectors = [
+  { value: "manufacturing", label: "Manufacturing" },
+  { value: "services", label: "Services" },
+  { value: "infrastructure", label: "Infrastructure" },
+  { value: "financial", label: "Financial Services" },
+  { value: "agriculture", label: "Agriculture/Agribusiness" },
+  { value: "technology", label: "Technology/Digital" },
+  { value: "healthcare", label: "Healthcare" },
+  { value: "energy", label: "Energy" },
+  { value: "other", label: "Other", hasTextField: true },
+];
+
+export const options= [
+        {"value": "new_venture", "label": "New venture establishment"},
+        {"value": "expansion", "label": "Expansion of existing enterprise"},
+        {"value": "modernization", "label": "Modernization/upgrade of existing facilities"},
+        {"value": "other", "label": "Other", "hasTextField": true}
+      ]

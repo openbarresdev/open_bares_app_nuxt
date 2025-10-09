@@ -26,12 +26,15 @@ export default defineNuxtRouteMiddleware((to) => {
       const role = decoded.role;
       // console.log("Rôle utilisateur :", role);
 
-      if ((role === "ADMIN" || role === "SUPER_ADMIN") && to.path === "/") {
+      if (
+        ((role === "ADMIN" || role === "SUPER_ADMIN") && to.path === "/") ||
+        isPublic
+      ) {
         return navigateTo("/admin/dashboard");
       }
 
       if (role === "USER" && to.path.startsWith("/admin")) {
-        return navigateTo("/");
+        return navigateTo("/user/dashboard");
       }
     } catch (err) {
       console.error("Erreur de décodage du token :", err);
@@ -39,7 +42,7 @@ export default defineNuxtRouteMiddleware((to) => {
     }
   }
 
-  if (isAuthenticated && isPublic) {
-    return navigateTo("/");
-  }
+  // if (isAuthenticated && isPublic) {
+  //   return navigateTo("/user/dashboard");
+  // }
 });

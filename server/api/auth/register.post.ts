@@ -1,4 +1,3 @@
-import { Role } from "@prisma/client";
 import { hash } from "bcryptjs";
 import prisma from "~/server/lib/prisma";
 import { registerSchema } from "~/validation/registerSchema";
