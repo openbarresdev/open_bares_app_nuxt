@@ -1,6 +1,7 @@
 <template>
     <div class="max-w-2xl m-1">
-        <CommonPageHeading title="Your Profile"/>
+        <CommonPageHeading 
+            title="Your Profile"/>
         
             <div class="flex max-lg:flex-col lg:gap-4 lg:items-center my-4 px-2 py-4 text-white bg-primary/60 rounded-md">
                 <h2 class="lg:min-w-44">Application status</h2> 
@@ -73,14 +74,14 @@
                 </form>
             </div>
 
-            <div class="mt-10"> 
-                <h1 class="font-medium text-black">Project Description</h1>
-                <span class="text-[0.8rem] lg:text-sm leading-4">Complete the following information concerning your project to be sponsored</span>
+            <CommonPageHeading 
+                title="Project Description"
+                description="Complete the following information concerning your project to be sponsored"
+                variant="true"
+                />
                 
                 <form action="" class="my-4 space-y-4">
-
                     <div class="flex flex-col lg:flex-row items-center lg:gap-3 max-lg:space-y-4">
-
                         <CommonSelectVariant
                             label="Project type"
                             :options="options"/>
@@ -99,9 +100,7 @@
 
                         
                     <div class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-40 lg:h-12">Submit</div>
-
                 </form>
-            </div>
     </div>
 </template>
 

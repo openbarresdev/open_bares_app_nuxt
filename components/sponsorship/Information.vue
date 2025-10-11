@@ -1,7 +1,8 @@
 <template>
     <div class="max-w-2xl m-1">
-        <CommonPageHeading title="Sponsor Infos"/>
-        <span class="text-[0.8rem] lg:text-sm leading-4">Complete the following information concerning sponsorship</span>
+        <CommonPageHeading 
+            title="Sponsor Infos"
+            description="Complete the following information concerning sponsorship."/>
                 
             <form action="" class="my-4 space-y-4">
                 <div class="flex flex-col lg:flex-row items-center lg:gap-3 max-lg:space-y-4">
@@ -45,16 +46,12 @@
                         />
                 </div>
 
-               
-
-                    
-                <div class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-40 lg:h-12">Next <span class="icon-[tabler--chevron-right] size-5"></span></div>
-
+                <div class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-40 lg:h-12">Continue <span class="icon-[tabler--chevron-right] size-5"></span></div>
             </form>
     </div>
 </template>
 
 <script setup>
-import { countries, industries, legaStructure } from "/assets/data/data";
+import { countries, legaStructure } from "/assets/data/data";
 
 </script>
