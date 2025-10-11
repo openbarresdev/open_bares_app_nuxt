@@ -1,6 +1,7 @@
 <template>
     <div>
-        Market 2
+        <CommonPageHeading title="Production & Sales Projections" description="Projected production volumes and sales objectives (5-year projection)" />
+        
     </div>
 </template>
 

@@ -41,8 +41,8 @@
                     
                     <CommonRadiaButton
                         v-model="selectedPlan"
-                        name="pricing-plans"
-                        :options="legaStructure"
+                        name=""
+                        :options="legalStructure"
                         />
                 </div>
 
@@ -52,6 +52,6 @@
 </template>
 
 <script setup>
-import { countries, legaStructure } from "/assets/data/data";
+import { countries, legalStructure } from "/assets/data/data";
 
 </script>

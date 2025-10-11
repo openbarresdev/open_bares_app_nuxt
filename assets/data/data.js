@@ -240,7 +240,7 @@ export const options = [
   { "value": "other", "label": "Other", "hasTextField": true }
 ];
 
-export const legaStructure = [
+export const legalStructure = [
   {
     id: 1,
     value: "Corporation",
@@ -253,7 +253,7 @@ export const legaStructure = [
   },
   {
     id: 3,
-    value: "Partnership",
+    value: "LLC",
     description: "",
   },
   {
@@ -282,4 +282,13 @@ export const education = [
   { id: 2, value: "Master" },
   { id: 3, value: "Doctorat" },
   { id: 4, value: "Others" },
+]; ;
+
+export const channels = [
+  { id: 1, value: "Direct sales" },
+  { id: 2, value: "Retail distribution" },
+  { id: 3, value: "Wholesale" },
+  { id: 4, value: "Online/E-commerce" },
+  { id: 5, value: "Export markets  " },
+  { id: 6, value: "Others" },
 ];
