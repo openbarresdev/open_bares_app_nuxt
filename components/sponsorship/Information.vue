@@ -35,25 +35,14 @@
                 />
                 </div>
 
-                <span class="text-sm p-1">Legal structure</span>
-                <div class="flex flex-wrap justify-start items-center gap-4 py-5 p-1">
-
-                    <div class="flex items-center gap-1">
-                        <input type="radio" name="radio-3" class="radio radio-inset radio-secondary radio-xs" id="radioType1"  />
-                        <label class="label-text text-sm" for="radioType1"> Corporation  </label>
-                    </div>
-                    <div class="flex items-center gap-1">
-                        <input type="radio" name="radio-3" class="radio radio-inset radio-secondary radio-xs" id="radioType2" checked/>
-                        <label class="label-text text-sm" for="radioType2"> Partnership  </label>
-                    </div>
-                     <div class="flex items-center gap-1">
-                        <input type="radio" name="radio-3" class="radio radio-inset radio-secondary radio-xs" id="radioType3"  />
-                        <label class="label-text text-sm" for="radioType3"> LLC  </label>
-                    </div>
-                    <div class="flex items-center gap-1">
-                        <input type="radio" name="radio-3" class="radio radio-inset radio-secondary radio-xs" id="radioType4" checked/>
-                        <label class="label-text text-sm" for="radioType4"> Others  </label>
-                    </div>
+                <span class="text-base p-1">Legal structure</span>
+                <div class="py-3 p-1">
+                    
+                    <CommonRadiaButton
+                        v-model="selectedPlan"
+                        name="pricing-plans"
+                        :options="legaStructure"
+                        />
                 </div>
 
                
@@ -66,6 +55,6 @@
 </template>
 
 <script setup>
-import { countries, industries } from "/assets/data/data";
+import { countries, industries, legaStructure } from "/assets/data/data";
 
 </script>

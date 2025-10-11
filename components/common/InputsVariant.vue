@@ -8,11 +8,11 @@
           :id="id"
           :value="modelValue"
           @input="onInput"
-          class="input input-xl pr-10 bg-gray-100 border-none rounded-xl text-[1rem]"
+          class="input input-xl pr-10 bg-gray-100 border-none rounded-xl text-[1rem] placeholder:text-sm"
         />
 
         <!-- Floating label -->
-        <label class="input-floating-label text-[1rem]!" :for="id">
+        <label class="input-floating-label lg:text-[1rem] text-base!" :for="id">
           {{ label }}
         </label>
 

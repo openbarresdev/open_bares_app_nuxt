@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="lg:mt-4 mt-1"> 
-            <h1 class="font-medium text-black">{{ title }}</h1>
+            <h1 class="font-medium text-black text-lg">{{ title }}</h1>
        </div>
     </div>
 </template>

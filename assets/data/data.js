@@ -233,9 +233,32 @@ export const sectors = [
   { value: "other", label: "Other", hasTextField: true },
 ];
 
-export const options= [
-        {"value": "new_venture", "label": "New venture establishment"},
-        {"value": "expansion", "label": "Expansion of existing enterprise"},
-        {"value": "modernization", "label": "Modernization/upgrade of existing facilities"},
-        {"value": "other", "label": "Other", "hasTextField": true}
-      ]
+export const options = [
+  { "value": "new_venture", "label": "New venture establishment" },
+  { "value": "expansion", "label": "Expansion of existing enterprise" },
+  { "value": "modernization", "label": "Modernization/upgrade of existing facilities" },
+  { "value": "other", "label": "Other", "hasTextField": true }
+];
+
+export const legaStructure = [
+  {
+    id: 1,
+    value: "Corporation",
+    description: "",
+  },
+  {
+    id: 2,
+    value: "Partnership",
+    description: "",
+  },
+  {
+    id: 3,
+    value: "Partnership",
+    description: "",
+  },
+  {
+    id: 4,
+    value: "Others",
+    description: "",
+  },
+];
