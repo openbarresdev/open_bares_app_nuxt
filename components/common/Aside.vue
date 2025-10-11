@@ -5,9 +5,9 @@
             aria-label="Sidebar" tabindex="-1">
             <div class="drawer-body h-full p-0">
                 <div class="flex h-full max-h-full flex-col">
-                    <button type="button" class="btn btn-text btn-circle btn-sm absolute end-3 top-3 lg:hidden"
+                    <button type="button" class="btn btn-text btn-circle btn-sm absolute end-2 top-1 lg:hidden bg-zinc-200/40 border-2! border-white w-11 h-11 rounded-xl"
                         aria-label="Close" data-overlay="#layout-toggle">
-                        <span class="icon-[tabler--x] size-6"></span>
+                        <span class="icon-[tabler--x] size-7"></span>
                     </button>
 
                     <CommonAppLogo :variant="'black'" :size="'32'" class="px-4 py-3.5" />
