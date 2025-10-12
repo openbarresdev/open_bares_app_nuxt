@@ -33,6 +33,6 @@ const $notyf = useNotyf();
 
 const logout = async () => { 
     await logoutHandler($notyf);
-    closeModal()
+    closeModal() // not working
 }
 </script>
