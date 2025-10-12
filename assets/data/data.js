@@ -166,7 +166,7 @@ export const userMenu = [
     title: "Technical",
     link: "/technical",
     fullTitle: "Technical Feasibility and Resources",
-    iconName: "",
+    iconName: "icon-[tabler--tools]",
     items: [
       "Technical Complexity",
       "Human Resources",
@@ -291,4 +291,11 @@ export const channels = [
   { id: 4, value: "Online/E-commerce" },
   { id: 5, value: "Export markets  " },
   { id: 6, value: "Others" },
+];
+
+export const levels = [
+  { id: 1, value: "Excellent" },
+  { id: 2, value: "Good" },
+  { id: 3, value: "Adequate" },
+  { id: 4, value: "Poor " },
 ];
