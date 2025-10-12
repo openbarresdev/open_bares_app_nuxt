@@ -32,11 +32,8 @@
 
 <script setup>
 import { useHSModal } from '~/composables/useHSModal'
-import { logoutHandler } from "~/handlers/logoutHandler";
 
-const { openModal, closeModal } = useHSModal('#middle-center-modal')
-
-const $notyf = useNotyf();
+const { openModal } = useHSModal('#middle-center-modal')
 
 const { 
   user, 
@@ -56,14 +53,7 @@ onMounted(async () => {
 
 const logoutUser = async () => {
      openModal()
-    // const modal = new HSOverlay(document.querySelector('#middle-center-modal'));
-    // const { element } = HSOverlay.getInstance('#middle-center-modal', true);
-    // element.open();
-    // await logoutHandler($notyf);
 }
-
-
-
 </script>
 
 <style scoped></style>
