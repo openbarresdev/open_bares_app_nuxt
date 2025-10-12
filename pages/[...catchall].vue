@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="flex min-h-screen flex-col items-center justify-center px-8 py-8 sm:py-16 lg:py-24">
-            <div class="h-[clamp(300px,50vh,661px)]">
+        <div class="flex min-h-screen flex-col items-center justify-center">
+            <div class="h-[clamp(300px,50vh,661px)] max-lg:-mt-16">
                 <svg width="100%" height="100%" viewBox="0 0 661 451" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_7818_32344)">
                         <path d="M574.796 217.109H609.804V202.347H574.796V217.109Z" fill="var(--color-primary)"
@@ -140,22 +140,22 @@
                     </defs>
                 </svg>
             </div>
-            <div class="mt-10 text-center p-4">
-                <h3 class="text-base-content mb-6 text-5xl font-semibold">Whoops!</h3>
+            <div class="text-center px-4">
+                <h3 class="text-base-content mb-4 text-5xl font-semibold">Whoops!</h3>
                 <h4 class="text-base-content mb-1.5 text-3xl font-semibold">
                     Something went wrong
                 </h4>
-                <p class="text-base-content/80 mb-6">
+                <p class="text-base-content/80 mb-4">
                     The page you’re looking for isn’t found, we suggest you back to home.
                 </p>
 
-                <div class="flex flex-col sm:flex-row gap-4 justify-center py-3">
-                    <button @click="goBack" class="btn btn-secondary h-14">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center py-3 w-full">
+                    <button @click="goBack" class="btn btn-secondary h-13 lg:min-w-48">
                         <span class="icon-[tabler--arrow-left] size-5 mr-2"></span>
                         Retour
                     </button>
 
-                    <button @click="goHome" class="btn btn-primary h-14">
+                    <button @click="goHome" class="btn btn-primary h-13 lg:min-w-48">
                         <span class="icon-[tabler--home] size-5 mr-2"></span>
                         Page d'accueil
                     </button>

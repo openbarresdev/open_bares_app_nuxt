@@ -1,7 +1,8 @@
 <template>
     <div>
-        <div
-            class="bg-base-200 relative flex min-h-screen flex-col before:fixed before:h-105 before:w-full before:bg-neutral-950">
+        <LazyCommonCenteredModal/>
+
+        <div class="bg-base-200 relative flex min-h-screen flex-col before:fixed before:h-105 before:w-full before:bg-neutral-950 z-40">
             
             <!-- ---------- MAIN SIDEBAR ---------- -->
             <CommonAside :sections="userMenu"/>

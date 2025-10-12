@@ -1,5 +1,8 @@
 <template>
     <div>
+
+        
+       
         <nav class="navbar rounded-box shadow-base-300/20 z-1 h-16 shadow-md max-lg:p-2 w-full lg:justify-between">
             <div class="lg:block hidden text-start font-semibold">
                 <div v-if="isAuthenticated">
@@ -15,17 +18,25 @@
 
             <CommonAppLogo :variant="'black'" :size="'24'" class="lg:hidden text-xs! w-full flex justify-center -ml-10"
                 :inNavbar="true" />
-            <div @click="logoutUser" class="text-sm flex infline-flex gap-1 items-center cursor-pointer hover:text-secondary transition-all text-end">
+            <div @click="logoutUser" 
+                class="text-sm flex infline-flex gap-1 items-center cursor-pointer hover:text-secondary transition-all text-end"
+                data-overlay="#middle-center-modal"
+                ria-haspopup="dialog" aria-expanded="false">
                 <span class="lg:block hidden">Logout</span>
                 <span class="icon-[solar--power-bold-duotone] size-8"></span>
             </div>
         </nav>
+
     </div>
 </template> 
 
 <script setup>
-const $notyf = useNotyf();
+import { useHSModal } from '~/composables/useHSModal'
 import { logoutHandler } from "~/handlers/logoutHandler";
+
+const { openModal, closeModal } = useHSModal('#middle-center-modal')
+
+const $notyf = useNotyf();
 
 const { 
   user, 
@@ -40,11 +51,15 @@ const {
 
 
 onMounted(async () => {
-  await checkAuth();
+    await checkAuth();
 });
 
 const logoutUser = async () => {
-    await logoutHandler($notyf);
+     openModal()
+    // const modal = new HSOverlay(document.querySelector('#middle-center-modal'));
+    // const { element } = HSOverlay.getInstance('#middle-center-modal', true);
+    // element.open();
+    // await logoutHandler($notyf);
 }
 
 
