@@ -25,6 +25,7 @@
                     title="Basic Info"
                     description="This is a simple popover with title and description."
                     buttonText="Complete the following information"
+                    variant="true"
                     />
 
                 <form action="" class="my-4 space-y-4">
