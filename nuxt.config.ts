@@ -45,6 +45,9 @@ export default defineNuxtConfig({
       title: "Crownhill Funding ||  Get investments quickly and safety",
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
+      meta: [
+        { name: "description", content: "Get investments quickly and safety" },
+      ],
       link: [
         {
           href: "/logo-icon.svg",
