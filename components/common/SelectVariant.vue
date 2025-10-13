@@ -21,7 +21,7 @@
 
     <!-- Floating label -->
      <label
-      class="input-floating-label transition-all duration-200 absolute pointer-events-none lg:text-base max-lg:text-sm"
+      class="input-floating-label transition-all duration-200 absolute pointer-events-none lg:text-[1rem] text-base!"
       :for="selectId"
       :class="{
         'text-[0.8rem] -top-1 left-2 px-1 bg-white text-primary!': isFocused || selectedValue,

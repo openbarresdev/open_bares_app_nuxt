@@ -28,12 +28,15 @@
                         label="Country of Incorporation"
                         :options="countries"/>
 
-                    <CommonInputsVariant class="lg:w-1/2 w-full"
-                    type="text"
-                    label="Date of Incorporation"
-                    placeholder="YYYY/MM/DD"
-                    v-model="regnumber"
-                />
+                    <CommonDateInput class="lg:w-1/2 w-full"
+                       v-model="selectedDate"
+                        label="Date of Incorporation"
+                        placeholder="Select your date of Incorporation"
+                        :options="{
+                            maxDate: new Date(),
+                            dateFormat: 'd-m-Y'
+                        }"
+                    />
                 </div>
 
                 <span class="text-base p-1">Legal structure</span>

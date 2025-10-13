@@ -17,7 +17,7 @@
                     <div class="flex inline-flex items-center gap-2 w-full">
                         <div class="lg:text-base max-lg:text-sm min-w-32">Currency: </div>
                         <CommonSelectVariant class="w-full"
-                        label=""
+                        label="Currency Eg. $ "
                         :options="currencies"/>
                     </div>
 

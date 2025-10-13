@@ -1,9 +1,10 @@
 @import "tailwindcss";
 @import "flyonui/src/vendor/notyf.css";
-@plugin "flyonui";
+@import "flyonui/src/vendor/flatpickr.css";
 @import "flyonui/variants.css";
 
 @source "../../node_modules/flyonui/flyonui.js";
+@plugin "flyonui";
 @plugin "@iconify/tailwind4";
 @theme {
   /* --breakpoint-xxs: 20rem; */
