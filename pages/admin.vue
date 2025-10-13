@@ -8,7 +8,7 @@
             <CommonAside :sections="adminMenu"  @close-aside="closeAside" :is-aside-open="isOpen"/>
             
             <!-- ---------- END MAIN SIDEBAR ---------- -->
-            <div class="z-1 flex flex-col justify-between space-y-6 lg:p-6 p-3 lg:ms-81">
+            <div class="z-1 flex flex-col justify-between lg:space-y-6 space-y-4 lg:p-6 p-3 lg:ms-81">
                 <!-- ---------- HEADER ---------- -->
                 <CommonNavbar @toggle-aside="activateAside"/>
                 <!-- ---------- END HEADER ---------- -->

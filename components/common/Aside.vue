@@ -8,7 +8,7 @@
     <!-- Sidebar -->
     <transition name="slide-fade">
       <aside :class="[
-        'fixed inset-y-0 start-0 z-50 bg-white rounded-xl shadow-lg transition-transform lg:translate-x-0 lg:shadow-none lg:w-76 max-lg:min-w-90 max-lg:p-1 lg:m-6',
+        'fixed inset-y-0 start-0 z-50 bg-white lg:rounded-xl shadow-lg transition-transform lg:translate-x-0 lg:shadow-none lg:w-76 max-lg:min-w-90 max-lg:p-1 lg:m-6',
         { '-translate-x-full': isMobile && !isAsideOpenRef }
       ]" aria-label="Sidebar">
         <div class="relative h-full flex flex-col">
