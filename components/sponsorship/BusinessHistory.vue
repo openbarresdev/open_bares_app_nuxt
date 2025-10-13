@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-2xl m-1">
+    <div class="lg:max-w-2xl m-1">
         <CommonPageHeading title="Sponsor Business History" description="Brief history and current business activities of sponsors" />
 
         <CommonPageHeading title="" description="" variant="true"/>

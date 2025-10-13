@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-2xl m-1">
+    <div class="lg:max-w-2xl m-1">
         <CommonPageHeading 
             title="Sponsor Infos"
             description="Complete the following information concerning sponsorship."/>

@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-2xl m-1">
+    <div class="lg:max-w-2xl m-1">
         <CommonPageHeading title="Home admin"/>
 
         <div class="grid lg:grid-cols-4 grid-cols-2 space-x-4 gap-4">
