@@ -152,12 +152,12 @@
                 <div class="flex flex-col sm:flex-row gap-4 justify-center py-3 w-full">
                     <button @click="goBack" class="btn btn-secondary h-13 lg:min-w-48">
                         <span class="icon-[tabler--arrow-left] size-5 mr-2"></span>
-                        Retour
+                        Return
                     </button>
 
                     <button @click="goHome" class="btn btn-primary h-13 lg:min-w-48">
                         <span class="icon-[tabler--home] size-5 mr-2"></span>
-                        Page d'accueil
+                        Home Page
                     </button>
                 </div>
             </div>
