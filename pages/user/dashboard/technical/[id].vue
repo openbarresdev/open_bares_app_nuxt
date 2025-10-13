@@ -19,7 +19,8 @@ const componentMap = {
 }
 
 const currentComponent = computed(() => {
-  return componentMap[id] || null
+  const component = componentMap[id]
+  return component ? defineAsyncComponent(component) : null
 })
 
 if (!componentMap[id]) {
