@@ -63,4 +63,14 @@
     </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+
+const go = () => {
+    const url = route.fullPath;
+    const parentPath = url.replace(/\/[^/]*$/, '');
+    navigateTo(`${parentPath}/`)
+}
+</script>
