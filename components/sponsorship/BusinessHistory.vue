@@ -13,56 +13,51 @@
                 />
 
             <div class="text-base font-medium text-black">Annual Revenue (Last 3 Years): </div>
-                <div class="space-y-2 w-2/3 max-lg:w-full">
+                <div class="space-y-4 w-2/3 max-lg:w-full">
                     <div class="flex inline-flex items-center gap-2 w-full">
-                        <div class="lg:text-base max-lg:text-sm w-16">Year 1: </div>
-                        <CommonInputsVariant class=""
-                            type="text"
-                            label="First year revenu"
-                            placeholder="0$"
-                            v-model="yearOne"
-                        />
-                        <CommonSelectVariant class="w-24"
-                        label=""
-                        :options="currencies"/>
-                    </div>
-                    <div class="flex inline-flex items-center gap-2 w-full">
-                        <div class="lg:text-base max-lg:text-sm w-16">Year 2: </div>
-                        <CommonInputsVariant class=""
-                            type="text"
-                            label="Second year revenu"
-                            placeholder="0$"
-                            v-model="yearTwo"
-                        />
-                        <CommonSelectVariant class="w-24"
-                        label=""
-                        :options="currencies"/>
-                    </div>
-                    <div class="flex inline-flex items-center gap-2 w-full">
-                        <div class="lg:text-base max-lg:text-sm w-16">Year 3: </div>
-                        <CommonInputsVariant class=""
-                            type="text"
-                            label="Third year revenu"
-                            placeholder="0$"
-                            v-model="yearThree"
-                        />
-                        <CommonSelectVariant class="w-24"
+                        <div class="lg:text-base max-lg:text-sm min-w-32">Currency: </div>
+                        <CommonSelectVariant class="w-full"
                         label=""
                         :options="currencies"/>
                     </div>
 
-                    <div class="mt-6">
+                    <div class="flex inline-flex items-center gap-2 w-full">
+                        <div class="lg:text-base max-lg:text-sm min-w-32">Year 1: </div>
+                        <CommonInputsVariant class="w-full"
+                            type="text"
+                            label="First year revenu"
+                            placeholder="0,00"
+                            v-model="yearOne"
+                        />
+                    </div>
+                    <div class="flex inline-flex items-center gap-2 w-full">
+                        <div class="lg:text-base max-lg:text-sm min-w-32">Year 2: </div>
+                        <CommonInputsVariant class="w-full"
+                            type="text"
+                            label="Second year revenu"
+                            placeholder="0,00"
+                            v-model="yearTwo"
+                        />
+                    </div>
+                    <div class="flex inline-flex items-center gap-2 w-full">
+                        <div class="lg:text-base max-lg:text-sm min-w-32">Year 3: </div>
+                        <CommonInputsVariant class="w-full"
+                            type="text"
+                            label="Third year revenu"
+                            placeholder="0,00"
+                            v-model="yearThree"
+                        />
+                    </div>
+
+                    <div class="mt-6 space-y-2">
                         <p class="lg:text-base max-lg:text-sm p-1"> Total Assets</p>
                         <div class="flex inline-flex items-center gap-2 w-full">
                             <CommonInputsVariant class="w-full"
                                     type="text"
                                     label="Total asset"
-                                    placeholder="0$"
+                                    placeholder="0,00"
                                     v-model="totalAssets"
                                 />
-                                <CommonSelectVariant class="w-28"
-                                label=""
-                                :options="currencies"/>
                         </div>
 
                         <p class="lg:text-base max-lg:text-sm p-1">Net worth </p>
@@ -70,12 +65,9 @@
                             <CommonInputsVariant class="w-full"
                                     type="text"
                                     label="Net worth"
-                                    placeholder="0$"
+                                    placeholder="0,00"
                                     v-model="netWorth"
                                 />
-                                <CommonSelectVariant class="w-28"
-                                label=""
-                                :options="currencies"/>
                         </div>
                     </div>
                 </div>
