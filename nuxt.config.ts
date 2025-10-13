@@ -5,21 +5,26 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   css: ["~/assets/css/main.css"],
   devtools: { enabled: true },
+
   nitro: {
     routeRules: {
-      '/**': {
+      "/**": {
         headers: {
-          'Content-Security-Policy': "default-src 'self' https: data: blob: 'unsafe-inline' 'unsafe-eval';"
-        }
-      }
-    }
+          "Content-Security-Policy":
+            "default-src 'self' https: data: blob: 'unsafe-inline' 'unsafe-eval';",
+        },
+      },
+    },
   },
+
   vite: {
     plugins: [tailwindcss()],
   },
+
   vue: {
     propsDestructure: true,
   },
+
   runtimeConfig: {
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
     JWT_SECRET: process.env.JWT_SECRET,
@@ -33,15 +38,16 @@ export default defineNuxtConfig({
     },
     private: {},
   },
+
   // SEO Config for the entire app
   app: {
     head: {
-      title: "Investment Proposal",
+      title: "Crownhill Funding ||  Get investments quickly and safety",
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
       link: [
         {
-          href: "",
+          href: "/logo-icon.svg",
           rel: "icon",
           type: "image/x-icon",
         },
@@ -54,6 +60,7 @@ export default defineNuxtConfig({
           rel: "stylesheet",
         },
       ],
+
       script: [
         {
           src: "",

@@ -18,7 +18,7 @@
                 <tbody>
                 <tr class="row-hover">
                     <td>01XDJ</td>
-                    <td>Open Barres</td>
+                    <td>Crownhill Funding</td>
                     <td>Financial</td>
                     <td>Cameroon</td>
                     <td><span class="badge badge-soft badge-success text-xs">Complete</span></td>

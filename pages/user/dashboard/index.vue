@@ -47,7 +47,7 @@
                     <CommonInputsVariant
                             type="text"
                             label="Company name"
-                            placeholder="OPEN BARRES"
+                            placeholder="Crownhill Funding"
                             v-model="city"
                         />
 
