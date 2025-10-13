@@ -34,7 +34,7 @@ export default defineNuxtConfig({
       // apiKey: process.env.API_KEY || "",
 
       GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-      AUTH_ORIGIN: process.env.AUTH_ORIGIN || "http://localhost:3000",
+      AUTH_ORIGIN: process.env.AUTH_ORIGIN,
     },
     private: {},
   },
