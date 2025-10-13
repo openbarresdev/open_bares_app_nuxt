@@ -28,6 +28,8 @@
 
 <script setup>
 import { logoutHandler } from "~/handlers/logoutHandler";
+import { useHSModal } from '~/composables/useHSModal'
+
 const { closeModal } = useHSModal('#middle-center-modal')
 const $notyf = useNotyf();
 

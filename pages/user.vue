@@ -5,12 +5,12 @@
         <div class="bg-base-200 relative flex min-h-screen flex-col before:fixed before:h-105 before:w-full before:bg-neutral-950 lg:z-40">
             
             <!-- ---------- MAIN SIDEBAR ---------- -->
-            <CommonAside :sections="userMenu" @close-aside="closeAside" :is-aside-open="isAsideOpen"/>
+            <CommonAside :sections="userMenu" @close-aside="closeAside" :is-aside-open="isOpen"/>
             
             <!-- ---------- END MAIN SIDEBAR ---------- -->
             <div class="z-1 flex flex-col justify-between space-y-6 lg:p-6 p-3 lg:ms-81">
                 <!-- ---------- HEADER ---------- -->
-                <CommonNavbar @toggle-aside="toggleAside"/>
+                <CommonNavbar @toggle-aside="activateAside"/>
                 <!-- ---------- END HEADER ---------- -->
 
                 <!-- ---------- MAIN CONTENT ---------- -->
@@ -35,16 +35,11 @@
 
 <script setup>
 import { userMenu } from "/assets/data/data";
+import { useAside } from "~/composables/useAside";
 
-const isAsideOpen = ref(true);
+const isAsideOpen = ref(false);
 
-function toggleAside() {
-  isAsideOpen.value = !isAsideOpen.value;
-}
-
-function closeAside() {
-  isAsideOpen.value = false;
-}
+const { activateAside, closeAside, isOpen } = useAside(isAsideOpen);
 </script>
 
 <style scoped></style>
