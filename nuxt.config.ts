@@ -5,6 +5,15 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   css: ["~/assets/css/main.css"],
   devtools: { enabled: true },
+  nitro: {
+    routeRules: {
+      '/**': {
+        headers: {
+          'Content-Security-Policy': "default-src 'self' https: data: blob: 'unsafe-inline' 'unsafe-eval';"
+        }
+      }
+    }
+  },
   vite: {
     plugins: [tailwindcss()],
   },
@@ -12,10 +21,15 @@ export default defineNuxtConfig({
     propsDestructure: true,
   },
   runtimeConfig: {
+    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    JWT_SECRET: process.env.JWT_SECRET,
+
     public: {
-      baseURL: process.env.BASE_URL || "https://",
-      apiKey: process.env.API_KEY || "",
-      jwtSecret: process.env.JWT_SECRET,
+      // baseURL: process.env.BASE_URL || "",
+      // apiKey: process.env.API_KEY || "",
+
+      GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+      AUTH_ORIGIN: process.env.AUTH_ORIGIN || "http://localhost:3000",
     },
     private: {},
   },
