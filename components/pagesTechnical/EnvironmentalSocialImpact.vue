@@ -2,9 +2,9 @@
     <div>
         <CommonPageHeading title="Environmental & Social Impact" description="" />
 
-        <form @submit.prevent="submitToNext">
+        <form @submit.prevent="submitToNext" class="space-y-4">
         <CommonPageHeading title="" description="Potential environmental issue" />
-             <CommonTextArea class="mt-4"
+             <CommonTextArea class="mt-6"
                 v-model="environmental_issues_desc"
                 label="Environmental issue"
                 :rows="5"

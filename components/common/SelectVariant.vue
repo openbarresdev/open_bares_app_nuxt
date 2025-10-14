@@ -21,11 +21,11 @@
 
     <!-- Floating label -->
      <label
-      class="input-floating-label transition-all duration-200 absolute pointer-events-none lg:text-[1rem] text-base!"
+      class="input-floating-label transition-all duration-200 absolute pointer-events-none"
       :for="selectId"
       :class="{
-        'text-[0.8rem] -top-1 left-2 px-1 bg-white text-primary!': isFocused || selectedValue,
-        'top-1/2 left-3 -translate-y-1/2 text-base': !isFocused && !selectedValue
+        '-top-1 left-2 px-1 bg-white text-primary! text-[0.8rem]': isFocused || selectedValue,
+        'top-1/2 left-3 -translate-y-1/2 lg:text-[1rem] max-lg:text-base': !isFocused && !selectedValue
       }"
     >
       {{ label }}

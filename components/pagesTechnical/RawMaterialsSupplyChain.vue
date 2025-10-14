@@ -2,8 +2,8 @@
     <div>
         <CommonPageHeading title="Raw Materials & Supply Chain" description="Source and cost of raw materials" />
 
-        <form @submit.prevent="submitToNext">
-            <CommonTextArea class="mt-4"
+        <form @submit.prevent="submitToNext" class="space-y-4">
+            <CommonTextArea class="mt-6"
                 v-model="special_tech_complexities_desc"
                 label="Source of raw materials"
                 :rows="5"

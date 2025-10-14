@@ -4,7 +4,7 @@
 
         <!-- <CommonPageHeading title="" description="Proposed management arrangements for the project" variant="true"/> -->
 
-        <form action="" class="space-y-3">
+        <form action="" class="space-y-6">
              <CommonTextArea class="mt-4"
                 v-model="project"
                 label="Business description"
@@ -16,7 +16,7 @@
             
             <div class="lg:flex max-lg:flex-col items-center gap-4 w-full">
 
-                <div class="space-y-3 mx-1 lg:w-1/2 max-lg:w-full">
+                <div class="space-y-6 mx-1 lg:w-1/2 max-lg:w-full">
                     <p class="lg:text-base max-lg:text-sm mb-8"> Chief Executive Officer/General Manager</p>
                     <div class="flex inline-flex items-center gap-2 w-full">
                         <div class="lg:text-base max-lg:text-sm w-1/2">Name </div>
@@ -50,7 +50,7 @@
                     </div>
                 </div>
 
-                <div class="space-y-3 mx-1 lg:w-1/2 max-lg:w-full max-lg:mt-12">
+                <div class="space-y-6 mx-1 lg:w-1/2 max-lg:w-full max-lg:mt-12">
                     <p class="lg:text-base max-lg:text-sm mb-8">Chief Financial Officer</p>
                     <div class="flex inline-flex items-center gap-2 w-full">
                         <div class="lg:text-base max-lg:text-sm w-1/2">Name </div>
@@ -88,7 +88,7 @@
 
             <div class="lg:flex max-lg:flex-col items-center gap-4 w-full mt-12">
 
-                <div class="space-y-3 mx-1 lg:w-1/2 max-lg:w-full">
+                <div class="space-y-6 mx-1 lg:w-1/2 max-lg:w-full">
                     <p class="lg:text-base max-lg:text-sm mb-8">Chief Technical Officer/Operations Manager</p>
                     <div class="flex inline-flex items-center gap-2 w-full">
                         <div class="lg:text-base max-lg:text-sm w-1/2">Name </div>

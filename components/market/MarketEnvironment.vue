@@ -2,7 +2,7 @@
     <div>
         <CommonPageHeading title="Market Environment" description="Current sources of supply for similar products/services" />
 
-        <form action="">
+        <form action="" class="space-y-4">
              <CommonTextArea class="mt-4"
                 v-model="project"
                 label="Current sources of supply"

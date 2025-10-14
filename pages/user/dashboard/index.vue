@@ -20,25 +20,21 @@
             
             <!-- Resume of your application -->
             <div class="mt-10"> 
-                <h1 class="font-medium text-black">Start your application</h1>
-                <CommonPopover 
-                    title="Basic Info"
-                    description="This is a simple popover with title and description."
-                    buttonText="Complete the following information"
-                    variant="true"
-                    />
+                <CommonPageHeading 
+                    title="Start your application"
+                    description="Complete the following information"/>
 
-                <form action="" class="my-4 space-y-4">
+                <form action="" class="my-4 space-y-6">
 
-                    <div class="grid grid-cols-5 w-full gap-3">
-                        <div class="col-span-4">
+                    <div class="grid grid-cols-8 w-full gap-3">
+                        <div class="col-span-6">
                             <CommonInputsVariant
                                 type="text"
                                 label="Applicant name"
                                 placeholder="John Tailor"
                             />
                         </div>
-                        <div class="col-span-1">
+                        <div class="col-span-2">
                                 <CommonSelectVariant
                                 label="Title"
                                 :options="titles"/>
@@ -75,14 +71,14 @@
                 </form>
             </div>
 
-            <CommonPageHeading 
+            <CommonPageHeading class="mt-8"
                 title="Project Description"
                 description="Complete the following information concerning your project to be sponsored"
-                variant="true"
+                
                 />
                 
-                <form action="" class="my-4 space-y-4">
-                    <div class="flex flex-col lg:flex-row items-center lg:gap-3 max-lg:space-y-4">
+                <form action="" class="my-4 space-y-6">
+                    <div class="flex flex-col lg:flex-row items-center lg:gap-3 max-lg:space-y-6">
                         <CommonSelectVariant
                             label="Project type"
                             :options="options"/>

@@ -3,9 +3,9 @@
         
         <CommonPageHeading title="Infrastructure Requirements" description="Availability of infrastructure facilities" />
 
-            <form @submit.prevent="submitToNext" class="mt-8 space-y-3">
+            <form @submit.prevent="submitToNext" class="mt-8 space-y-6">
 
-                <div class="space-y-4 mx-1 lg:w-1/2 max-lg:w-full">
+                <div class="space-y-6 px-1.5 lg:w-1/2 max-lg:w-full">
                     <div class="flex inline-flex items-center gap-2 w-full">
                         <div class="lg:text-base max-lg:text-sm w-1/2">Transportation</div>
                             <CommonSelectVariant class="w-full"

@@ -2,8 +2,8 @@
     <div>
         <CommonPageHeading title="Technical Complexity" description="Special technical complexities and required expertise" />
 
-        <form @submit.prevent="submitToNext">
-             <CommonTextArea class="mt-4"
+        <form @submit.prevent="submitToNext" class="space-y-4">
+             <CommonTextArea class="mt-6"
                 v-model="special_tech_complexities_desc"
                 label="Special technical complexities"
                 :rows="5"

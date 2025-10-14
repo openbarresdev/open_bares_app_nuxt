@@ -1,5 +1,5 @@
 <template>
-  <div class="tooltip" :class="[`[--placement:${placement}]`, `[--trigger:${trigger}]`]">
+  <!-- <div class="tooltip" :class="[`[--placement:${placement}]`, `[--trigger:${trigger}]`]">
     <div class="tooltip-toggle">
       <button :class="buttonClass" aria-label="Popover Button" class="flex items-center gap-1">
         <span v-if="buttonText">{{ buttonText }}</span>
@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script setup>

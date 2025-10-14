@@ -234,7 +234,7 @@ export const sectors = [
 ];
 
 export const options = [
-  { "value": "new_venture", "label": "New venture establishment" },
+  { "value": "new venture", "label": "New venture establishment" },
   { "value": "expansion", "label": "Expansion of existing enterprise" },
   { "value": "modernization", "label": "Modernization/upgrade of existing facilities" },
   { "value": "other", "label": "Other", "hasTextField": true }
