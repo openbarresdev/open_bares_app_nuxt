@@ -110,7 +110,6 @@ const route = useRoute();
 
 const go = () => {
     const url = route.fullPath;
-    const parentPath = url.replace(/\/[^/]*$/, '');
-    navigateTo(`${parentPath}/sponsorship/sponsor-information`)
+    navigateTo(`${url}/sponsorship/sponsor-information`)
 }
 </script>
