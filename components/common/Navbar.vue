@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav class="navbar lg:rounded-box shadow-base-300/20 z-1 h-16 shadow-md max-lg:p-2 w-full lg:justify-between">
+        <nav class="navbar lg:rounded-box shadow-base-300/20 z-1 h-16 shadow-md max-lg:px-4 max-lg:pt-4 w-full lg:justify-between">
             <div class="lg:block hidden text-start font-semibold">
                 <div v-if="isAuthenticated">
                     <span v-if="isAdmin || isSuperAdmin">Admin Dashboard</span>
