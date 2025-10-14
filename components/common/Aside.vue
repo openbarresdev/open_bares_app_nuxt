@@ -93,6 +93,7 @@ const toggleSection = (id) => {
 const handleSectionClick = async (section) => {
   if (!section.items || section.items.length === 0) {
     await navigateWithRole(section.link);
+    emitClose();
   } else {
     toggleSection(section.id);
   }
@@ -102,8 +103,8 @@ const handleItemClick = async (section, item, index) => {
   activeItemId.value = `${section.id}-${index}`;
   const formattedItem = item.toLowerCase().replace(/ /g, "-").replace(/[^\w-]/g, "");
 
-  emitClose();
   await navigateWithRole(`${section.link}/${formattedItem}`);
+  emitClose();
 };
 
 const navigateWithRole = async (path) => {

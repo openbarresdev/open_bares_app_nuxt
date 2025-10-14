@@ -130,7 +130,7 @@ export const adminMenu = [
 export const userMenu = [
   {
     id: 1,
-    title: "Profil",
+    title: "Profile",
     link: "/",
     fullTitle: "Setting upp your profile",
     iconName: "icon-[tabler--user]",

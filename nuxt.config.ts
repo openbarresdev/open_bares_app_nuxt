@@ -41,6 +41,7 @@ export default defineNuxtConfig({
 
   // SEO Config for the entire app
   app: {
+    pageTransition: { name: "page", mode: "out-in" },
     head: {
       title: "Crownhill Funding ||  Get investments quickly and safety",
       charset: "utf-8",

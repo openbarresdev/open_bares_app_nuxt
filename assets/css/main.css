@@ -41,6 +41,9 @@
   --border: 1px;
   --depth: 0;
   --noise: 0;
+
+  --nuxt-loading-indicator-bg: #FF6700;
+  /* --nuxt-loading-indicator-height: 3px; */
 }
 
 /* Style de fallback FlyonUI */
@@ -75,3 +78,8 @@ th {
     background-color: var(--color-primary);
     color: var(--color-primary-content);
 } */
+
+.nuxt-loading-indicator {
+  background: var(--nuxt-loading-indicator-bg) !important;
+  /* height: var(--nuxt-loading-indicator-height) !important; */
+}
