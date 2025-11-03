@@ -9,7 +9,7 @@
     >
       <input
         type="radio"
-        :name="name"
+        
         :value="option.value"
         :checked="modelValue === option.value"
         class="radio hidden"
@@ -29,7 +29,7 @@
 <script setup>
 const props = defineProps({
     options: { type: Array },
-    name: { type: String },
+    // name: { type: String },
     modelValue: { type: String }
 })
 

@@ -104,12 +104,12 @@
 <script setup>
 import { titles, countries, industries, sectors, options  } from "/assets/data/data";
 
-import { useRoute } from "vue-router";
+// import { useRoute } from "vue-router";
 
-const route = useRoute();
+// const route = useRoute();
 
 const go = () => {
-    const url = route.fullPath;
-    navigateTo(`${url}/sponsorship/sponsor-information`)
+    // const url = route.fullPath;
+    navigateTo('/user/dashboard/sponsorship/sponsor-information')
 }
 </script>

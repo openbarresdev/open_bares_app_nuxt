@@ -182,7 +182,7 @@ export const userMenu = [
     title: "Investment and Financing",
     link: "/investment-and-financing",
     fullTitle: "Investment Requirements and Financing",
-    iconName: "",
+    iconName: "icon-[tabler--coin]",
     items: [
       "Total Investment Requirements",
       "Financing Structure",
@@ -196,7 +196,7 @@ export const userMenu = [
     title: "Government Support",
     link: "/government-support",
     fullTitle: "Government Support and Regulations",
-    iconName: "",
+    iconName: "icon-[tabler--building-community]",
     items: [
       "Government Incentives",
       "Economic Development Impact",
@@ -208,7 +208,7 @@ export const userMenu = [
     title: "Project Timeline",
     link: "/project-timeline",
     fullTitle: "Project Timeline",
-    iconName: "",
+    iconName: "icon-[tabler--calendar]",
     items: ["Implementation Schedule"],
   },
   {
@@ -216,7 +216,7 @@ export const userMenu = [
     title: "Supporting Documents",
     link: "/supporting-documents",
     fullTitle: "Supporting Documents",
-    iconName: "",
+    iconName: "icon-[tabler--files]",
     items: [],
   },
 ];

@@ -9,7 +9,7 @@
       :name="name"
       :disabled="disabled"
     />
-    <label class="input-floating-label lg:text-[1rem] max-lg:text-base!" :for="inputId">
+    <label class="input-floating-label lg:text-[1rem] text-base!" :for="inputId">
       {{ label }}
     </label>
   </div>
