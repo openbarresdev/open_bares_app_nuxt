@@ -12,7 +12,7 @@
         />
 
         <!-- Floating label -->
-        <label class="input-floating-label lg:text-[1rem] text-base!" :for="id">
+        <label class="input-floating-label lg:text-[1rem] text-base! line-clamp-1!" :for="id">
           {{ label }}
         </label>
 

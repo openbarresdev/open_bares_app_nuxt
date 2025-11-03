@@ -264,10 +264,10 @@ export const legalStructure = [
 ];
 
 export const currencies = [
-  { id: 1, value: "$" },
-  { id: 2, value: "€" },
-  { id: 3, value: "XOF" },
-  { id: 4, value: "XAF" },
+  { id: 1, value: "$ - Dollars" },
+  { id: 2, value: "€ - Euros" },
+  { id: 3, value: "XOF - Francs CFO" },
+  { id: 4, value: "XAF - Francs CFA" },
 ];
 
 export const years = [
@@ -298,4 +298,11 @@ export const levels = [
   { id: 2, value: "Good" },
   { id: 3, value: "Adequate" },
   { id: 4, value: "Poor " },
+];
+
+export const percentages = [
+  { id: 1, value: "10%" },
+  { id: 2, value: "20%" },
+  { id: 3, value: "30%" },
+  { id: 4, value: "100%" },
 ];

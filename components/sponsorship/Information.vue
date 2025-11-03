@@ -43,7 +43,6 @@
                     
                 <CommonRadiaButton
                     v-model="selectedPlan"
-                    
                     :options="legalStructure"
                     />
 

@@ -13,7 +13,6 @@
             <CommonPageHeading title="" description="Distribution channels to be used" />
                 <CommonRadiaButton
                     v-model="selectedPlan"
-                    name=""
                     :options="channels"
                     />
 
@@ -25,5 +24,6 @@
 
 <script setup>
 import { channels } from "/assets/data/data";
+const selectedPlan = ref();
 
 </script>

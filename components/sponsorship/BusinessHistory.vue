@@ -80,6 +80,6 @@
 </template>
 
 <script setup>
-import { currencies, countries } from "/assets/data/data";
+import { currencies } from "/assets/data/data";
 
 </script>
