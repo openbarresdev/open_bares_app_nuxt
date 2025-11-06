@@ -7,7 +7,7 @@
             <form @submit.prevent="submitToNext" class="mt-8">
 
                 <div class="space-y-6 px-1.5 lg:w-1/2 max-lg:w-full">
-                    <div class="flex inline-flex items-center gap-2 w-full">
+                    <div class="inline-flex items-center gap-2 w-full">
                         <div class="lg:text-base max-lg:text-sm w-1/2">Management positions</div>
                             <CommonInputsVariant class="w-full"
                                     type="number"
@@ -17,7 +17,7 @@
                                 />
                     </div>
                     
-                    <div class="flex inline-flex items-center gap-2 w-full">
+                    <div class="inline-flex items-center gap-2 w-full">
                         <div class="lg:text-base max-lg:text-sm w-1/2">Technical/skilled workers</div>
                         <CommonInputsVariant class="w-full"
                             type="number"
@@ -26,7 +26,7 @@
                             v-model="tech_skilled_workers_number"
                         />
                     </div>
-                    <div class="flex inline-flex items-center gap-2 w-full">
+                    <div class="inline-flex items-center gap-2 w-full">
                         <div class="lg:text-base max-lg:text-sm w-1/2">Semi-skilled workers</div>
                         <CommonInputsVariant class="w-full"
                             type="number"
@@ -35,7 +35,7 @@
                             v-model="semi_tech_skilled_workers_number"
                         />
                     </div>
-                    <div class="flex inline-flex items-center gap-2 w-full">
+                    <div class="inline-flex items-center gap-2 w-full">
                         <div class="lg:text-base max-lg:text-sm w-1/2">Unskilled workers</div>
                         <CommonInputsVariant class="w-full"
                             type="number"
@@ -44,7 +44,7 @@
                             v-model="unskilled_wokers_number"
                         />
                     </div>
-                    <div class="flex inline-flex items-center gap-2 w-full">
+                    <div class="inline-flex items-center gap-2 w-full">
                         <div class="lg:text-base max-lg:text-sm w-1/2">Total employment</div>
                         <CommonInputsVariant class="w-full"
                             type="number"

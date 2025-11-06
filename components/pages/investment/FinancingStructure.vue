@@ -4,7 +4,7 @@
         
         <form action="" class="space-y-3 my-3">
                 <div class="space-y-4 w-2/3 max-lg:w-full">
-                    <div class="flex inline-flex items-center gap-2 w-full">
+                    <div class="inline-flex items-center gap-2 w-full">
                         <div class="lg:text-base max-lg:text-sm w-3/5 max-lg:min-w-32">Currency: </div>
                         <CommonSelectVariant class="w-2/5 max-lg:w-full"
                         label="Currency Eg. $ "
