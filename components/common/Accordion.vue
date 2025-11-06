@@ -25,7 +25,7 @@
         :aria-labelledby="`${id}-heading`"
         role="region"
       >
-        <div class="px-2 pb-4">
+        <div class="px-2 py-4">
           <slot />
         </div>
       </div>

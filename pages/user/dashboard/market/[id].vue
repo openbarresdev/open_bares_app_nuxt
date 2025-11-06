@@ -9,9 +9,9 @@ const route = useRoute()
 const { id } = route.params
 
 const componentMap = {
-  'target-market': defineAsyncComponent(() => import('~/components/market/TargetMarket.vue')),
-  'market-environment': defineAsyncComponent(() => import('~/components/market/MarketEnvironment.vue')),
-  'production-and-sales-projections': defineAsyncComponent(() => import('~/components/market/ProductionSalesProjections.vue')),
+  'target-market': defineAsyncComponent(() => import('~/components/pages/market/TargetMarket.vue')),
+  'market-environment': defineAsyncComponent(() => import('~/components/pages/market/MarketEnvironment.vue')),
+  'production-and-sales-projections': defineAsyncComponent(() => import('~/components/pages/market/ProductionSalesProjections.vue')),
 }
 
 const currentComponent = computed(() => {
