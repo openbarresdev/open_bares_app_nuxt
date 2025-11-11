@@ -42,21 +42,12 @@
                 placeholder="Provide your Critical factors"
                 />
 
-        <div @click="go" class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 my-3">Save & continue <span class="icon-[tabler--chevron-right] size-5"></span></div>
+        <div @click="nextPage.goToNextPage('technical/technical-complexity')"  class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 my-3">Save & continue <span class="icon-[tabler--chevron-right] size-5"></span></div>
 
         </form>
     </div>
 </template>
 
 <script setup>
-import { useRoute } from "vue-router";
-
-const route = useRoute();
-
-const go = () => {
-    const url = route.fullPath;
-    const parentPath = url.replace(/\/[^/]*$/, '');
-    const secondParentPath = parentPath.replace(/\/[^/]*$/, '');
-    navigateTo(`${secondParentPath}/technical/technical-complexity`)
-}
+const nextPage = usePageNav();
 </script>

@@ -96,7 +96,7 @@
                         />
 
                         
-                    <div @click="go" class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-40 lg:h-12">Submit</div>
+                    <div @click="navigateTo('/user/dashboard/sponsorship/sponsor-information')" class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-40 lg:h-12">Submit</div>
                 </form>
     </div>
 </template>
@@ -104,12 +104,4 @@
 <script setup>
 import { titles, countries, industries, sectors, options  } from "/assets/data/data";
 
-// import { useRoute } from "vue-router";
-
-// const route = useRoute();
-
-const go = () => {
-    // const url = route.fullPath;
-    navigateTo('/user/dashboard/sponsorship/sponsor-information')
-}
 </script>
