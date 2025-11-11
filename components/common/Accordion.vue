@@ -25,7 +25,9 @@
         :aria-labelledby="`${id}-heading`"
         role="region"
       >
+        <span class="mx-8">{{ description }}</span>
         <div class="px-2 py-4">
+
           <slot />
         </div>
       </div>
@@ -40,6 +42,10 @@ const props = defineProps({
     required: true
   },
   id: {
+    type: String,
+    required: true
+  },
+   description: {
     type: String,
     required: true
   },
