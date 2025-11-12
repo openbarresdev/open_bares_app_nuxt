@@ -75,6 +75,16 @@ export default defineNuxtConfig({
           defer: "true",
           tagPosition: "bodyClose",
         },
+        // {
+        //   src: "https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js",
+        //   defer: "true",
+        //   tagPosition: "bodyClose",
+        // },
+        // {
+        //   src: "https://unpkg.com/dropzone@5/dist/min/dropzone.min.js",
+        //   defer: "true",
+        //   tagPosition: "bodyClose",
+        // },
       ],
     },
   },
