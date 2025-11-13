@@ -318,7 +318,7 @@ export const documentsUpload = [
     name: "Audited financial statements",
     description: "Audited financial statements (last 3 years)",
   },
-  { id: 3, name: "Management CVs", description: "" },
+  { id: 3, name: "Management CVs", description: "Management CVs" },
   {
     id: 4,
     name: "Preliminary feasibility",
@@ -350,5 +350,5 @@ export const documentsUpload = [
     description: "Financial projections (detailed)",
   },
   { id: 10, name: "Banking references  ", description: "Banking references" },
-  { id: 10, name: "Others", description: "Others" },
+  { id: 11, name: "Others", description: "Others" },
 ];
