@@ -13,7 +13,8 @@ const props = defineProps({
   uploadUrl: { type: String, default: '/api/upload' },
   maxSize: { type: Number, default: 5 },
   acceptedFiles: { type: String, default: '.pdf,.jpg,.png,.doc,.docx' },
-  multiple: { type: Boolean, default: true }
+  multiple: { type: Boolean, default: true },
+  docName: { type: String, required: true }
 })
 
 const emit = defineEmits(['success', 'error', 'added', 'removed'])
@@ -24,8 +25,11 @@ const dropzoneEl = ref(null)
 let myDropzone= null
 
 onMounted(() => {
+  const safeDocName = props.docName.replace(/\s+/g, "_").toLowerCase()
+
   myDropzone = new Dropzone(dropzoneEl.value, {
-    url: props.uploadUrl,
+    url: `/api/upload?doc=${encodeURIComponent(safeDocName)}`,
+    // url: props.uploadUrl,
     paramName: 'file',
     maxFilesize: props.maxSize,
     acceptedFiles: props.acceptedFiles,

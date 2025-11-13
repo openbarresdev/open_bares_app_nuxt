@@ -306,3 +306,49 @@ export const percentages = [
   { id: 3, value: "30%" },
   { id: 4, value: "100%" },
 ];
+
+export const documentsUpload = [
+  {
+    id: 1,
+    name: "Company Registration",
+    description: "Company Registration documents",
+  },
+  {
+    id: 2,
+    name: "Audited financial statements",
+    description: "Audited financial statements (last 3 years)",
+  },
+  { id: 3, name: "Management CVs", description: "" },
+  {
+    id: 4,
+    name: "Preliminary feasibility",
+    description: "Preliminary feasibility study/business plan",
+  },
+  {
+    id: 5,
+    name: "Environmental impact",
+    description: "Environmental impact assessment",
+  },
+  {
+    id: 6,
+    name: "Government licenses",
+    description: "Government approvals/licenses",
+  },
+  {
+    id: 7,
+    name: "Technical specifications  ",
+    description: "Technical specifications",
+  },
+  {
+    id: 8,
+    name: "Market research reports",
+    description: "Market research reports",
+  },
+  {
+    id: 9,
+    name: "Financial projections",
+    description: "Financial projections (detailed)",
+  },
+  { id: 10, name: "Banking references  ", description: "Banking references" },
+  { id: 10, name: "Others", description: "Others" },
+];
