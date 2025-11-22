@@ -44,6 +44,8 @@ const selectId = computed(
   () => props.id || `select-${Math.random().toString(36).substr(2, 9)}`
 )
 
+// console.log('options', props.options);
+
 const isFocused = ref(false)
 const selectedValue = ref('')
 

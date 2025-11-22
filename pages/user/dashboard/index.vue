@@ -50,8 +50,9 @@
 
                     <CommonSelectVariant
                         label="Country or Territory"
-                        :options="countries"/>
-             
+                        :options="countriesOptions"
+                        v-model="selectedCountry"/>
+                        <!-- {{ selectedCountry }} -->
                     <div class="flex flex-col lg:flex-row items-center lg:gap-3 max-lg:space-y-4">
 
                         <CommonInputsVariant class="max-lg:w-full w-1/2"
@@ -102,6 +103,29 @@
 </template>
 
 <script setup>
-import { titles, countries, industries, sectors, options  } from "/assets/data/data";
+import { titles, industries, sectors, options  } from "/assets/data/data";
 
+const selectedCountry = ref('')
+const countries = ref([])
+
+const countriesOptions = computed(() => {
+    return countries.value.map(country => ({
+        id: country.cca2,
+        value: country.name.common,
+    }))
+})
+
+onMounted(async () => {
+    try {
+        const data = await $fetch('https://restcountries.com/v3.1/independent?status=true');
+        countries.value = data;
+        console.log('country', countries.value);
+        console.log('country name', countries.value[0]);
+        
+    } catch (error) {
+        console.error( 'Failed to load resource', error)
+        console.log( 'Failed with error:', error)
+        
+    }
+})
 </script>
