@@ -22,7 +22,7 @@
 
     <!-- Floating label -->
     <label
-      class="input-floating-label transition-all duration-200 absolute pointer-events-none"
+      class="input-floating-label transition-all duration-200 absolute pointer-events-none after:content-['*'] after:ml-0.5 after:text-red-500"
       :for="selectId"
       :class="{
         '-top-1 left-2 px-1 bg-white text-primary! text-[0.8rem]': isFocused || modelValue,

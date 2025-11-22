@@ -34,15 +34,22 @@ model User {
 }
 
 model Project {
-  id            Int       @id @default(autoincrement())
-  title         String
-  description   String?
-  type          String?
-  industry      String?
-  userId        Int       @unique  // Ensures one project per user
-  user          User      @relation(fields: [userId], references: [id])
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id               Int       @id @default(autoincrement())
+  applicantName    String
+  applicantTitle   String
+  companyName      String
+  country          String
+  state            String
+  city             String
+  projectType      String
+  industrialSector String
+  projectDescription String?
+  
+  userId           Int       @unique  // ensures one project per user
+  user             User      @relation(fields: [userId], references: [id])
+
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 
   // Section relations (1:1 each)
   sponsorship   Sponsorship?

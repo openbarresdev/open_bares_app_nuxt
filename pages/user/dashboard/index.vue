@@ -23,22 +23,23 @@
                     title="Start your application"
                     description="Complete the following information"/>
 
-                <form action="" class="my-4 space-y-6">
-
+                <form @submit.prevent="submitProfile" class="my-4 space-y-6">
                     <div class="grid grid-cols-8 w-full gap-3">
                         <div class="col-span-6">
                             <CommonInputsVariant
                                 type="text"
                                 label="Applicant name"
                                 placeholder="John Tailor"
-                                v-model = "profileStore.applicant.name"
+                                v-model = "name"
                             />
+                            <span v-if="nameError" class="text-red-500 text-[0.85rem]">{{ errors.name }}</span>
                         </div>
                         <div class="col-span-2">
                                 <CommonSelectVariant
                                 label="Title"
                                 :options="titles"
-                                v-model="profileStore.applicant.title"/>
+                                v-model="title"/>
+                            <span v-if="titleError" class="text-red-500 text-[0.85rem]">{{ errors.title }}</span>
                         </div>
                     </div>
 
@@ -46,13 +47,17 @@
                             type="text"
                             label="Company name"
                             placeholder="Crownhill Funding"
-                            v-model = "profileStore.applicant.companyName"
+                            v-model = "company"
                         />
+                    <span v-if="companyError" class="text-red-500 text-[0.85rem]">{{ errors.company }}</span>
+
 
                     <CommonSelectVariant
                         label="Country or Territory"
                         :options="profileStore.countriesOptions"
-                        v-model="profileStore.applicant.country"/>
+                        v-model="country"/>
+                    <span v-if="countryError" class="text-red-500 text-[0.85rem]">{{ errors.country }}</span>
+
 
                     <div class="flex flex-col lg:flex-row items-center lg:gap-3 max-lg:space-y-4">
 
@@ -60,65 +65,97 @@
                             type="text"
                             label="City"
                             placeholder="Yaounde"
-                            v-model = "profileStore.applicant.city"
+                            v-model = "city"
                         />
+                        <span v-if="cityError" class="text-red-500 text-[0.85rem]">{{ errors.city }}</span>
+
                         <CommonInputsVariant class="max-lg:w-full w-1/2"
                             type="text"
                             label="State"
                             placeholder="Center"
-                            v-model = "profileStore.applicant.state"
+                            v-model = "state"
                         />
+                        <span v-if="stateError" class="text-red-500 text-[0.85rem]">{{ errors.state }}</span>
+
                     </div>
 
-                </form>
-            </div>
 
-            <CommonPageHeading class="mt-8"
-                title="Project Description"
-                description="Complete the following information concerning your project to be sponsored"
+                    <CommonPageHeading class="mt-8"
+                        title="Project Description"
+                        description="Complete the following information concerning your project to be sponsored"
+                        
+                        />
                 
-                />
-                
-                <form action="" class="my-4 space-y-6">
+                    <!-- <form action="" class="my-4 space-y-6"> -->
                     <div class="flex flex-col lg:flex-row items-center lg:gap-3 max-lg:space-y-6">
                         <CommonSelectVariant
                             label="Project type"
                             :options="options"
-                            v-model = "profileStore.applicant.projectType"/>
+                            v-model = "project_type"/>
+                        <span v-if="project_typeError" class="text-red-500 text-[0.85rem]">{{ errors.project_type }}</span>
+                        
 
                         <CommonSelectVariant
                             label="Industrial sector"
                             :options="sectors"
-                            v-model = "profileStore.applicant.industrialSector"/>
+                            v-model = "sector"/>
+                        <span v-if="sectorError" class="text-red-500 text-[0.85rem]">{{ errors.sector }}</span>
+                        
                     </div>
 
                      <CommonTextArea 
                         label="Project description"
                         :rows="3"
                         placeholder="Provide description of your project"
-                        v-model = "profileStore.applicant.projectDescription"
+                        v-model = "project_description"
                         />
+                        <span v-if="project_descriptionError" class="text-red-500 text-[0.85rem]">{{ errors.project_description }}</span>
+
 
                         
-                    <div @click="submit" class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-40 lg:h-12">Submit</div>
+                    <button type="submit" class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-40 lg:h-12">Submit</button>
+                    <!-- </form> -->
                 </form>
+            </div>
     </div>
 </template>
 
 <script setup>
-import { titles, industries, sectors, options  } from "/assets/data/data";
+import { titles, industries, sectors, options } from "/assets/data/data";
 import { useProfileStore } from '@/stores/profileStore'
+import { profileSchema } from "~/validation/profileSchema";
+import { useForm, useField } from "vee-validate";
 
 const profileStore = useProfileStore();
+const { $notyf } = useNuxtApp()
 
-const submit = () => {
-    if (profileStore.isStepProfileComplete) {
-        // navigateTo('/user/dashboard/sponsorship/sponsor-information')
-        return
-    } else {
-        console.log('Applicant form', profileStore.applicant);
-        console.log('Complete all form')
-        
-    }  
-}
+const { handleSubmit, errors } = useForm({
+    validationSchema: profileSchema,
+    initialValues: {
+        name: profileStore.applicant.name,
+        title: profileStore.applicant.title,
+        company: profileStore.applicant.company,
+        country: profileStore.applicant.country,
+        city: profileStore.applicant.city,
+        state: profileStore.applicant.state,
+        project_type: profileStore.applicant.projectType,
+        sector: profileStore.applicant.sector,
+        project_description: profileStore.applicant.projectDescription,
+    }
+});
+
+const { value: name, errorMessage: nameError } = useField('name')
+const { value: title, errorMessage: titleError } = useField('title')
+const { value: company, errorMessage: companyError } = useField('company')
+const { value: country, errorMessage: countryError } = useField('country')
+const { value: city, errorMessage: cityError } = useField('city')
+const { value: state, errorMessage: stateError } = useField('state')
+const { value: project_type, errorMessage: project_typeError } = useField('project_type')
+const { value: sector, errorMessage: sectorError } = useField('sector')
+const { value: project_description, errorMessage: project_descriptionError } = useField('project_description')
+
+const submitProfile = handleSubmit((values) => {
+    // console.log("Applicant form:", values)
+    profileStore.handleSubmitProfile(values, $notyf)
+});
 </script>
