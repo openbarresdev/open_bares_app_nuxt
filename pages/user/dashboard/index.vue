@@ -15,7 +15,6 @@
                     </div>
                 </div>
                 <div class="btn btn-xl rounded-xl btn-neutral btn-gradient btn-block text-base border-none lg:max-w-40 lg:h-10">Continuer</div>
-
             </div>
             
             <!-- Resume of your application -->
@@ -32,12 +31,14 @@
                                 type="text"
                                 label="Applicant name"
                                 placeholder="John Tailor"
+                                v-model = "profileStore.applicant.name"
                             />
                         </div>
                         <div class="col-span-2">
                                 <CommonSelectVariant
                                 label="Title"
-                                :options="titles"/>
+                                :options="titles"
+                                v-model="profileStore.applicant.title"/>
                         </div>
                     </div>
 
@@ -45,27 +46,27 @@
                             type="text"
                             label="Company name"
                             placeholder="Crownhill Funding"
-                            v-model="city"
+                            v-model = "profileStore.applicant.companyName"
                         />
 
                     <CommonSelectVariant
                         label="Country or Territory"
-                        :options="countriesOptions"
-                        v-model="selectedCountry"/>
-                        <!-- {{ selectedCountry }} -->
+                        :options="profileStore.countriesOptions"
+                        v-model="profileStore.applicant.country"/>
+
                     <div class="flex flex-col lg:flex-row items-center lg:gap-3 max-lg:space-y-4">
 
                         <CommonInputsVariant class="max-lg:w-full w-1/2"
                             type="text"
                             label="City"
                             placeholder="Yaounde"
-                            v-model="city"
+                            v-model = "profileStore.applicant.city"
                         />
                         <CommonInputsVariant class="max-lg:w-full w-1/2"
                             type="text"
                             label="State"
                             placeholder="Center"
-                            v-model="state"
+                            v-model = "profileStore.applicant.state"
                         />
                     </div>
 
@@ -82,50 +83,42 @@
                     <div class="flex flex-col lg:flex-row items-center lg:gap-3 max-lg:space-y-6">
                         <CommonSelectVariant
                             label="Project type"
-                            :options="options"/>
+                            :options="options"
+                            v-model = "profileStore.applicant.projectType"/>
 
                         <CommonSelectVariant
                             label="Industrial sector"
-                            :options="sectors"/>
+                            :options="sectors"
+                            v-model = "profileStore.applicant.industrialSector"/>
                     </div>
 
                      <CommonTextArea 
-                        v-model="project"
                         label="Project description"
                         :rows="3"
                         placeholder="Provide description of your project"
+                        v-model = "profileStore.applicant.projectDescription"
                         />
 
                         
-                    <div @click="navigateTo('/user/dashboard/sponsorship/sponsor-information')" class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-40 lg:h-12">Submit</div>
+                    <div @click="submit" class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-40 lg:h-12">Submit</div>
                 </form>
     </div>
 </template>
 
 <script setup>
 import { titles, industries, sectors, options  } from "/assets/data/data";
+import { useProfileStore } from '@/stores/profileStore'
 
-const selectedCountry = ref('')
-const countries = ref([])
+const profileStore = useProfileStore();
 
-const countriesOptions = computed(() => {
-    return countries.value.map(country => ({
-        id: country.cca2,
-        value: country.name.common,
-    }))
-})
-
-onMounted(async () => {
-    try {
-        const data = await $fetch('https://restcountries.com/v3.1/independent?status=true');
-        countries.value = data;
-        console.log('country', countries.value);
-        console.log('country name', countries.value[0]);
+const submit = () => {
+    if (profileStore.isStepProfileComplete) {
+        // navigateTo('/user/dashboard/sponsorship/sponsor-information')
+        return
+    } else {
+        console.log('Applicant form', profileStore.applicant);
+        console.log('Complete all form')
         
-    } catch (error) {
-        console.error( 'Failed to load resource', error)
-        console.log( 'Failed with error:', error)
-        
-    }
-})
+    }  
+}
 </script>

@@ -13,6 +13,7 @@
     "postinstall": "prisma generate && nuxt prepare"
   },
   "dependencies": {
+    "@pinia/nuxt": "^0.11.3",
     "@prisma/client": "^6.16.3",
     "@tailwindcss/vite": "^4.1.13",
     "@vueuse/core": "^10.11.0",
@@ -26,7 +27,8 @@
     "jwt-decode": "^4.0.0",
     "lodash": "^4.17.21",
     "notyf": "^3.10.0",
-    "nuxt": "^3.12.4",
+    "nuxt": "^4.2.1",
+    "pinia": "^3.0.4",
     "prisma": "^6.16.3",
     "vee-validate": "^4.15.1",
     "vue": "latest",
@@ -39,5 +41,8 @@
     "@types/jsonwebtoken": "^9.0.10",
     "autoprefixer": "^10.4.19",
     "tailwindcss": "^4.1.13"
+  },
+  "overrides": {
+    "vue": "latest"
   }
 }

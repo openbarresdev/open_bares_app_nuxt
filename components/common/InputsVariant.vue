@@ -44,7 +44,7 @@ const props = defineProps({
   placeholder: { type: String, default: 'Enter text' },
   label: { type: String, required: true },
   id: { type: String, default: '' },
-  modelValue: { type: [String, Number], default: '' }, // key prop for v-model
+  modelValue: { type: [String, Number, Object], default: '' }
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -55,8 +55,8 @@ const currentType = computed(() =>
   props.type === 'password' && showPassword.value ? 'text' : props.type
 )
 
-function onInput(e) {
-  emit('update:modelValue', e.target.value)
+function onInput(event) {
+  emit('update:modelValue', event.target.value)
 }
 
 function togglePassword() {
