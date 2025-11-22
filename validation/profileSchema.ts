@@ -26,8 +26,8 @@ export const profileSchema = yup.object({
   state: yup
     .string()
     .min(3, "Name must be at least 3 characters")
-    .max(15, "Name must be less than 15 characters")
-    .required("Name is required"),
+    .max(15, "Name must be less than 15 characters"),
+    // .required("Name is required"),
 
   project_type: yup.string().required("Title is required"),
 

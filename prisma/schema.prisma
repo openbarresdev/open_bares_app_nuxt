@@ -39,7 +39,7 @@ model Project {
   applicantTitle   String
   companyName      String
   country          String
-  state            String
+  state            String?
   city             String
   projectType      String
   industrialSector String
