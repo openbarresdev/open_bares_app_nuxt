@@ -44,20 +44,31 @@ export const useProfileStore = defineStore('profileStore', () => {
         }
     });
 
-    // FETCH
-    async function fetchApplicant() {
-    //   try {
-    //     isLoading.value = true;
-    //     error.value = "";
+    // const getUserId = () => {
+    //     const { userId, isAuthenticated } = useAuth();
+    //     if (isAuthenticated) {
+    //         return userId
+    //     }
+    // }
 
-    //     const res = await $fetch("/api/applicant-project");
-    //     applicant.value = res;
-    //   } catch (err) {
-    //     error.value = "Failed to load applicant data";
-    //     console.error(err);
-    //   } finally {
-    //     isLoading.value = false;
-    //   }
+    // FETCH
+    async function fetchApplicant(user_id) {
+      try {
+        isLoading.value = true;
+        error.value = "";
+
+        const res = await $fetch("/api/applicant-project", {
+          method: "GET",
+          params: { userId: user_id.value },
+        });
+        applicant.value = res;
+        // console.log("Applicant data", applicant.value);
+      } catch (err) {
+        error.value = "Failed to load applicant data";
+        console.error(err);
+      } finally {
+        isLoading.value = false;
+      }
     }
 
 

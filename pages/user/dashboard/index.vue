@@ -149,19 +149,19 @@ const { userId, isAuthenticated, checkAuth } = useAuth();
 const profileStore = useProfileStore();
 const { $notyf } = useNuxtApp();
 
-const { handleSubmit, errors } = useForm({
+const { handleSubmit, errors, setValues } = useForm({
     validationSchema: profileSchema,
-    initialValues: {
-        applicantName: profileStore.applicant.applicantName,
-        applicantTitle: profileStore.applicant.applicantTitle,
-        companyName: profileStore.applicant.companyName,
-        country: profileStore.applicant.country,
-        city: profileStore.applicant.city,
-        state: profileStore.applicant.state,
-        projectType: profileStore.applicant.projectType,
-        industrialSector: profileStore.applicant.industrialSector,
-        projectDescription: profileStore.applicant.projectDescription,
-    }
+    // initialValues: {
+    //     applicantName: profileStore.applicant.applicantName,
+    //     applicantTitle: profileStore.applicant.applicantTitle,
+    //     companyName: profileStore.applicant.companyName,
+    //     country: profileStore.applicant.country,
+    //     city: profileStore.applicant.city,
+    //     state: profileStore.applicant.state,
+    //     projectType: profileStore.applicant.projectType,
+    //     industrialSector: profileStore.applicant.industrialSector,
+    //     projectDescription: profileStore.applicant.projectDescription,
+    // }
 });
 
 const { value: applicantName, errorMessage: applicantNameError } = useField('applicantName')
@@ -174,7 +174,29 @@ const { value: projectType, errorMessage: projectTypeError } = useField('project
 const { value: industrialSector, errorMessage: industrialSectorError } = useField('industrialSector')
 const { value: projectDescription, errorMessage: projectDescriptionError } = useField('projectDescription')
 
-await checkAuth();
+onMounted(async () => {
+    await checkAuth();
+    try {
+        await profileStore.fetchApplicant(userId)
+
+        if (profileStore.applicant?.project) {
+            // console.log('profileStore.applicant proj', profileStore.applicant.project)
+            setValues({
+                applicantName: profileStore.applicant.project.applicantName || '',
+                applicantTitle: profileStore.applicant.project.applicantTitle || '',
+                companyName: profileStore.applicant.project.companyName || '',
+                country: profileStore.applicant.project.country || '',
+                city: profileStore.applicant.project.city || '',
+                state: profileStore.applicant.project.state || '',
+                projectType: profileStore.applicant.project.projectType || '',
+                industrialSector: profileStore.applicant.project.industrialSector || '',
+                projectDescription: profileStore.applicant.project.projectDescription || '',
+            })
+        }
+    } catch (error) {
+            console.error('Failed to load applicant data:', error)
+        }
+})
 
 const submitProfile = handleSubmit((values) => {
     profileStore.updateApplicant(values, userId.value, $notyf);
