@@ -35,6 +35,7 @@
         </button>
       </div>
     </div>
+    <span v-if="hasError" class="text-red-500 text-[0.85rem]">{{ errorMessage}}</span>
   </div>
 </template>
 
@@ -44,7 +45,10 @@ const props = defineProps({
   placeholder: { type: String, default: 'Enter text' },
   label: { type: String, required: true },
   id: { type: String, default: '' },
-  modelValue: { type: [String, Number, Object], default: '' }
+  modelValue: { type: [String, Number, Object], default: '' },
+  hasError: { type: Boolean, default: false },
+  errorMessage: { type: String, default: '' },
+
 })
 
 const emit = defineEmits(['update:modelValue'])

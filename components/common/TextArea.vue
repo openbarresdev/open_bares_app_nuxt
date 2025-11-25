@@ -27,6 +27,7 @@
         </div>
       </div>
     </div>
+    <span v-if="hasError" class="text-red-500 text-[0.85rem]">{{ errorMessage}}</span>
   </div>
 </template>
 
@@ -39,7 +40,9 @@ const props = defineProps({
   rows: { type: Number, default: 4 },
   maxlength: { type: Number, default: null },
   showCounter: { type: Boolean, default: true },
-  resizable: { type: Boolean, default: false }
+  resizable: { type: Boolean, default: false },
+  hasError: { type: Boolean, default: false },
+  errorMessage: { type: String, default: '' },
 })
 
 const emit = defineEmits(['update:modelValue'])

@@ -75,7 +75,7 @@ export const useProfileStore = defineStore('profileStore', () => {
         console.log("Payload being sent:", payload);
 
         const res = await $fetch("/api/applicant-project", {
-          method: "PUT",
+          method: "POST",
           body: payload,
         });
 

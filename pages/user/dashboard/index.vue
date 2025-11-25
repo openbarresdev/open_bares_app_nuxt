@@ -31,52 +31,66 @@
                                 label="Applicant name"
                                 placeholder="John Tailor"
                                 v-model = "applicantName"
+                                :hasError="applicantNameError"
+                                :errorMessage="errors.applicantName"
                             />
-                            <span v-if="applicantNameError" class="text-red-500 text-[0.85rem]">{{ errors.applicantName }}</span>
                         </div>
+
                         <div class="col-span-2">
                                 <CommonSelectVariant
                                 label="Title"
                                 :options="titles"
-                                v-model="applicantTitle"/>
-                            <span v-if="applicantTitleError" class="text-red-500 text-[0.85rem]">{{ errors.applicantTitle }}</span>
+                                v-model="applicantTitle"
+                                :hasError="applicantTitleError"
+                                :errorMessage="errors.applicantTitle"
+                                />
                         </div>
                     </div>
 
-                    <CommonInputsVariant
-                            type="text"
-                            label="Company name"
-                            placeholder="Crownhill Funding"
-                            v-model = "companyName"
-                        />
-                    <span v-if="companyNameError" class="text-red-500 text-[0.85rem]">{{ errors.companyName }}</span>
+                    <div>
+                        <CommonInputsVariant
+                                type="text"
+                                label="Company name"
+                                placeholder="Crownhill Funding"
+                                v-model = "companyName"
+                                :hasError="companyNameError"
+                                :errorMessage="errors.companyName"
+                            />
+                    </div>
 
 
-                    <CommonSelectVariant
-                        label="Country or Territory"
-                        :options="profileStore.countriesOptions"
-                        v-model="country"/>
-                    <span v-if="countryError" class="text-red-500 text-[0.85rem]">{{ errors.country }}</span>
+                    <div>
+                        <CommonSelectVariant
+                            label="Country or Territory"
+                            :options="profileStore.countriesOptions"
+                            v-model="country"/>
+                        <span v-if="countryError" class="text-red-500 text-[0.85rem]">{{ errors.country }}</span>
+                    </div>
 
 
-                    <div class="flex flex-col lg:flex-row items-center lg:gap-3 max-lg:space-y-4">
+                    <div class="flex flex-col lg:flex-row items-center lg:gap-3 max-lg:space-y-4 w-full">
 
-                        <CommonInputsVariant class="max-lg:w-full w-1/2"
-                            type="text"
-                            label="City"
-                            placeholder="Yaounde"
-                            v-model = "city"
-                        />
-                        <span v-if="cityError" class="text-red-500 text-[0.85rem]">{{ errors.city }}</span>
-
-                        <CommonInputsVariant class="max-lg:w-full w-1/2"
-                            type="text"
-                            label="State"
-                            placeholder="Center"
-                            v-model = "state"
-                        />
-                        <span v-if="stateError" class="text-red-500 text-[0.85rem]">{{ errors.state }}</span>
-
+                        <div class="max-lg:w-full w-1/2">
+                            <CommonInputsVariant 
+                                type="text"
+                                label="City"
+                                placeholder="Yaounde"
+                                v-model = "city"
+                                :hasError="cityError"
+                                :errorMessage="errors.city"
+                            />
+                        </div>
+                         <div class="max-lg:w-full w-1/2">
+                            
+                             <CommonInputsVariant
+                                 type="text"
+                                 label="State"
+                                 placeholder="Center"
+                                 v-model = "state"
+                                 :hasError="stateError"
+                                 :errorMessage="errors.state"
+                             />
+                        </div>
                     </div>
 
 
@@ -88,19 +102,26 @@
                 
                     <!-- <form action="" class="my-4 space-y-6"> -->
                     <div class="flex flex-col lg:flex-row items-center lg:gap-3 max-lg:space-y-6">
-                        <CommonSelectVariant
-                            label="Project type"
-                            :options="options"
-                            v-model = "projectType"/>
-                        <span v-if="projectTypeError" class="text-red-500 text-[0.85rem]">{{ errors.projectType }}</span>
                         
-
-                        <CommonSelectVariant
-                            label="Industrial sector"
-                            :options="sectors"
-                            v-model = "industrialSector"/>
-                        <span v-if="industrialSectorError" class="text-red-500 text-[0.85rem]">{{ errors.industrialSector }}</span>
+                         <div class="max-lg:w-full w-1/2">
+                             <CommonSelectVariant
+                                 label="Project type"
+                                 :options="options"
+                                 v-model = "projectType"
+                                 :hasError="projectTypeError"
+                                 :errorMessage="errors.projectType"
+                                 />
+                         </div>
                         
+                        <div class="max-lg:w-full w-1/2">
+                            <CommonSelectVariant
+                                label="Industrial sector"
+                                :options="sectors"
+                                v-model = "industrialSector"
+                                :hasError="industrialSectorError"
+                                :errorMessage="errors.industrialSector"
+                                />
+                         </div>
                     </div>
 
                      <CommonTextArea 
@@ -108,13 +129,11 @@
                         :rows="3"
                         placeholder="Provide description of your project"
                         v-model = "projectDescription"
+                        :hasError="projectDescriptionError"
+                        :errorMessage="errors.projectDescription"
                         />
-                        <span v-if="projectDescriptionError" class="text-red-500 text-[0.85rem]">{{ errors.projectDescription }}</span>
-
-
                         
                     <button type="submit" class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-40 lg:h-12">Submit</button>
-                    <!-- </form> -->
                 </form>
             </div>
     </div>
@@ -156,11 +175,8 @@ const { value: industrialSector, errorMessage: industrialSectorError } = useFiel
 const { value: projectDescription, errorMessage: projectDescriptionError } = useField('projectDescription')
 
 await checkAuth();
-// ProfileStore.applicant.userId = userId.value;
 
 const submitProfile = handleSubmit((values) => {
-    // profileStore.applicant.userId = userId.value;
-    // values = values
     profileStore.updateApplicant(values, userId.value, $notyf);
 });
 </script>
