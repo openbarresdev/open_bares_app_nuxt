@@ -7,6 +7,7 @@ export const useProfileStore = defineStore('profileStore', () => {
     const selectedCountry = ref('');
     const countries = ref([]);
     const applicant = ref({
+      userId:"",
       name: "",
       title: "",
       companyName: "",
@@ -18,8 +19,8 @@ export const useProfileStore = defineStore('profileStore', () => {
       projectDescription: "",
     });
     const isStepProfileComplete = ref(false);
-     const isLoading = ref(false);
-     const error = ref("");
+    const isLoading = ref(false);
+    const error = ref("");
 
 
     // actions here
@@ -43,25 +44,13 @@ export const useProfileStore = defineStore('profileStore', () => {
         }
     });
 
-    // POST
-    const handleSubmitProfile = (values) => {
-
-      if (isStepProfileComplete) {
-        // navigateTo('/user/dashboard/sponsorship/sponsor-information')
-        return;
-      } else {
-        console.log("Applicant form", values);
-        console.log("Complete all form");
-      }
-    };
-
     // FETCH
     async function fetchApplicant() {
     //   try {
     //     isLoading.value = true;
     //     error.value = "";
 
-    //     const res = await $fetch("/api/applicant");
+    //     const res = await $fetch("/api/applicant-project");
     //     applicant.value = res;
     //   } catch (err) {
     //     error.value = "Failed to load applicant data";
@@ -73,29 +62,40 @@ export const useProfileStore = defineStore('profileStore', () => {
 
 
     // PUT
-    async function updateApplicant(applicant, notyf) {
+    async function updateApplicant(applicant, user_id, notyf) {
       try {
         isLoading.value = true;
         error.value = "";
 
-        const res = await $fetch("/api/applicant", {
+        const payload = {
+            userId: user_id,
+            ...applicant
+        };
+
+        console.log("Payload being sent:", payload);
+
+        const res = await $fetch("/api/applicant-project", {
           method: "PUT",
-          body: data,
+          body: payload,
         });
 
-        applicant.value = res;
-        notyf.success("Login successful! Redirecting...");
+        if (!res.success) throw new Error(res.error);
+
+        applicant.value = res.project; // save updated result from DB
+
+        console.log('applicant data', applicant);
+        
+        notyf.success("Saved successfully!");
+
+        isStepProfileComplete.value = true;
+
         setTimeout(() => {
-          navigateTo("/");
+          navigateTo("/user/dashboard/sponsorship/sponsor-information");
         }, 3000);
-          isStepProfileComplete.value = true;
       } catch (err) {
         error.value = "Failed to update applicant";
-        //   console.error(err);
-          notyf.success(error);
-          setTimeout(() => {
-            navigateTo("/");
-          }, 3000);
+        console.error(err);
+        notyf.error(error.value);
       } finally {
         isLoading.value = false;
       }
@@ -111,7 +111,6 @@ export const useProfileStore = defineStore('profileStore', () => {
 
       // actions returned
       countriesOptions,
-      handleSubmitProfile,
       updateApplicant,
       fetchApplicant,
     };

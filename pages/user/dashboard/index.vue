@@ -30,16 +30,16 @@
                                 type="text"
                                 label="Applicant name"
                                 placeholder="John Tailor"
-                                v-model = "name"
+                                v-model = "applicantName"
                             />
-                            <span v-if="nameError" class="text-red-500 text-[0.85rem]">{{ errors.name }}</span>
+                            <span v-if="applicantNameError" class="text-red-500 text-[0.85rem]">{{ errors.applicantName }}</span>
                         </div>
                         <div class="col-span-2">
                                 <CommonSelectVariant
                                 label="Title"
                                 :options="titles"
-                                v-model="title"/>
-                            <span v-if="titleError" class="text-red-500 text-[0.85rem]">{{ errors.title }}</span>
+                                v-model="applicantTitle"/>
+                            <span v-if="applicantTitleError" class="text-red-500 text-[0.85rem]">{{ errors.applicantTitle }}</span>
                         </div>
                     </div>
 
@@ -47,9 +47,9 @@
                             type="text"
                             label="Company name"
                             placeholder="Crownhill Funding"
-                            v-model = "company"
+                            v-model = "companyName"
                         />
-                    <span v-if="companyError" class="text-red-500 text-[0.85rem]">{{ errors.company }}</span>
+                    <span v-if="companyNameError" class="text-red-500 text-[0.85rem]">{{ errors.companyName }}</span>
 
 
                     <CommonSelectVariant
@@ -91,15 +91,15 @@
                         <CommonSelectVariant
                             label="Project type"
                             :options="options"
-                            v-model = "project_type"/>
-                        <span v-if="project_typeError" class="text-red-500 text-[0.85rem]">{{ errors.project_type }}</span>
+                            v-model = "projectType"/>
+                        <span v-if="projectTypeError" class="text-red-500 text-[0.85rem]">{{ errors.projectType }}</span>
                         
 
                         <CommonSelectVariant
                             label="Industrial sector"
                             :options="sectors"
-                            v-model = "sector"/>
-                        <span v-if="sectorError" class="text-red-500 text-[0.85rem]">{{ errors.sector }}</span>
+                            v-model = "industrialSector"/>
+                        <span v-if="industrialSectorError" class="text-red-500 text-[0.85rem]">{{ errors.industrialSector }}</span>
                         
                     </div>
 
@@ -107,9 +107,9 @@
                         label="Project description"
                         :rows="3"
                         placeholder="Provide description of your project"
-                        v-model = "project_description"
+                        v-model = "projectDescription"
                         />
-                        <span v-if="project_descriptionError" class="text-red-500 text-[0.85rem]">{{ errors.project_description }}</span>
+                        <span v-if="projectDescriptionError" class="text-red-500 text-[0.85rem]">{{ errors.projectDescription }}</span>
 
 
                         
@@ -126,36 +126,41 @@ import { useProfileStore } from '@/stores/profileStore'
 import { profileSchema } from "~/validation/profileSchema";
 import { useForm, useField } from "vee-validate";
 
+const { userId, isAuthenticated, checkAuth } = useAuth();
 const profileStore = useProfileStore();
-const { $notyf } = useNuxtApp()
+const { $notyf } = useNuxtApp();
 
 const { handleSubmit, errors } = useForm({
     validationSchema: profileSchema,
     initialValues: {
-        name: profileStore.applicant.name,
-        title: profileStore.applicant.title,
-        company: profileStore.applicant.company,
+        applicantName: profileStore.applicant.applicantName,
+        applicantTitle: profileStore.applicant.applicantTitle,
+        companyName: profileStore.applicant.companyName,
         country: profileStore.applicant.country,
         city: profileStore.applicant.city,
         state: profileStore.applicant.state,
-        project_type: profileStore.applicant.projectType,
-        sector: profileStore.applicant.sector,
-        project_description: profileStore.applicant.projectDescription,
+        projectType: profileStore.applicant.projectType,
+        industrialSector: profileStore.applicant.industrialSector,
+        projectDescription: profileStore.applicant.projectDescription,
     }
 });
 
-const { value: name, errorMessage: nameError } = useField('name')
-const { value: title, errorMessage: titleError } = useField('title')
-const { value: company, errorMessage: companyError } = useField('company')
+const { value: applicantName, errorMessage: applicantNameError } = useField('applicantName')
+const { value: applicantTitle, errorMessage: applicantTitleError } = useField('applicantTitle')
+const { value: companyName, errorMessage: companyNameError } = useField('companyName')
 const { value: country, errorMessage: countryError } = useField('country')
 const { value: city, errorMessage: cityError } = useField('city')
 const { value: state, errorMessage: stateError } = useField('state')
-const { value: project_type, errorMessage: project_typeError } = useField('project_type')
-const { value: sector, errorMessage: sectorError } = useField('sector')
-const { value: project_description, errorMessage: project_descriptionError } = useField('project_description')
+const { value: projectType, errorMessage: projectTypeError } = useField('projectType')
+const { value: industrialSector, errorMessage: industrialSectorError } = useField('industrialSector')
+const { value: projectDescription, errorMessage: projectDescriptionError } = useField('projectDescription')
+
+await checkAuth();
+// ProfileStore.applicant.userId = userId.value;
 
 const submitProfile = handleSubmit((values) => {
-    // console.log("Applicant form:", values)
-    profileStore.handleSubmitProfile(values, $notyf)
+    // profileStore.applicant.userId = userId.value;
+    // values = values
+    profileStore.updateApplicant(values, userId.value, $notyf);
 });
 </script>

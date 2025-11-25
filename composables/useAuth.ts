@@ -29,21 +29,23 @@ export const useAuth = () => {
     }
   };
 
+  // Add userId getter
+  const userId = computed(() => user.value?.id || null);
+
   const isUser = computed(() => user.value?.role === "USER");
   const isAdmin = computed(() => user.value?.role === "ADMIN");
   const isSuperAdmin = computed(() => user.value?.role === "SUPER_ADMIN");
 
-  // Helper to check if user has at least admin privileges
   const isAtLeastAdmin = computed(
     () => user.value?.role === "ADMIN" || user.value?.role === "SUPER_ADMIN"
   );
 
-  // Helper to check specific permissions
   const hasRole = (role: "USER" | "ADMIN" | "SUPER_ADMIN") =>
     user.value?.role === role;
 
   return {
     user: readonly(user),
+    userId,
     isAuthenticated: readonly(isAuthenticated),
     isUser,
     isAdmin,
