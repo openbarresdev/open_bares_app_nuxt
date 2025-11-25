@@ -12,7 +12,8 @@
         />
 
         <!-- Floating label -->
-        <label class="input-floating-label lg:text-[1rem] text-base! line-clamp-1! after:content-['*'] after:ml-0.5 after:text-red-500" :for="id">
+        <label class="input-floating-label lg:text-[1rem] text-base! line-clamp-1! after:content-['*'] after:ml-0.5 after:text-red-500" 
+            :for="id">
           {{ label }}
         </label>
 
@@ -48,6 +49,7 @@ const props = defineProps({
   modelValue: { type: [String, Number, Object], default: '' },
   hasError: { type: Boolean, default: false },
   errorMessage: { type: String, default: '' },
+  // hasRequired: { type: Boolean, default: true },
 
 })
 

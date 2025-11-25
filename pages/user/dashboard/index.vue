@@ -55,6 +55,7 @@
                                 v-model = "companyName"
                                 :hasError="companyNameError"
                                 :errorMessage="errors.companyName"
+                                :hasRequired="true"
                             />
                     </div>
 
@@ -151,17 +152,6 @@ const { $notyf } = useNuxtApp();
 
 const { handleSubmit, errors, setValues } = useForm({
     validationSchema: profileSchema,
-    // initialValues: {
-    //     applicantName: profileStore.applicant.applicantName,
-    //     applicantTitle: profileStore.applicant.applicantTitle,
-    //     companyName: profileStore.applicant.companyName,
-    //     country: profileStore.applicant.country,
-    //     city: profileStore.applicant.city,
-    //     state: profileStore.applicant.state,
-    //     projectType: profileStore.applicant.projectType,
-    //     industrialSector: profileStore.applicant.industrialSector,
-    //     projectDescription: profileStore.applicant.projectDescription,
-    // }
 });
 
 const { value: applicantName, errorMessage: applicantNameError } = useField('applicantName')
