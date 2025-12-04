@@ -11,8 +11,8 @@
                     label="Lead Sponsor/Company Name"
                     placeholder="MTN"
                     v-model="sponsor"
-                    :hasError="sponsorError"
-                    :errorMessage="errors.sponsor"
+                    :hasError="!!sponsorError"
+                    :errorMessage="sponsorError"
                 />
 
                  <CommonInputsVariant class="lg:w-1/3 w-full"
@@ -20,8 +20,8 @@
                     label="Registration Number"
                     placeholder="HSNIW12N3J4"
                     v-model="regnumber"
-                    :hasError="regnumberError"
-                    :errorMessage="errors.regnumber"
+                    :hasError="!!regnumberError"
+                    :errorMessage="regnumberError"
                 />
                 </div>
 
@@ -30,8 +30,8 @@
                         label="Country of Incorporation"
                         :options="profileStore.countriesOptions"
                         v-model="countryOfIncorporation"
-                        :hasError="countryOfIncorporationError"
-                        :errorMessage="errors.countryOfIncorporation"
+                        :hasError="!!countryOfIncorporationError"
+                        :errorMessage="countryOfIncorporationError"
                     />
 
                     <CommonDateInput class="lg:w-1/2 w-full"
@@ -42,8 +42,8 @@
                             maxDate: new Date(),
                             dateFormat: 'd-m-Y'
                         }"
-                        :hasError="dateOfIncorporationError"
-                        :errorMessage="errors.dateOfIncorporation"
+                        :hasError="!!dateOfIncorporationError"
+                        :errorMessage="dateOfIncorporationError"
                     />
                 </div>
 
@@ -52,26 +52,16 @@
                 <CommonRadiaButton
                     v-model="legalStructure"
                     :options="legalStructureOptions"
-                    :hasError="legalStructureError"
-                    :errorMessage="errors.legalStructure"
+                    :hasError="!!legalStructureError"
+                    :errorMessage="legalStructureError"
                 />
-
-                <!-- Textarea for combined sponsor info -->
-                <!-- <CommonTextarea
-                    label="Additional Sponsor Information"
-                    placeholder="Provide detailed information about the sponsor including background, financial capacity, and previous experience..."
-                    v-model="sponsorInfoText"
-                    :hasError="sponsorInfoError"
-                    :errorMessage="errors.sponsorInfo"
-                    rows="4"
-                /> -->
 
                 <button type="submit" 
                   class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12"
-                > Save & Continue
-                  <!-- <span v-if="sponsorshipStore.isLoading" class="loading loading-spinner"></span>
+                  :disabled="sponsorshipStore.isLoading"
+                > 
+                  <span v-if="sponsorshipStore.isLoading" class="loading loading-spinner"></span>
                   {{ sponsorshipStore.isLoading ? 'Saving...' : 'Save & Continue' }}
-                  <span class="icon-[tabler--chevron-right] size-5"></span> -->
                 </button>
             </form>
     </div>
@@ -79,7 +69,7 @@
 
 <script setup>
 import { sponsorInfoSchema } from '~/validation/sponsorshipSchema';
-import { countries, legalStructure as legalStructureOptions } from "/assets/data/data";
+import { legalStructure as legalStructureOptions } from "/assets/data/data";
 import { useSponsorshipStore } from '@/stores/sponsorshipStore';
 import { useProfileStore } from '@/stores/profileStore';
 import { useForm, useField } from "vee-validate";
@@ -110,28 +100,17 @@ onMounted(async () => {
         if (profileStore.projectId) {
             await sponsorshipStore.fetchSponsorship(profileStore.projectId);
 
-            console.log('Sponsorship info', sponsorshipStore.sponsorship);
+            // console.log('Sponsorship info', sponsorshipStore.sponsorship);
             
+            // Populate form with persisted store data
             if (sponsorshipStore.sponsorship?.sponsorInfo) {
-                try {
-                    const parsedData = JSON.parse(sponsorshipStore.sponsorship.sponsorInfo);
-                    setValues({
-                        sponsor: parsedData.sponsor || '',
-                        regnumber: parsedData.regnumber || '',
-                        countryOfIncorporation: parsedData.countryOfIncorporation || '',
-                        dateOfIncorporation: parsedData.dateOfIncorporation || '',
-                        legalStructure: parsedData.legalStructure || ''
-                    });
-                } catch {
-                    // If parsing fails, set empty values
-                    setValues({
-                        sponsor: '',
-                        regnumber: '',
-                        countryOfIncorporation: '',
-                        dateOfIncorporation: '',
-                        legalStructure: ''
-                    });
-                }
+                setValues({
+                    sponsor: sponsorshipStore.sponsorship.sponsorInfo.sponsor || '',
+                    regnumber: sponsorshipStore.sponsorship.sponsorInfo.regnumber || '',
+                    countryOfIncorporation: sponsorshipStore.sponsorship.sponsorInfo.countryOfIncorporation || '',
+                    dateOfIncorporation: sponsorshipStore.sponsorship.sponsorInfo.dateOfIncorporation || '',
+                    legalStructure: sponsorshipStore.sponsorship.sponsorInfo.legalStructure || ''
+                });
             }
         }
     } catch (error) {
@@ -140,26 +119,25 @@ onMounted(async () => {
 });
 
 const submitSponsorInfo = handleSubmit(async (values) => {
-
     await profileStore.getProjectId(userId.value);
+    
     try {
-
         if (!profileStore.projectId) {
             $notyf.error('No project found');
             return;
         }
 
-        // Prepare data for database (store as JSON)
-        const sponsorInfoData = JSON.stringify(values);
+        // Update store with form data
+        sponsorshipStore.updateSponsorInfo(values);
 
-        console.log('sponsorInfoData is', sponsorInfoData);
+        console.log('profileStore.projectId is', profileStore.projectId);
         
         await sponsorshipStore.saveSponsorship(profileStore.projectId, {
-            sponsorInfo: sponsorInfoData
+            sponsorInfo: values // Now sending object directly
         });
         
         $notyf.success('Sponsor information saved successfully!');
-        navigateTo('/sponsorship/sponsor-business-history');
+        // navigateTo('/sponsorship/sponsor-business-history');
     } catch (error) {
         $notyf.error('Failed to save sponsor information');
     }

@@ -1,3 +1,4 @@
+// server/api/sponsorship/save.ts
 import { prisma } from "~/server/lib/prisma";
 import { defineEventHandler, readBody } from "h3";
 
@@ -16,7 +17,7 @@ export default defineEventHandler(async (event) => {
       return { success: false, error: "Project ID is required" };
     }
 
-    // Use upsert to create or update
+    // Upsert - Create or Update in one operation
     const sponsorship = await prisma.sponsorship.upsert({
       where: { projectId: parseInt(projectId) },
       update: {

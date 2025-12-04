@@ -1,4 +1,3 @@
-// stores/sponsorshipStore.ts
 import { ref } from "vue";
 import { defineStore } from "pinia";
 
@@ -9,12 +8,45 @@ export const useSponsorshipStore = defineStore("sponsorship", () => {
       regnumber: "",
       countryOfIncorporation: "",
       dateOfIncorporation: "",
-      legalStructure: ""
+      legalStructure: "",
     },
-    sponsorBusinessHist: "",
-    managementStructure: "",
-    technicalAssistance: "",
-  })
+    sponsorBusinessHist: {
+      currency: "",
+      firstYearRevenu: "",
+      secondYearRevenu: "",
+      thirdthYearRevenu: "",
+      totalAssets: "",
+      netWorth: "",
+    },
+    managementStructure: {
+        businessDes: "",
+        ceo: {
+          name: "",
+          yearExperiance: "",
+          previousPosition: "",
+          educationDegree: "",
+        },
+        cfo: {
+          name: "",
+          yearExperiance: "",
+          previousPosition: "",
+          educationDegree: "",
+        },
+        cto: {
+          name: "",
+          yearExperiance: "",
+          previousPosition: "",
+          educationDegree: "",
+        },
+    },
+    technicalAssistance: {
+      managementAssist: "",
+      productionAssist: "",
+      marketingAssist: "",
+      financielAssist: "",
+      others: "",
+    }
+  });
 
   const isLoading = ref(false);
   const error = ref(null);
@@ -25,7 +57,10 @@ export const useSponsorshipStore = defineStore("sponsorship", () => {
   };
 
   const updateSponsorInfo = (sponsorInfoData) => {
-    sponsorship.value.sponsorInfo = { ...sponsorship.value.sponsorInfo, ...sponsorInfoData };
+    sponsorship.value.sponsorInfo = {
+      ...sponsorship.value.sponsorInfo,
+      ...sponsorInfoData,
+    };
   };
 
   const fetchSponsorship = async (projectId) => {
@@ -41,6 +76,8 @@ export const useSponsorshipStore = defineStore("sponsorship", () => {
       if (response.success && response.data) {
         // Persist data in store
         sponsorship.value = response.data;
+        console.log("information data is", response.data);
+        
       }
 
       return response;
@@ -56,6 +93,9 @@ export const useSponsorshipStore = defineStore("sponsorship", () => {
     isLoading.value = true;
     error.value = null;
 
+    console.log('project is', projectId);
+    console.log("sectionData is", sectionData);
+    
     try {
       const response = await $fetch("/api/sponsorship", {
         method: "POST",

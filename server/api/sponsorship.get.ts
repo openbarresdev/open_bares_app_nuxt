@@ -1,14 +1,16 @@
 import { prisma } from "~/server/lib/prisma";
-import { defineEventHandler } from "h3";
+import { defineEventHandler, getQuery } from "h3";
 
 export default defineEventHandler(async (event) => {
   try {
-    //   const { projectId } = event.context.params;
-      const query = getQuery(event);
-      const projectId = Number(query.projectId);
+    const { projectId } = getQuery(event);
+
+    if (!projectId) {
+      return { success: false, error: "Project ID is required" };
+    }
 
     const sponsorship = await prisma.sponsorship.findUnique({
-      where: { projectId: projectId },
+      where: { projectId: parseInt(projectId as string) },
     });
 
     return {
