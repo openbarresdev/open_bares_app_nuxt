@@ -20,7 +20,7 @@ export const useSponsorshipStore = defineStore("sponsorship", () => {
       netWorth: "",
     },
     managementStructure: {
-      businessDes: "",
+      structureManagementDesc: "",
       ceo: {
         name: "",
         yearExperience: "",
@@ -81,6 +81,8 @@ export const useSponsorshipStore = defineStore("sponsorship", () => {
       ...sponsorship.value.managementStructure,
       ...data,
     };
+
+    console.log("managementStructure", sponsorship.value.managementStructure);
   };
 
   const updateTechnicalAssistance = (data) => {
@@ -109,7 +111,7 @@ export const useSponsorshipStore = defineStore("sponsorship", () => {
         };
 
         console.log('SPONsor', sponsorship.value);
-        console.log("SPONsor response", response.data);
+        // console.log("SPONsor response", response.data);
         
       }
 

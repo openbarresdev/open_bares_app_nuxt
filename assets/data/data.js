@@ -277,12 +277,26 @@ export const years = [
   { id: 4, value: "5-10 Years" },
 ];
 
+export const yearExperience = [
+  { id: 1, value: "1 Year" },
+  { id: 2, value: "2 Years" },
+  { id: 3, value: "3-5 Years" },
+  { id: 4, value: "5-10 Years" },
+];
+
 export const education = [
   { id: 1, value: "Bachelor" },
   { id: 2, value: "Master" },
   { id: 3, value: "Doctorat" },
   { id: 4, value: "Others" },
-]; ;
+]; 
+
+export const educationDegree = [
+  { id: 1, value: "Bachelor" },
+  { id: 2, value: "Master" },
+  { id: 3, value: "Doctorat" },
+  { id: 4, value: "Others" },
+]; 
 
 export const channels = [
   { id: 1, value: "Direct sales" },

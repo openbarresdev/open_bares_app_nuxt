@@ -193,7 +193,7 @@ const submitBusinessHistory = handleSubmit(async (values) => {
         await sponsorshipStore.saveSponsorshipSection(profileStore.projectId, 'sponsorBusinessHist', values);
         
         $notyf.success('Business history saved successfully!');
-        // navigateTo('/sponsorship/management-structure');x`
+        navigateTo('/sponsorship/management-structure');
     } catch (error) {
         $notyf.error('Failed to save business history 2');
     }
