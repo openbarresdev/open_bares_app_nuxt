@@ -90,6 +90,7 @@ const { userId, checkAuth } = useAuth();
 const sponsorshipStore = useSponsorshipStore();
 const profileStore = useProfileStore();
 const { $notyf } = useNuxtApp();
+const nextPage = usePageNav();
 
 const { handleSubmit, errors, setValues } = useForm({
     validationSchema: technicalAssistanceSchema,
@@ -163,7 +164,7 @@ const submitTechnicalAssistance = handleSubmit(async (values) => {
         $notyf.success('Technical assistance saved successfully!');
         
         // Navigate to next section (market/production-and-sales-projections)
-        // navigateTo('/market/production-and-sales-projections');
+        nextPage.goToNextPage('market/production-and-sales-projections');
     } catch (error) {
         $notyf.error('Failed to save technical assistance');
     }

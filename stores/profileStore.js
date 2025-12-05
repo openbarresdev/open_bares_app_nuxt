@@ -1,5 +1,6 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
+import { useDataStore } from "#imports";
 
 export const useProfileStore = defineStore('profileStore', () => {
   // states here
@@ -21,6 +22,8 @@ export const useProfileStore = defineStore('profileStore', () => {
   const isLoading = ref(false);
   const error = ref("");
   const projectId = ref("");
+
+  const dataSore = useDataStore();
 
   // actions here
   const countriesOptions = computed(() => {
@@ -99,6 +102,9 @@ export const useProfileStore = defineStore('profileStore', () => {
       notyf.success("Saved successfully!");
 
       isStepProfileComplete.value = true;
+       dataSore.updateApplicationProcess({
+         sponsorshipPercent: isStepProfileComplete.value,
+       });
 
       setTimeout(() => {
         navigateTo("/user/dashboard/sponsorship/sponsor-information");

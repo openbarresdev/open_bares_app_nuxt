@@ -1,5 +1,6 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
+import { useDataStore } from "#imports";
 
 export const useSponsorshipStore = defineStore("sponsorship", () => {
   const sponsorship = ref({
@@ -48,10 +49,12 @@ export const useSponsorshipStore = defineStore("sponsorship", () => {
       others: "",
     },
   });
+  const isStepSponsorshipComplete = ref(false);
 
   const isLoading = ref(false);
   const error = ref(null);
-
+  const dataSore = useDataStore();
+  
   // Actions pour mettre à jour chaque section
   const updateSponsorInfo = (data) => {
     sponsorship.value.sponsorInfo = {
@@ -133,9 +136,9 @@ export const useSponsorshipStore = defineStore("sponsorship", () => {
     isLoading.value = true;
     error.value = null;
 
-    console.log("project id", projectId);
-    console.log("project id", sectionName);
-    console.log("project id", sectionData);
+    // console.log("project id", projectId);
+    // console.log("project id", sectionName);
+    // console.log("project id", sectionData);
     
     try {
       const response = await $fetch("/api/sponsorship", {
@@ -155,8 +158,17 @@ export const useSponsorshipStore = defineStore("sponsorship", () => {
         };
       }
 
-      console.log('DATA'), response.data;
-      
+      // console.log('DATA'), response.data;
+      if (
+        response.success &&
+        response.data &&
+        sectionName === "technicalAssistance"
+      ) {
+        isStepSponsorshipComplete.value = true;
+        dataSore.updateApplicationProcess({
+          sponsorshipPercent: isStepSponsorshipComplete.value,
+        });
+      }
       return response;
     } catch (err) {
       error.value = err.data?.message || "Failed to save sponsorship data";
@@ -194,6 +206,7 @@ export const useSponsorshipStore = defineStore("sponsorship", () => {
     sponsorship: readonly(sponsorship),
     isLoading: readonly(isLoading),
     error: readonly(error),
+    isStepSponsorshipComplete : readonly(isStepSponsorshipComplete),
 
     // Actions pour chaque section
     updateSponsorInfo,
