@@ -15,7 +15,12 @@ export default defineEventHandler(async (event) => {
 
     return {
       success: true,
-      data: sponsorship,
+      data: sponsorship || {
+        sponsorInfo: null,
+        sponsorBusinessHist: null,
+        managementStructure: null,
+        technicalAssistance: null,
+      },
     };
   } catch (error) {
     console.error(error);

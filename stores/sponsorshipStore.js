@@ -11,58 +11,86 @@ export const useSponsorshipStore = defineStore("sponsorship", () => {
       legalStructure: "",
     },
     sponsorBusinessHist: {
+      projectDescription:"",
       currency: "",
-      firstYearRevenu: "",
-      secondYearRevenu: "",
-      thirdthYearRevenu: "",
+      firstYearRevenue: "",
+      secondYearRevenue: "",
+      thirdYearRevenue: "",
       totalAssets: "",
       netWorth: "",
     },
     managementStructure: {
-        businessDes: "",
-        ceo: {
-          name: "",
-          yearExperiance: "",
-          previousPosition: "",
-          educationDegree: "",
-        },
-        cfo: {
-          name: "",
-          yearExperiance: "",
-          previousPosition: "",
-          educationDegree: "",
-        },
-        cto: {
-          name: "",
-          yearExperiance: "",
-          previousPosition: "",
-          educationDegree: "",
-        },
+      businessDes: "",
+      ceo: {
+        name: "",
+        yearExperience: "",
+        previousPosition: "",
+        educationDegree: "",
+      },
+      cfo: {
+        name: "",
+        yearExperience: "",
+        previousPosition: "",
+        educationDegree: "",
+      },
+      cto: {
+        name: "",
+        yearExperience: "",
+        previousPosition: "",
+        educationDegree: "",
+      },
     },
     technicalAssistance: {
       managementAssist: "",
       productionAssist: "",
       marketingAssist: "",
-      financielAssist: "",
+      financialAssist: "",
       others: "",
-    }
+    },
   });
 
   const isLoading = ref(false);
   const error = ref(null);
 
-  // Actions
-  const updateSponsorship = (data) => {
-    sponsorship.value = { ...sponsorship.value, ...data };
-  };
-
-  const updateSponsorInfo = (sponsorInfoData) => {
+  // Actions pour mettre à jour chaque section
+  const updateSponsorInfo = (data) => {
     sponsorship.value.sponsorInfo = {
       ...sponsorship.value.sponsorInfo,
-      ...sponsorInfoData,
+      ...data,
+    };
+
+    // console.log('sponsor info', sponsorship.value.sponsorInfo);
+    // console.log("sponsor", sponsorship.value);
+    
+  };
+
+  const updateBusinessHistory = (data) => {
+    sponsorship.value.sponsorBusinessHist = {
+      ...sponsorship.value.sponsorBusinessHist,
+      ...data,
+    };
+    console.log('passed');
+    
+    // console.log("All data", sponsorship.value);
+    // console.log("updateBusinessHistory", sponsorship.value.sponsorBusinessHist);
+
+  };
+
+  const updateManagementStructure = (data) => {
+    sponsorship.value.managementStructure = {
+      ...sponsorship.value.managementStructure,
+      ...data,
     };
   };
 
+  const updateTechnicalAssistance = (data) => {
+    sponsorship.value.technicalAssistance = {
+      ...sponsorship.value.technicalAssistance,
+      ...data,
+    };
+  };
+
+  // Fetch toutes les données
   const fetchSponsorship = async (projectId) => {
     isLoading.value = true;
     error.value = null;
@@ -74,9 +102,14 @@ export const useSponsorshipStore = defineStore("sponsorship", () => {
       });
 
       if (response.success && response.data) {
-        // Persist data in store
-        sponsorship.value = response.data;
-        console.log("information data is", response.data);
+        // Merge les données reçues avec l'état initial
+        sponsorship.value = {
+          ...sponsorship.value,
+          ...response.data,
+        };
+
+        console.log('SPONsor', sponsorship.value);
+        console.log("SPONsor response", response.data);
         
       }
 
@@ -89,27 +122,39 @@ export const useSponsorshipStore = defineStore("sponsorship", () => {
     }
   };
 
-  const saveSponsorship = async (projectId, sectionData) => {
+  // Sauvegarder une section spécifique
+  const saveSponsorshipSection = async (
+    projectId,
+    sectionName,
+    sectionData
+  ) => {
     isLoading.value = true;
     error.value = null;
 
-    console.log('project is', projectId);
-    console.log("sectionData is", sectionData);
+    console.log("project id", projectId);
+    console.log("project id", sectionName);
+    console.log("project id", sectionData);
     
     try {
       const response = await $fetch("/api/sponsorship", {
         method: "POST",
         body: {
           projectId,
-          ...sectionData,
+          sectionName, // "sponsorInfo", "sponsorBusinessHist", etc.
+          sectionData,
         },
       });
 
-      // Update local state with saved data
-      if (response.success) {
-        updateSponsorship(sectionData);
+      // Mettre à jour le store local
+      if (response.success && response.data) {
+        sponsorship.value[sectionName] = {
+          ...sponsorship.value[sectionName],
+          ...sectionData,
+        };
       }
 
+      console.log('DATA'), response.data;
+      
       return response;
     } catch (err) {
       error.value = err.data?.message || "Failed to save sponsorship data";
@@ -119,16 +164,44 @@ export const useSponsorshipStore = defineStore("sponsorship", () => {
     }
   };
 
+  // Sauvegarder tout en une fois (optionnel)
+  // const saveAllSponsorship = async (projectId) => {
+  //   isLoading.value = true;
+  //   error.value = null;
+
+  //   try {
+  //     const response = await $fetch("/api/sponsorship/save-all", {
+  //       method: "POST",
+  //       body: {
+  //         projectId,
+  //         ...sponsorship.value,
+  //       },
+  //     });
+
+  //     return response;
+  //   } catch (err) {
+  //     error.value = err.data?.message || "Failed to save all sponsorship data";
+  //     throw err;
+  //   } finally {
+  //     isLoading.value = false;
+  //   }
+  // };
+
   return {
     // State
     sponsorship: readonly(sponsorship),
     isLoading: readonly(isLoading),
     error: readonly(error),
 
-    // Actions
-    updateSponsorship,
+    // Actions pour chaque section
     updateSponsorInfo,
+    updateBusinessHistory,
+    updateManagementStructure,
+    updateTechnicalAssistance,
+
+    // Actions API
     fetchSponsorship,
-    saveSponsorship,
+    saveSponsorshipSection,
+    // saveAllSponsorship,
   };
 });

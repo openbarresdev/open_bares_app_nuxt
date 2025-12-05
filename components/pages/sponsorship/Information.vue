@@ -132,9 +132,11 @@ const submitSponsorInfo = handleSubmit(async (values) => {
 
         console.log('profileStore.projectId is', profileStore.projectId);
         
-        await sponsorshipStore.saveSponsorship(profileStore.projectId, {
-            sponsorInfo: values // Now sending object directly
-        });
+        await sponsorshipStore.saveSponsorshipSection(
+            profileStore.projectId, 
+            'sponsorInfo',
+            values
+        );
         
         $notyf.success('Sponsor information saved successfully!');
         // navigateTo('/sponsorship/sponsor-business-history');
