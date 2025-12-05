@@ -82,7 +82,7 @@ export const useSponsorshipStore = defineStore("sponsorship", () => {
       ...data,
     };
 
-    console.log("managementStructure", sponsorship.value.managementStructure);
+    // console.log("managementStructure", sponsorship.value.managementStructure);
   };
 
   const updateTechnicalAssistance = (data) => {

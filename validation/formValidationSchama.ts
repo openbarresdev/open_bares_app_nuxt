@@ -51,7 +51,6 @@ const businessHistorySchema = object({
     .required('Net worth is required')
 });
 
-// validation/sponsorshipSchema.ts (ajout pour management structure)
 const managementStructureSchema = object({
   structureManagementDesc: string()
     .min(10, "Business description must be at least 10 characters")
@@ -95,4 +94,35 @@ const managementStructureSchema = object({
   ctoEducationDegree: string().required("CTO education degree is required"),
 });
 
-export { sponsorInfoSchema, businessHistorySchema, managementStructureSchema };
+const technicalAssistanceSchema = object({
+  managementAssist: string()
+    .min(5, 'Management assistance must be at least 5 characters')
+    .max(500, 'Management assistance too long')
+    .required('Management assistance is required'),
+  
+  productionAssist: string()
+    .min(5, 'Production assistance must be at least 5 characters')
+    .max(500, 'Production assistance too long')
+    .required('Production assistance is required'),
+  
+  marketingAssist: string()
+    .min(5, 'Marketing assistance must be at least 5 characters')
+    .max(500, 'Marketing assistance too long')
+    .required('Marketing assistance is required'),
+  
+  financialAssist: string()
+    .min(5, 'Financial assistance must be at least 5 characters')
+    .max(500, 'Financial assistance too long')
+    .required('Financial assistance is required'),
+  
+  others: string()
+    .max(500, 'Others field too long')
+    .optional()
+});
+
+export {
+  sponsorInfoSchema,
+  businessHistorySchema,
+  managementStructureSchema,
+  technicalAssistanceSchema,
+};

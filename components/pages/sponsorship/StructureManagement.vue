@@ -236,23 +236,24 @@ onMounted(async () => {
                         ctoPreviousPosition: parsedData.cto?.previousPosition || '',
                         ctoEducationDegree: parsedData.cto?.educationDegree || '',
                     });
-                } catch {
+                } catch(error) {
+                    console.error('Failed to parsed data:', error);
                     // If parsing fails, set empty values
-                    setValues({
-                        structureManagementDesc: '',
-                        ceoName: '',
-                        ceoYearExperience: '',
-                        ceoPreviousPosition: '',
-                        ceoEducationDegree: '',
-                        cfoName: '',
-                        cfoYearExperience: '',
-                        cfoPreviousPosition: '',
-                        cfoEducationDegree: '',
-                        ctoName: '',
-                        ctoYearExperience: '',
-                        ctoPreviousPosition: '',
-                        ctoEducationDegree: '',
-                    });
+                    // setValues({
+                    //     structureManagementDesc: '',
+                    //     ceoName: '',
+                    //     ceoYearExperience: '',
+                    //     ceoPreviousPosition: '',
+                    //     ceoEducationDegree: '',
+                    //     cfoName: '',
+                    //     cfoYearExperience: '',
+                    //     cfoPreviousPosition: '',
+                    //     cfoEducationDegree: '',
+                    //     ctoName: '',
+                    //     ctoYearExperience: '',
+                    //     ctoPreviousPosition: '',
+                    //     ctoEducationDegree: '',
+                    // });
                 }
             }
         }
