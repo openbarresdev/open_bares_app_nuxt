@@ -17,6 +17,7 @@ enum Role {
 
 datasource db {
   provider = "mysql"
+  url = "DATABASE_URL_MYSQL"
 }
 
 model User {
@@ -37,7 +38,7 @@ model ApplicationSettings {
   id          Int      @id @default(autoincrement())
   userId      String   @map("user_id")
   projectId   Int      @map("project_id")
-  steps       Json     // Stockera { profilePercent: true, sponsorshipPercent: false, ... }
+  steps       Json     
   updatedAt   DateTime @updatedAt @map("updated_at")
   createdAt   DateTime @default(now()) @map("created_at")
 
