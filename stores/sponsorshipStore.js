@@ -165,10 +165,21 @@ export const useSponsorshipStore = defineStore("sponsorship", () => {
         sectionName === "technicalAssistance"
       ) {
         isStepSponsorshipComplete.value = true;
-        dataSore.updateApplicationProcess({
+        dataSore.updateApplicationSteps({
           sponsorshipPercent: isStepSponsorshipComplete.value,
         });
       }
+
+      const { userId } = useAuth();
+
+      await dataSore.updateStep(
+        "sponsorshipPercent",
+        isStepSponsorshipComplete.value,
+        userId,
+        projectId
+      );
+
+
       return response;
     } catch (err) {
       error.value = err.data?.message || "Failed to save sponsorship data";

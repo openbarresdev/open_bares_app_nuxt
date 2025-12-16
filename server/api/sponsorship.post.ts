@@ -1,4 +1,3 @@
-// server/api/sponsorship/save.ts
 import { prisma } from "~/server/lib/prisma";
 import { defineEventHandler, readBody } from "h3";
 

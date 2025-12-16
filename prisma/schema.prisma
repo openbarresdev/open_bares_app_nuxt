@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+
 }
 
 enum Role {
@@ -30,6 +31,18 @@ model User {
 
   // 1:1 relationship — Each user can have only one project
   project       Project?
+}
+
+model ApplicationSettings {
+  id          Int      @id @default(autoincrement())
+  userId      String   @map("user_id")
+  projectId   Int      @map("project_id")
+  steps       Json     // Stockera { profilePercent: true, sponsorshipPercent: false, ... }
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@unique([userId, projectId])
+  @@map("application_progress")
 }
 
 model Project {
@@ -88,10 +101,16 @@ model Sponsorship {
 model MarketAnalysis {
   id                     Int      @id @default(autoincrement())
   projectId              Int      @unique
-  productionSalesProj    String?
-  targetMarket           String?
-  marketEnvironment      String?
   project                Project  @relation(fields: [projectId], references: [id])
+
+  productionAndSales  Json?
+  targetMarket        Json?
+  marketEnvironment   Json?
+  
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  
+  @@map("market_analyses")
 }
 
 /////////////////////////////////////////////////////

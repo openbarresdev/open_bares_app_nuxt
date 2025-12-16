@@ -157,6 +157,8 @@ onMounted(async () => {
     try {
         await profileStore.fetchApplicant(userId)
 
+        console.log('profileStore applicant', profileStore.applicant.project);
+        
         if (profileStore.applicant?.project) {
             // console.log('profileStore.applicant proj', profileStore.applicant.project)
             setValues({

@@ -120,9 +120,92 @@ const technicalAssistanceSchema = object({
     .optional()
 });
 
+
+const productionAndSalesSchema = object({
+  yearOneProductionVolume: string()
+    .required("Production volume is required")
+    .matches(/^[0-9,]+$/, "Enter a valid number"),
+
+  yearOneUnitPrice: string()
+    .required("Unit price is required")
+    .matches(/^[0-9,.]+$/, "Enter a valid price"),
+
+  yearOneTotalRevenue: string()
+    .required("Total revenue is required")
+    .matches(/^[0-9,.]+$/, "Enter a valid amount"),
+
+  yearOneNetProfit: string()
+    .required("Net profit is required")
+    .matches(/^[0-9,.]+$/, "Enter a valid amount"),
+
+  yearTwoProductionVolume: string()
+    .required("Production volume is required")
+    .matches(/^[0-9,]+$/, "Enter a valid number"),
+
+  yearTwoUnitPrice: string()
+    .required("Unit price is required")
+    .matches(/^[0-9,.]+$/, "Enter a valid price"),
+
+  yearTwoTotalRevenue: string()
+    .required("Total revenue is required")
+    .matches(/^[0-9,.]+$/, "Enter a valid amount"),
+
+  yearTwoNetProfit: string()
+    .required("Net profit is required")
+    .matches(/^[0-9,.]+$/, "Enter a valid amount"),
+
+  yearThreeProductionVolume: string()
+    .required("Production volume is required")
+    .matches(/^[0-9,]+$/, "Enter a valid number"),
+
+  yearThreeUnitPrice: string()
+    .required("Unit price is required")
+    .matches(/^[0-9,.]+$/, "Enter a valid price"),
+
+  yearThreeTotalRevenue: string()
+    .required("Total revenue is required")
+    .matches(/^[0-9,.]+$/, "Enter a valid amount"),
+
+  yearThreeNetProfit: string()
+    .required("Net profit is required")
+    .matches(/^[0-9,.]+$/, "Enter a valid amount"),
+});
+
+
+const targetMarketSchema = object({
+  primaryUserDesc: string()
+    .min(10, 'Description must be at least 10 characters')
+    .max(500, 'Description too long')
+    .required('Primary user description is required'),
+  
+  contributionChannel: string()
+    .required('Contribution channel is required')
+})
+
+
+const marketEnvironmentSchema = object({
+  sourceOfSupply: string()
+    .required('Source of supply is required'),
+  
+  mainCompetitors: string()
+    .required('Main competitors is required'),
+  
+  marketSubstitution: string()
+    .required('Market substitution is required'),
+  
+  importRestrictions: string()
+    .required('Import restrictions is required'),
+  
+  criticalFactors: string()
+    .required('Critical factors is required')
+})
+
 export {
   sponsorInfoSchema,
   businessHistorySchema,
   managementStructureSchema,
   technicalAssistanceSchema,
+  productionAndSalesSchema,
+  targetMarketSchema,
+  marketEnvironmentSchema,
 };

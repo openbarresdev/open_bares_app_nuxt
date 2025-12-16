@@ -102,9 +102,16 @@ export const useProfileStore = defineStore('profileStore', () => {
       notyf.success("Saved successfully!");
 
       isStepProfileComplete.value = true;
-       dataSore.updateApplicationProcess({
-         sponsorshipPercent: isStepProfileComplete.value,
+       dataSore.updateApplicationSteps({
+         profilePercent: isStepProfileComplete.value,
        });
+      
+      await dataSore.updateStep(
+        "profilePercent",
+        isStepProfileComplete.value,
+        user_id,
+        applicant.project.id
+      );
 
       setTimeout(() => {
         navigateTo("/user/dashboard/sponsorship/sponsor-information");
