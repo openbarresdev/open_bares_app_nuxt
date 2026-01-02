@@ -67,7 +67,7 @@ export default defineEventHandler(async (event) => {
   const redirectUrl =
     user.role === "ADMIN" || user.role === "SUPER_ADMIN"
       ? "/admin/dashboard"
-      : "/user/bashboard";
+      : "/user/dashboard";
 
   return sendRedirect(event, redirectUrl);
 });
