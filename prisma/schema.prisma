@@ -43,7 +43,7 @@ model ApplicationSettings {
   createdAt   DateTime @default(now()) @map("created_at")
 
   @@unique([userId, projectId])
-  @@map("application_progress")
+  @@map("ApplicationSettings")
 }
 
 model Project {

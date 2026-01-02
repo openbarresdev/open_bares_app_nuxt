@@ -170,14 +170,14 @@ export const useSponsorshipStore = defineStore("sponsorship", () => {
         });
       }
 
-      const { userId } = useAuth();
+      // const { userId } = useAuth();
 
-      await dataSore.updateStep(
-        "sponsorshipPercent",
-        isStepSponsorshipComplete.value,
-        userId,
-        projectId
-      );
+      // await dataSore.updateStep(
+      //   "sponsorshipPercent",
+      //   isStepSponsorshipComplete.value,
+      //   userId,
+      //   projectId
+      // );
 
 
       return response;

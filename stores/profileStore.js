@@ -106,12 +106,14 @@ export const useProfileStore = defineStore('profileStore', () => {
          profilePercent: isStepProfileComplete.value,
        });
       
-      await dataSore.updateStep(
-        "profilePercent",
-        isStepProfileComplete.value,
-        user_id,
-        applicant.project.id
-      );
+      console.log("ap", res.project[1]);
+      
+      //  await dataSore.updateStep(
+      //    "profilePercent",
+      //    isStepProfileComplete.value,
+      //    user_id,
+      //    applicant.project.id
+      //  );
 
       setTimeout(() => {
         navigateTo("/user/dashboard/sponsorship/sponsor-information");
