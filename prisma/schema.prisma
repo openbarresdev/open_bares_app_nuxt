@@ -17,7 +17,7 @@ enum Role {
 
 datasource db {
   provider = "mysql"
-  url = "DATABASE_URL_MYSQL"
+  url = env("DATABASE_URL_MYSQL")
 }
 
 model User {
