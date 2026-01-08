@@ -51,6 +51,13 @@
                   </ul>
                 </div>
               </li>
+
+              <hr class="text-zinc-300 my-1">
+              <div @click="logoutUser" class="inline-flex items-center p-2 text-start text-sm font-normal w-full h-11 max-lg:h-14! gap-2 btn btn-xlrounded-md btn-neutral btn-gradient opacity-80 hover:opacity-100 text-white cursor-pointer max-lg:mt-3" data-overlay="#middle-center-modal" ria-haspopup="dialog" aria-expanded="false">
+                <span class="icon-[solar--power-bold-duotone] size-6"></span>
+                  <span class="grow"> Log Out </span>
+              </div>
+
             </ul>
           </div>
         </div>
@@ -62,6 +69,8 @@
 <script setup>
 import { toRefs, watch, onMounted, onUnmounted, ref } from "vue";
 import { useAuth } from "~/composables/useAuth";
+import { useHSModal } from '~/composables/useHSModal';
+
 
 const props = defineProps({
   sections: { type: Array, required: false, default: () => [] },
@@ -155,6 +164,16 @@ onUnmounted(() => {
   window.removeEventListener("resize", handleResize);
   document.body.classList.remove("overflow-hidden"); 
 });
+
+const { openModal } = useHSModal('#middle-center-modal');
+
+const logoutUser = async () => {
+    emitClose();
+    openModal()
+
+    
+}
+
 </script>
 
 <style scoped>
