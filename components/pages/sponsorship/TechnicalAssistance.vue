@@ -183,6 +183,7 @@ const submitTechnicalAssistance = handleSubmit(async (values) => {
     // console.log('Technical assistance data:', technicalAssistanceData);
 
     await sponsorshipStore.saveSponsorshipSection(
+      userId.value,
       profileStore.projectId,
       "technicalAssistance",
       values

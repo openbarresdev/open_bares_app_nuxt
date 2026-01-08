@@ -1,13 +1,17 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 import { useProfileStore, useSponsorshipStore } from "#imports";
-
+// import { useAuth } from "~/composables/useAuth";
 
 export const useDataStore = defineStore(
   "dataSore",
   () => {
     const profileSore = useProfileStore();
     const sponsorshipStore = useSponsorshipStore();
+    const completedStepsCount = ref();
+    const totalSteps = ref();
+    const percentageProgress = ref(0);
+
     const preferences = ref({
       currency: "euro",
     });
@@ -16,34 +20,55 @@ export const useDataStore = defineStore(
     const steps = ref({
       profilePercent: false,
       sponsorshipPercent: false,
+      marketPercent: false,
+      technicalPercent: false,
+      investmentFinancingPercent: false,
+      governmentSupportPercent: false,
+      projectTimelinePercent: false,
+      supportingDocumentsPercent: false,
     });
 
-    const updateApplicationSteps = (data) => {
+    const updateApplicationSteps = (stepUpdates, userId, projectId) => {
       steps.value = {
         ...steps.value,
-        ...data,
+        ...stepUpdates,
       };
-      console.log("process", steps.value);
+   
+      if (userId && projectId) {
+        saveSteps( userId, projectId, steps.value );
+      }
     };
 
     const loadSteps = async (userId, projectId) => {
+      console.log("fetchig application steps...");
       const { data } = await useFetch("/api/application-settings", {
         query: { userId, projectId },
       });
 
       if (data.value?.success) {
-        steps.value = { ...steps.value, ...data.value.data };
+        
+        const mergedSteps = { ...steps.value, ...data.value.data };
+
+        calculateProgress(mergedSteps);
+
+        return mergedSteps;
       }
+      console.log('something failed');
+      
+      return null;
     };
 
-    // Sauvegarder vers API
     const saveSteps = async (
       userId,
       projectId,
       stepUpdates
     ) => {
+      console.log("saving to database started...");
       steps.value = { ...steps.value, ...stepUpdates };
 
+      console.log( "user id", userId);
+      // console.log(projectId);
+      
       const { data } = await useFetch("/api/application-settings", {
         method: "POST",
         body: { userId, projectId, steps: steps.value },
@@ -52,7 +77,6 @@ export const useDataStore = defineStore(
       return data.value?.success || false;
     };
 
-    // Mettre à jour un step
     const updateStep = async (
       stepName,
       value,
@@ -66,49 +90,39 @@ export const useDataStore = defineStore(
       }
     };
 
-    const percentageProgress = ref();
+    const calculateProgress = (steps) => {
 
-    const calculatePercentage = () => {
-      const data = {
-        ...steps.value,
-      };
-      // let totalProcess = 0;
-      // console.log("data", Object.entries(data).length);
+      totalSteps.value = Object.keys(steps).length;
 
-      let totalProcess = Object.entries(data).length;
-      let currentApplied = Object.keys(steps.value).filter(
-        (key) => steps.value[key] === true
+      const allSteps = Object.keys(steps);
+
+      const completedSteps = allSteps.filter((key) => steps[key] === true);
+
+      console.log(completedSteps);
+      
+      percentageProgress.value = Math.round(
+        (completedSteps.length / allSteps.length) * 100
       );
 
-      console.log("totalProcess", totalProcess);
-      console.log("currentApplied array", currentApplied);
+      completedStepsCount.value = completedSteps.length;
 
-      // console.log("calculated", (Number(currentApplied) / totalProcess) * 100);
-
-
-      // percentageProgress.value = computed(() => {
-      //   if (currentApplied != 0) { 
-      //     return (currentApplied / totalProcess) * 100;
-      //   } 
-          
-      // })
-      // console.log("percentageProgress", percentageProgress.value);
-
-      // return percentageProgress;
+      return percentageProgress.value;
     };
 
     return {
       // State
       preferences,
+      completedStepsCount,
+      totalSteps,
       percentageProgress,
-      
+
       // Actions
       steps,
       loadSteps,
       saveSteps,
       updateStep,
       updateApplicationSteps,
-      calculatePercentage,
+      calculateProgress,
 
       // Actions API
     };

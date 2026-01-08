@@ -53,7 +53,7 @@ export const useSponsorshipStore = defineStore("sponsorship", () => {
 
   const isLoading = ref(false);
   const error = ref(null);
-  const dataSore = useDataStore();
+  const dataStore = useDataStore();
   
   // Actions pour mettre à jour chaque section
   const updateSponsorInfo = (data) => {
@@ -129,6 +129,7 @@ export const useSponsorshipStore = defineStore("sponsorship", () => {
 
   // Sauvegarder une section spécifique
   const saveSponsorshipSection = async (
+    userId,
     projectId,
     sectionName,
     sectionData
@@ -165,14 +166,16 @@ export const useSponsorshipStore = defineStore("sponsorship", () => {
         sectionName === "technicalAssistance"
       ) {
         isStepSponsorshipComplete.value = true;
-        dataSore.updateApplicationSteps({
-          sponsorshipPercent: isStepSponsorshipComplete.value,
-        });
+        dataStore.updateApplicationSteps(
+         { sponsorshipPercent: isStepSponsorshipComplete.value },
+          userId,
+          projectId
+        );
       }
 
       // const { userId } = useAuth();
 
-      // await dataSore.updateStep(
+      // await dataStore.updateStep(
       //   "sponsorshipPercent",
       //   isStepSponsorshipComplete.value,
       //   userId,

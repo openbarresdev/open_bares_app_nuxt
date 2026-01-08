@@ -133,8 +133,9 @@ import { titles, industries, sectors, options } from "/assets/data/data";
 import { useProfileStore } from '@/stores/profileStore'
 import { profileSchema } from "~/validation/profileSchema";
 import { useForm, useField } from "vee-validate";
+import { useDataStore } from "#imports";
 
-const { userId, isAuthenticated, checkAuth } = useAuth();
+const { userId, projectId, isAuthenticated, checkAuth } = useAuth();
 const profileStore = useProfileStore();
 const { $notyf } = useNuxtApp();
 
@@ -154,6 +155,11 @@ const { value: projectDescription, errorMessage: projectDescriptionError } = use
 
 onMounted(async () => {
     await checkAuth();
+
+    const dataStore = useDataStore();
+    dataStore.percentageProgress
+    // const steps = dataStore.loadSteps(userId, projectId)
+
     try {
         await profileStore.fetchApplicant(userId)
 

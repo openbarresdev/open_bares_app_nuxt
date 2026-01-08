@@ -12,19 +12,41 @@ interface AuthResponse {
   user: AuthUser;
 }
 
+interface ProjectCheckResponse {
+  hasProject: boolean;
+  projectId: string | null;
+}
+
 export const useAuth = () => {
   const user = ref<AuthUser | null>(null);
   const isAuthenticated = ref(false);
+  const hasProject = ref(false);
+  const projectId = ref<string | null>(null);
 
   const checkAuth = async (): Promise<AuthUser | null> => {
     try {
       const response = await $fetch<AuthResponse>("/api/auth/role");
       user.value = response.user;
       isAuthenticated.value = true;
+
+      // console.log("user", user.value);
+      // console.log("isAuthenticated", isAuthenticated.value);
+      
+      const projectCheck = await $fetch<ProjectCheckResponse>(
+        "/api/auth/check-project"
+      );
+      hasProject.value = projectCheck.hasProject;
+      projectId.value = projectCheck.projectId;
+
+      // console.log("hasProject", hasProject.value);
+      // console.log("projectId", projectId.value);
+
       return response.user;
     } catch (error) {
       user.value = null;
       isAuthenticated.value = false;
+      hasProject.value = false;
+      projectId.value = null;
       return null;
     }
   };
@@ -51,6 +73,9 @@ export const useAuth = () => {
     isAdmin,
     isSuperAdmin,
     isAtLeastAdmin,
+    hasProject: readonly(hasProject),
+    projectId: readonly(projectId),
+
     hasRole,
     checkAuth,
   };

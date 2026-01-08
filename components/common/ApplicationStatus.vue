@@ -4,11 +4,18 @@
             <h2 class="lg:min-w-44">Application status</h2> 
             <div class="flex items-center gap-3 justify-between w-full max-lg:mb-2">
                 <!-- Progress bar -->
+
+                <!-- <div class="mt-2 text-sm text-gray-600">
+                    {{ dataStore.percentageProgress }}% complet
+                    ({{ dataStore.completedStepsCount}}/{{ dataStore.totalSteps}} étapes)
+                </div> -->
                 <div class="progress h-4 w-full" role="progressbar" aria-label="25% Progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                    <div class="progress-bar w-1/4 font-normal">25%</div>
+                    <div class="progress-bar w-1/4 font-normal">
+                        {{ dataStore.completedStepsCount}}/{{ dataStore.totalSteps}} étapes
+                    </div>
                 </div>
                 <div class="font-bold">
-                    25%
+                    {{ dataStore.percentageProgress }}%
                 </div>
             </div>
             <div class="btn btn-xl rounded-xl btn-neutral btn-gradient btn-block text-base border-none lg:max-w-40 lg:h-10">Continuer</div>
@@ -18,10 +25,14 @@
 
 <script setup>
 import { useDataStore } from '~/stores/dataStore';
+
+const { userId, projectId, checkAuth } = useAuth();
+
 const dataStore = useDataStore();
 
-onMounted(() => {
-    dataStore.calculatePercentage()
+onMounted(async () => {
+    await checkAuth();
+    dataStore.loadSteps(userId, projectId)
 })
 
 </script>

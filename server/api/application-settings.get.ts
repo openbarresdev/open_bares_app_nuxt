@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
       };
     }
 
-    const progress = await prisma.ApplicationSettings.findUnique({
+    const progress = await prisma.applicationSettings.findUnique({
       where: {
         userId_projectId: {
           userId: String(userId),

@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
       };
     }
 
-    const progress = await prisma.ApplicationSettings.upsert({
+    const progress = await prisma.applicationSettings.upsert({
       where: {
         userId_projectId: {
           userId: String(userId),
