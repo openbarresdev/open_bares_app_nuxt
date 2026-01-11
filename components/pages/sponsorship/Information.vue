@@ -139,7 +139,7 @@ const submitSponsorInfo = handleSubmit(async (values) => {
         );
         
         $notyf.success('Sponsor information saved successfully!');
-        // navigateTo('/sponsorship/sponsor-business-history');
+        navigateTo('sponsor-business-history');
     } catch (error) {
         $notyf.error('Failed to save sponsor information');
     }

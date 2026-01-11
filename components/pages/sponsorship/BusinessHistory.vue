@@ -217,7 +217,7 @@ const submitBusinessHistory = handleSubmit(async (values) => {
     );
 
     $notyf.success("Business history saved successfully!");
-    navigateTo("/sponsorship/management-structure");
+    navigateTo("management-structure");
   } catch (error) {
     $notyf.error("Failed to save business history 2");
   }

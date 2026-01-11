@@ -350,7 +350,7 @@ const submitManagementStructure = handleSubmit(async (values) => {
     );
 
     $notyf.success("Management structure saved successfully!");
-    navigateTo("/sponsorship/technical-assistance");
+    navigateTo("technical-assistance");
   } catch (error) {
     $notyf.error("Failed to save management structure");
   }
