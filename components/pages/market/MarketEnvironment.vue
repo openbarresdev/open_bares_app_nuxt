@@ -49,5 +49,20 @@
 </template>
 
 <script setup>
+import { productionAndSalesSchema } from '~/validation/formValidationSchema'
+import { useMarketStore } from '@/stores/marketStore'
+import { useProfileStore } from '@/stores/profileStore'
+import { useForm, useField } from "vee-validate"
+
+const { userId, checkAuth } = useAuth()
+const marketStore = useMarketStore()
+const profileStore = useProfileStore()
+const { $notyf } = useNuxtApp()
+
+const { handleSubmit, errors, setValues } = useForm({
+  validationSchema: productionAndSalesSchema,
+})
+
+
 const nextPage = usePageNav();
 </script>

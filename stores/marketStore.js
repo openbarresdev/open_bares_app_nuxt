@@ -23,8 +23,8 @@ export const useMarketStore = defineStore("market", () => {
       },
     },
     targetMarket: {
-      primaryUserDesc: "",
-      contributionChannel: "",
+      primaryCustomers: "",
+      distributionChannels: "",
     },
     marketEnvironment: {
       sourceOfSupply: "",
