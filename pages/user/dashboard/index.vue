@@ -182,6 +182,6 @@ onMounted(async () => {
 })
 
 const submitProfile = handleSubmit((values) => {
-    profileStore.updateApplicant(values, userId.value, projectId.value, $notyf);
+    profileStore.updateApplicant(values, userId.value, $notyf);
 });
 </script>

@@ -74,9 +74,9 @@ export const useProfileStore = defineStore('profileStore', () => {
       isLoading.value = false;
     }
   }
-
+// userId, projectId, sectionName, sectionData;
   // PUT
-  async function updateApplicant(applicant, user_id, projectId, notyf) {
+  async function updateApplicant(applicant, user_id, notyf) {
     try {
       isLoading.value = true;
       error.value = "";
@@ -96,6 +96,8 @@ export const useProfileStore = defineStore('profileStore', () => {
       if (!res.success) throw new Error(res.error);
 
       applicant.value = res.project; // save updated result from DB
+      // console.log("Project id", applicant.value.id);
+      
 
       console.log("applicant data", applicant);
 
@@ -103,13 +105,13 @@ export const useProfileStore = defineStore('profileStore', () => {
 
       isStepProfileComplete.value = true;
 
-      console.log('user is', user_id);
-      console.log("project", projectId);
+      // console.log('user is', user_id);
+      // console.log("project", projectId);
       
        dataSore.updateApplicationSteps(
-         {profilePercent: isStepProfileComplete.value },
+         { profilePercent: isStepProfileComplete.value },
          user_id,
-         projectId
+         applicant.value.id
        );
       
       console.log("ap", res.project[1]);
