@@ -11,7 +11,9 @@ export const useDataStore = defineStore(
     const completedStepsCount = ref();
     const totalSteps = ref();
     const percentageProgress = ref(0);
+    const isLoading = ref();
 
+    const isFirstSteps = ref(true);
     const preferences = ref({
       currency: "euro",
     });
@@ -41,6 +43,8 @@ export const useDataStore = defineStore(
 
     const loadSteps = async (userId, projectId) => {
       console.log("fetchig application steps...");
+
+      isLoading.value = true;
       const { data } = await useFetch("/api/application-settings", {
         query: { userId, projectId },
       });
@@ -51,10 +55,15 @@ export const useDataStore = defineStore(
 
         calculateProgress(mergedSteps);
 
+        isLoading.value = false;
+
+        isFirstSteps.value = false;
+
         return mergedSteps;
       }
-      console.log('something failed');
-      
+      // console.log('something failed');
+      isFirstSteps.value = true;
+
       return null;
     };
 
@@ -66,7 +75,7 @@ export const useDataStore = defineStore(
       console.log("saving to database started...");
       steps.value = { ...steps.value, ...stepUpdates };
 
-      console.log( "user id", userId);
+      // console.log( "user id", userId);
       // console.log(projectId);
       
       const { data } = await useFetch("/api/application-settings", {
@@ -115,7 +124,9 @@ export const useDataStore = defineStore(
       completedStepsCount,
       totalSteps,
       percentageProgress,
-
+      isLoading,
+      isFirstSteps,
+      
       // Actions
       steps,
       loadSteps,

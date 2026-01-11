@@ -4,6 +4,8 @@ import { defineEventHandler, readBody } from "h3";
 export default defineEventHandler(async (event) => {
   try {
     const body = await readBody(event);
+    console.log('body', body);
+    
     const { userId, ...projectData } = body;
 
     if (!userId) throw new Error("Missing userId");
