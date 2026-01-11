@@ -30,7 +30,7 @@
       >
         <span v-if="description" class="mx-8">{{ description }}</span>
         <div class="px-2 py-4">
-          <slot />
+          <slot :close="closeAccordion"/>
         </div>
       </div>
     </div>
@@ -42,18 +42,28 @@ const props = defineProps({
   title: { type: String, required: true },
   id: { type: String, required: true },
   description: { type: String, required: false, default: "" },
-  initialOpen: { type: Boolean, default: false }
+  initialOpen: { type: Boolean, default: false },
+
 })
 
 const isOpen = ref(props.initialOpen)
+
+const emit = defineEmits(['closed'])
 
 const toggle = () => {
   isOpen.value = !isOpen.value
 }
 
-defineExpose({
-  open: () => (isOpen.value = true),
-  close: () => (isOpen.value = false),
-  toggle: () => (isOpen.value = !isOpen.value)
-})
+const closeAccordion = () => {
+  isOpen.value = false
+}
+
+// defineExpose({
+//   closeAccordion,
+//   toggle,
+//   isOpen
+//   // open: () => (isOpen.value = true),
+//   // close: () => (isOpen.value = false),
+//   // toggle: () => (isOpen.value = !isOpen.value),
+// })
 </script>

@@ -69,7 +69,7 @@ export const useMarketStore = defineStore("market", () => {
     isLoading.value = true;
     error.value = null;
 
-    console.log('Clicked');
+    // console.log('Clicked');
     console.log("section data", sectionData);
     
     try {

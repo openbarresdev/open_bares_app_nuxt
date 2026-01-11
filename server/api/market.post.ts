@@ -14,13 +14,13 @@ export default defineEventHandler(async (event) => {
     const market = await prisma.marketAnalysis.upsert({
       where: { projectId: parseInt(projectId) },
       update: {
-        productionSalesProj: productionAndSales,
+        productionAndSales: productionAndSales,
         targetMarket,
         marketEnvironment,
       },
       create: {
         projectId: parseInt(projectId),
-        productionSalesProj: productionAndSales,
+        productionAndSales: productionAndSales,
         targetMarket,
         marketEnvironment,
       },

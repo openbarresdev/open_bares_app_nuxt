@@ -1,14 +1,17 @@
 <template>
   <div>
-    <CommonPageHeading
+    <CommonPageHeading ref="accordionRef" 
+      @closed="onAccordionClosed"
       title="Production & Sales Projections"
       description="Projected production volumes and sales objectives (5-year projection)"
     />
 
     <div class="py-3 lg:w-1/2 max-lg:w-full">
-      <CommonAccordion title="Year 1" id="year1" :initial-open="true">
-        <form class="space-y-3" @submit.prevent="submitProductionSales">
+        <form class="space-y-3 my-8" @submit.prevent="submitProductionSales">
+          
           <div class="space-y-6 px-1.5 w-full">
+
+            <div class="grow text-left text-base font-bold">Year 1</div>
             <div class="inline-flex items-center gap-2 w-full">
               <div class="lg:text-base max-lg:text-sm w-1/2">
                 Production Volume
@@ -66,20 +69,15 @@
             </div>
           </div>
 
-          <button 
-            type="submit"
-            class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12"
-          > Save & Continue
-            <!-- <span v-if="marketStore.isLoading" class="loading loading-spinner"></span>
-            {{ marketStore.isLoading ? 'Saving...' : 'Save & Continue' }}
-            <span class="icon-[tabler--chevron-right] size-5"></span> -->
-          </button>
-        </form>
-      </CommonAccordion>
+          <div class="my-8 px-4 py-1 text-green-500 font-semibold bg-green-100 w-full rounded-md">
+            <div class="flex items-center justify-between">
+              <span>Completed</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10s10-4.5 10-10S17.5 2 12 2m4.2 8.3l-4.8 4.8c-.4.4-1 .4-1.4 0l-2.2-2.2c-.4-.4-.4-1 0-1.4s1-.4 1.4 0l1.5 1.5l4.1-4.1c.4-.4 1-.4 1.4 0s.4 1 0 1.4"/></svg>
+            </div>
+          </div> 
 
-      <CommonAccordion title="Year 2" id="year2">
-        <form action="" class="space-y-3">
           <div class="space-y-6 px-1.5 w-full">
+            <div class="grow text-left text-base font-bold">Year 2</div>
             <div class="inline-flex items-center gap-2 w-full">
               <div class="lg:text-base max-lg:text-sm w-1/2">
                 Production Volume
@@ -90,8 +88,8 @@
                 label="Production Volume"
                 placeholder="0"
                 v-model="yearTwoProductionVolume"
-                :hasError="!!yearTwoproductionVolumeError"
-                :errorMessage="yearTwoproductionVolumeError"
+                :hasError="!!yearTwoProductionVolumeError"
+                :errorMessage="yearTwoProductionVolumeError"
               />
             </div>
 
@@ -102,9 +100,9 @@
                 type="number"
                 label="Unit Price "
                 placeholder="0.00"
-                 v-model="yearTwoUnitPrice"
-                :hasError="!!unitPriceError"
-                :errorMessage="unitPriceError"
+                v-model="yearTwoUnitPrice"
+                :hasError="!!yearTwoUnitPriceError"
+                :errorMessage="yearTwoUnitPriceError"
               />
             </div>
 
@@ -116,8 +114,8 @@
                 label="Total Revenue "
                 placeholder="0.00"
                 v-model="yearTwoTotalRevenue"
-                :hasError="!!totalRevenueError"
-                :errorMessage="totalRevenueError"
+                :hasError="!!yearTwoTotalRevenueError"
+                :errorMessage="yearTwoTotalRevenueError"
               />
             </div>
 
@@ -130,25 +128,22 @@
                 type="number"
                 label="Market Share percentage (%)"
                 placeholder="0.00"
-                 v-model="yearTwoNetProfit"
-                :hasError="!!netProfitError"
-                :errorMessage="netProfitError"
+                v-model="yearTwoNetProfit"
+                :hasError="!!yearTwoNetProfitError"
+                :errorMessage="yearTwoNetProfitError"
               />
             </div>
           </div>
 
-          <div
-            @click=""
-            class="btn btn-xl rounded-xl btn-gradient btn-block text-base border-none lg:h-12 my-3"
-          >
-            Save <span class="icon-[tabler--chevron-right] size-5"></span>
-          </div>
-        </form>
-      </CommonAccordion>
-
-      <CommonAccordion title="Year 3" id="year3">
-       <form action="" class="space-y-3">
+          <div class="my-8 px-4 py-1 text-green-500 font-semibold bg-green-100 w-full rounded-md">
+            <div class="flex items-center justify-between">
+              <span>Completed</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10s10-4.5 10-10S17.5 2 12 2m4.2 8.3l-4.8 4.8c-.4.4-1 .4-1.4 0l-2.2-2.2c-.4-.4-.4-1 0-1.4s1-.4 1.4 0l1.5 1.5l4.1-4.1c.4-.4 1-.4 1.4 0s.4 1 0 1.4"/></svg>
+            </div>
+          </div> 
+          
           <div class="space-y-6 px-1.5 w-full">
+            <div class="grow text-left text-base font-bold">Year 3</div>
             <div class="inline-flex items-center gap-2 w-full">
               <div class="lg:text-base max-lg:text-sm w-1/2">
                 Production Volume
@@ -159,8 +154,8 @@
                 label="Production Volume"
                 placeholder="0"
                  v-model="yearThreeProductionVolume"
-                :hasError="!!productionVolumeError"
-                :errorMessage="productionVolumeError"
+                :hasError="!!yearThreeProductionVolumeError"
+                :errorMessage="yearThreeProductionVolumeError"
               />
             </div>
 
@@ -172,8 +167,8 @@
                 label="Unit Price "
                 placeholder="0.00"
                 v-model="yearThreeUnitPrice"
-                :hasError="!!unitPriceError"
-                :errorMessage="unitPriceError"
+                :hasError="!!yearThreeUnitPriceError"
+                :errorMessage="yearThreeUnitPriceError"
               />
             </div>
 
@@ -185,8 +180,8 @@
                 label="Total Revenue "
                 placeholder="0.00"
                 v-model="yearThreeTotalRevenue"
-                :hasError="!!totalRevenueError"
-                :errorMessage="totalRevenueError"
+                :hasError="!!yearThreeTotalRevenueError"
+                :errorMessage="yearThreeTotalRevenueError"
               />
             </div>
 
@@ -200,28 +195,30 @@
                 label="Market Share percentage (%)"
                 placeholder="0.00"
                  v-model="yearThreeNetProfit"
-                :hasError="!!netProfitError"
-                :errorMessage="netProfitError"
+                :hasError="!!yearThreeNetProfitError"
+                :errorMessage="yearThreeNetProfitError"
               />
             </div>
           </div>
 
-          <div
-            @click=""
-            class="btn btn-xl rounded-xl btn-gradient btn-block text-base border-none lg:h-12 my-3"
-          >
-            Save <span class="icon-[tabler--chevron-right] size-5"></span>
-          </div>
+          <div class="my-8 px-4 py-1 text-green-500 font-semibold bg-green-100 w-full rounded-md">
+            <div class="flex items-center justify-between">
+              <span>Completed</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10s10-4.5 10-10S17.5 2 12 2m4.2 8.3l-4.8 4.8c-.4.4-1 .4-1.4 0l-2.2-2.2c-.4-.4-.4-1 0-1.4s1-.4 1.4 0l1.5 1.5l4.1-4.1c.4-.4 1-.4 1.4 0s.4 1 0 1.4"/></svg>
+            </div>
+          </div> 
+
+          <button 
+            type="submit"
+            class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12"
+          > Save & Continue
+            <!-- <span v-if="marketStore.isLoading" class="loading loading-spinner"></span>
+            {{ marketStore.isLoading ? 'Saving...' : 'Save & Continue' }} -->
+            <span class="icon-[tabler--chevron-right] size-5"></span>
+          </button>
+         
         </form>
-      </CommonAccordion>
     </div>
-
-    <!-- <div @click="navigateTo('target-market')"
-      class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 my-3"
-    >
-      Continue <span class="icon-[tabler--chevron-right] size-5"></span>
-    </div> -->
-
   </div>
 </template>
 
@@ -262,28 +259,30 @@ onMounted(async () => {
   console.log('marketStore marketData', marketStore.marketData.productionAndSales);
   
   try {
+    // Get projectId from profile store
     await profileStore.getProjectId(userId.value)
     
     if (profileStore.projectId) {
       await marketStore.fetchMarketData(profileStore.projectId)
       
-      if (marketStore.marketData?.productionAndSales?.yearOne) {
+      // if (marketStore.marketData?.productionAndSales?.yearOne) {
+      if (marketStore.marketData?.productionAndSales) {
         setValues({
-  yearOneProductionVolume: marketStore.marketData.productionAndSales.yearOne.productionVolume || "",
-  yearOneUnitPrice: marketStore.marketData.productionAndSales.yearOne.unitPrice || "",
-  yearOneTotalRevenue: marketStore.marketData.productionAndSales.yearOne.totalRevenue || "",
-  yearOneNetProfit: marketStore.marketData.productionAndSales.yearOne.netProfit || "",
+          yearOneProductionVolume: marketStore.marketData.productionAndSales.yearOne.productionVolume || "",
+          yearOneUnitPrice: marketStore.marketData.productionAndSales.yearOne.unitPrice || "",
+          yearOneTotalRevenue: marketStore.marketData.productionAndSales.yearOne.totalRevenue || "",
+          yearOneNetProfit: marketStore.marketData.productionAndSales.yearOne.netProfit || "",
 
-  yearTwoProductionVolume: marketStore.marketData.productionAndSales.yearTwo.productionVolume || "",
-  yearTwoUnitPrice: marketStore.marketData.productionAndSales.yearTwo.unitPrice || "",
-  yearTwoTotalRevenue: marketStore.marketData.productionAndSales.yearTwo.totalRevenue || "",
-  yearTwoNetProfit: marketStore.marketData.productionAndSales.yearTwo.netProfit || "",
+          yearTwoProductionVolume: marketStore.marketData.productionAndSales.yearTwo.productionVolume || "",
+          yearTwoUnitPrice: marketStore.marketData.productionAndSales.yearTwo.unitPrice || "",
+          yearTwoTotalRevenue: marketStore.marketData.productionAndSales.yearTwo.totalRevenue || "",
+          yearTwoNetProfit: marketStore.marketData.productionAndSales.yearTwo.netProfit || "",
 
-  yearThreeProductionVolume: marketStore.marketData.productionAndSales.yearThree.productionVolume || "",
-  yearThreeUnitPrice: marketStore.marketData.productionAndSales.yearThree.unitPrice || "",
-  yearThreeTotalRevenue: marketStore.marketData.productionAndSales.yearThree.totalRevenue || "",
-  yearThreeNetProfit: marketStore.marketData.productionAndSales.yearThree.netProfit || "",
-});
+          yearThreeProductionVolume: marketStore.marketData.productionAndSales.yearThree.productionVolume || "",
+          yearThreeUnitPrice: marketStore.marketData.productionAndSales.yearThree.unitPrice || "",
+          yearThreeTotalRevenue: marketStore.marketData.productionAndSales.yearThree.totalRevenue || "",
+          yearThreeNetProfit: marketStore.marketData.productionAndSales.yearThree.netProfit || "",
+        });
 
       }
     }
@@ -324,10 +323,7 @@ const submitProductionSales = handleSubmit(async (values) => {
         netProfit: values.yearThreeNetProfit,
       },
     }
-    
-    await marketStore.saveMarketData(profileStore.projectId, {
-      productionAndSales: productionData
-    })
+    await marketStore.saveMarketData(profileStore.projectId, {productionAndSales: productionData})
     
     $notyf.success('Production data saved successfully!')
     // navigateTo('/market/target-market')

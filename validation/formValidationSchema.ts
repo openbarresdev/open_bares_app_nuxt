@@ -123,52 +123,52 @@ const technicalAssistanceSchema = object({
 
 const productionAndSalesSchema = object({
   yearOneProductionVolume: string()
-    .required("Production volume is required")
-    .matches(/^[0-9,]+$/, "Enter a valid number"),
+    .matches(/^[0-9,]+(\.[0-9]{2})?$/, "Please enter a valid Volume")
+    .required("Required"),
 
   yearOneUnitPrice: string()
-    .required("Unit price is required")
-    .matches(/^[0-9,.]+$/, "Enter a valid price"),
+    .matches(/^[0-9,]+(\.[0-9]{2})?$/, "Please enter a valid value")
+    .required("Required"),
 
   yearOneTotalRevenue: string()
-    .required("Total revenue is required")
-    .matches(/^[0-9,.]+$/, "Enter a valid amount"),
+    .matches(/^[0-9,]+(\.[0-9]{2})?$/, "Please enter a valid value")
+    .required("Required"),
 
   yearOneNetProfit: string()
-    .required("Net profit is required")
-    .matches(/^[0-9,.]+$/, "Enter a valid amount"),
+    .matches(/^[0-9,]+(\.[0-9]{2})?$/, "Please enter a valid value")
+    .required("Required"),
 
   yearTwoProductionVolume: string()
-    .required("Production volume is required")
-    .matches(/^[0-9,]+$/, "Enter a valid number"),
+    .matches(/^[0-9,]+(\.[0-9]{2})?$/, "Please enter a valid value")
+    .optional(),
 
   yearTwoUnitPrice: string()
-    .required("Unit price is required")
-    .matches(/^[0-9,.]+$/, "Enter a valid price"),
+    .matches(/^[0-9,]+(\.[0-9]{2})?$/, "Please enter a valid value")
+    .optional(),
 
   yearTwoTotalRevenue: string()
-    .required("Total revenue is required")
-    .matches(/^[0-9,.]+$/, "Enter a valid amount"),
+    .matches(/^[0-9,]+(\.[0-9]{2})?$/, "Please enter a valid value")
+    .optional(),
 
   yearTwoNetProfit: string()
-    .required("Net profit is required")
-    .matches(/^[0-9,.]+$/, "Enter a valid amount"),
+    .matches(/^[0-9,]+(\.[0-9]{2})?$/, "Please enter a valid value")
+    .optional(),
 
   yearThreeProductionVolume: string()
-    .required("Production volume is required")
-    .matches(/^[0-9,]+$/, "Enter a valid number"),
+    .matches(/^[0-9,]+(\.[0-9]{2})?$/, "Please enter a valid value")
+    .optional(),
 
   yearThreeUnitPrice: string()
-    .required("Unit price is required")
-    .matches(/^[0-9,.]+$/, "Enter a valid price"),
+    .matches(/^[0-9,]+(\.[0-9]{2})?$/, "Please enter a valid value")
+    .optional(),
 
   yearThreeTotalRevenue: string()
-    .required("Total revenue is required")
-    .matches(/^[0-9,.]+$/, "Enter a valid amount"),
+    .matches(/^[0-9,]+(\.[0-9]{2})?$/, "Please enter a valid value")
+    .optional(),
 
   yearThreeNetProfit: string()
-    .required("Net profit is required")
-    .matches(/^[0-9,.]+$/, "Enter a valid amount"),
+    .matches(/^[0-9,]+(\.[0-9]{2})?$/, "Please enter a valid value")
+    .optional(),
 });
 
 
