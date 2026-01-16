@@ -11,7 +11,7 @@ export const useStepStore = defineStore("step", () => {
   const state = ref<Record<string, any>>({});
   const isLoading = ref(false);
   const error = ref<string | null>(null);
-
+  const isLastSection = ref(false);
   const dataStore = useDataStore();
 
   /**
@@ -41,7 +41,7 @@ export const useStepStore = defineStore("step", () => {
       );
 
         if (response.success) {
-        //   console.log('data', response);
+          console.log('data', response);
         state.value = response.data;
       }
 
@@ -63,7 +63,7 @@ export const useStepStore = defineStore("step", () => {
     sectionData: any,
     userId: number,
     projectId: number,
-    isLastSection = false
+    
   ) => {
     isLoading.value = true;
     error.value = null;
@@ -84,15 +84,31 @@ export const useStepStore = defineStore("step", () => {
 
       if (response.success) {
         updateSection(sectionName, sectionData);
+        console.log("sectionName", sectionName);
 
-        if (isLastSection) {
+        if (
+          sectionName === "technicalAssistance" ||
+          "marketEnvironment" ||
+          "environmentalImpact" ||
+          "successFactors" ||
+          "regulatoryEnvironment" ||
+          "implementationSchedule" ||
+          "documentLinks"
+        ) {
+          console.log('Application step processing');
+          
+          isLastSection.value = true;
           dataStore.updateApplicationSteps(
             { [`${stepName}Percent`]: true },
             userId,
             projectId,
             stepName
           );
+          console.log("Application step processing end");
         }
+          // if (isLastSection.value) {
+            
+          // }
       }
 
       return response;

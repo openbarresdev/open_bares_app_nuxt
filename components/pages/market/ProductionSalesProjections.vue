@@ -10,7 +10,6 @@
         <form class="space-y-3 my-8" @submit.prevent="submitProductionSales">
           
           <div class="space-y-6 px-1.5 w-full">
-
             <div class="grow text-left text-base font-bold">Year 1</div>
             <div class="inline-flex items-center gap-2 w-full">
               <div class="lg:text-base max-lg:text-sm w-1/2">
@@ -69,9 +68,10 @@
             </div>
           </div>
 
-          <div class="my-8 px-4 py-1 text-green-500 font-semibold bg-green-100 w-full rounded-md">
+          <div v-if="!yearOneProductionVolumeError && !yearOneUnitPriceError && !yearOneTotalRevenueError && !yearOneNetProfitError"
+           class="my-8 px-4 py-1 text-green-500 font-semibold bg-green-100 w-full rounded-md">
             <div class="flex items-center justify-between">
-              <span>Completed</span>
+              <span>Year 1 Completed</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10s10-4.5 10-10S17.5 2 12 2m4.2 8.3l-4.8 4.8c-.4.4-1 .4-1.4 0l-2.2-2.2c-.4-.4-.4-1 0-1.4s1-.4 1.4 0l1.5 1.5l4.1-4.1c.4-.4 1-.4 1.4 0s.4 1 0 1.4"/></svg>
             </div>
           </div> 
@@ -135,9 +135,10 @@
             </div>
           </div>
 
-          <div class="my-8 px-4 py-1 text-green-500 font-semibold bg-green-100 w-full rounded-md">
+          <div v-if="!yearTwoProductionVolumeError && !yearTwoUnitPriceError && !yearTwoTotalRevenueError && !yearTwoNetProfitError"
+          class="my-8 px-4 py-1 text-green-500 font-semibold bg-green-100 w-full rounded-md">
             <div class="flex items-center justify-between">
-              <span>Completed</span>
+              <span>Year 2 Completed</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10s10-4.5 10-10S17.5 2 12 2m4.2 8.3l-4.8 4.8c-.4.4-1 .4-1.4 0l-2.2-2.2c-.4-.4-.4-1 0-1.4s1-.4 1.4 0l1.5 1.5l4.1-4.1c.4-.4 1-.4 1.4 0s.4 1 0 1.4"/></svg>
             </div>
           </div> 
@@ -201,9 +202,10 @@
             </div>
           </div>
 
-          <div class="my-8 px-4 py-1 text-green-500 font-semibold bg-green-100 w-full rounded-md">
+          <div v-if="!yearThreeProductionVolumeError && !yearThreeUnitPriceError && !yearThreeTotalRevenueError && !yearThreeNetProfitError"
+          class="my-8 px-4 py-1 text-green-500 font-semibold bg-green-100 w-full rounded-md">
             <div class="flex items-center justify-between">
-              <span>Completed</span>
+              <span>Year 3 Completed</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10s10-4.5 10-10S17.5 2 12 2m4.2 8.3l-4.8 4.8c-.4.4-1 .4-1.4 0l-2.2-2.2c-.4-.4-.4-1 0-1.4s1-.4 1.4 0l1.5 1.5l4.1-4.1c.4-.4 1-.4 1.4 0s.4 1 0 1.4"/></svg>
             </div>
           </div> 

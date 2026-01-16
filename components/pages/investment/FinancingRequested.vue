@@ -1,80 +1,185 @@
 <template>
     <div>
-         <div class="lg:max-w-[920px] m-1">
+        <div class="lg:max-w-[920px] m-1">
             <CommonPageHeading title="Type of Financing Requested" description="Please select the financial type" />
 
-            <form action="" class="space-y-3 my-3 w-2/3 max-lg:w-full">
-
+            <form @submit.prevent="submitFinancingType" class="space-y-3 my-3 w-3/4 max-lg:w-full">
                 <div class="gap-3.5 grid grid-cols-2 max-lg:grid-cols-1">
-                    <div class="flex flex-wrap items-center" v-for="(data, index) in financeTypeData" :data="data" :index="data.id">
+                    <div class="flex flex-wrap items-center" v-for="data in financeTypeData" :key="data.id">
                         <label class="custom-soft-option flex flex-row items-start gap-3 w-full border-none py-4.5">
-                            <input type="checkbox" class="checkbox checkbox-primary checkbox-sm"/>
+                            <input 
+                                type="checkbox" 
+                                class="checkbox checkbox-primary checkbox-sm"
+                                :value="data.value"
+                                v-model="financingTypes"
+                                @change="handleFinancingTypeChange(data.value)"
+                            />
                             <span class="label-text w-full text-start">
-                            <span class="flex justify-between mb-1">
-                                <span class="text-sm font-medium">{{ data.value }}</span>
-                                <!-- <span class="text-base-content/50 text-base">Free</span> -->
-                            </span>
-                            <span class="text-base-content/80">{{ data.dscription }}</span>
-                            <span v-show="data.id === 5 && checked" class="text-base-content/80">Input for other</span>
+                                <span class="flex justify-between mb-1">
+                                    <span class="text-sm font-medium">{{ data.value }}</span>
+                                </span>
+                                <span class="text-base-content/80">{{ data.description || data.dscription }} </span>
+                                <div v-if="data.value === 'Other'" class="mt-6">
+                                    <CommonInputsVariant 
+                                        type="text"
+                                        label="Specify other financing type"
+                                        placeholder="Enter other financing type"
+                                        v-model="otherFinancingType"
+                                        :hasError="!!otherFinancingTypeError"
+                                        :errorMessage="otherFinancingTypeError"
+                                        class="w-full"
+                                    />
+                                </div>
                             </span>
                         </label>
                     </div>
                 </div>
 
-                <div class="space-y-4 ">
+                <div class="space-y-4">
                     <div class="inline-flex items-center justify-between gap-2 w-full">
                         <div class="lg:text-base max-lg:text-sm w-3/5 max-lg:min-w-32">Currency: </div>
-                        <CommonSelectVariant class="w-30"
-                        label=" "
-                        :options="currencies"/>
+                        <CommonSelectVariant 
+                            class="w-30"
+                            label=" "
+                            :options="currencies"
+                            v-model="currency"
+                            :hasError="!!currencyError"
+                            :errorMessage="currencyError"
+                        />
                     </div>
 
                     <div class="inline-flex items-center gap-2 w-full">
-                            <div class="lg:text-base max-lg:text-sm w-3/5 max-lg:min-w-32">Requested amount: </div>
-                        <CommonInputsVariant class="w-2/5 max-lg:w-full"
+                        <div class="lg:text-base max-lg:text-sm w-3/5 max-lg:min-w-32">Requested amount: </div>
+                        <CommonInputsVariant 
+                            class="w-2/5 max-lg:w-full"
                             type="text"
                             label="Requested amount"
                             placeholder="0,00"
-                            v-model="req"
+                            v-model="requestedAmount"
+                            :hasError="!!requestedAmountError"
+                            :errorMessage="requestedAmountError"
                         />
                     </div>
 
                     <div class="inline-flex items-center gap-2 w-full">
                         <div class="lg:text-base max-lg:text-sm w-3/5 max-lg:min-w-32">Proposed tenor: </div>
-                        <CommonInputsVariant class="w-2/5 max-lg:w-full"
+                        <CommonInputsVariant 
+                            class="w-2/5 max-lg:w-full"
                             type="text"
                             label="Proposed tenor (in Years)"
                             placeholder="3 Years"
-                            v-model="req"
+                            v-model="proposedTenor"
+                            :hasError="!!proposedTenorError"
+                            :errorMessage="proposedTenorError"
                         />
                     </div>
 
                     <div class="inline-flex items-center gap-2 w-full">
                         <div class="lg:text-base max-lg:text-sm w-3/5 max-lg:min-w-32">Preferred grace period: </div>
-                         <CommonInputsVariant class="w-2/5 max-lg:w-full"
+                        <CommonInputsVariant 
+                            class="w-2/5 max-lg:w-full"
                             type="text"
                             label="Grace period (in Months)"
                             placeholder="12 Months"
-                            v-model="req"
+                            v-model="gracePeriod"
+                            :hasError="!!gracePeriodError"
+                            :errorMessage="gracePeriodError"
                         />
                     </div>
                 </div>
                 
-                <div @click="navigateTo('financial-projections')"  class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 my-3">Save & Continue <span class="icon-[tabler--chevron-right] size-5"></span></div>
-
+                <button 
+                    type="submit" 
+                    :disabled="hasValidationErrors"
+                    class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 my-3"
+                > 
+                    <span v-if="stepStore.isLoading" class="loading loading-spinner"></span>
+                    {{ stepStore.isLoading ? 'Saving...' : 'Save & Continue' }}
+                    <span class="icon-[tabler--chevron-right] size-5"></span>
+                </button>
             </form>
         </div>
     </div>
 </template>
 
 <script setup>
-import { currencies, legalStructure } from "/assets/data/data";
-const financeTypeData = [
-    {id:1, value:"Loan"},
-    {id:2, value:"Equity investment"},
-    {id:3, value:"Quasi-equity"},
-    {id:4, value:"Combination of financial products" },
-    {id:5, value:"Other"}
-]
-const selectedPlan = ref();
+import { typeOfFinancingRequested } from '~/validation/formValidationSchema'
+import { useStepStore } from '@/stores/useStepStore'
+import { useForm, useField } from "vee-validate"
+import { currencies, financeTypeData } from "/assets/data/data"
+
+const { userId, projectId, checkAuth } = useAuth()
+const stepStore = useStepStore()
+
+const { $notyf } = useNuxtApp()
+
+const { handleSubmit, errors, setValues } = useForm({
+  validationSchema: typeOfFinancingRequested,
+})
+
+// Define fields with useField
+const { value: financingTypes, errorMessage: financingTypesError } = useField('financingTypes')
+const { value: otherFinancingType, errorMessage: otherFinancingTypeError } = useField('otherFinancingType')
+const { value: currency, errorMessage: currencyError } = useField('currency')
+const { value: requestedAmount, errorMessage: requestedAmountError } = useField('requestedAmount')
+const { value: proposedTenor, errorMessage: proposedTenorError } = useField('proposedTenor')
+const { value: gracePeriod, errorMessage: gracePeriodError } = useField('gracePeriod')
+
+const hasValidationErrors = computed(() => {
+    return Object.keys(errors.value).length > 0
+})
+
+// Handle financing type selection
+const handleFinancingTypeChange = (value) => {
+  if (value === 'Other' && !financingTypes.value.includes('Other')) {
+    otherFinancingType.value = ''
+  }
+}
+
+onMounted(async () => {
+  await checkAuth()
+  
+  try {
+    if (projectId.value) {
+      await stepStore.fetchStep('investment', projectId.value)
+
+      if (stepStore.state?.financingType) {
+        setValues({
+            financingTypes: stepStore.state?.financingType.financingTypes || [],
+            otherFinancingType: stepStore.state?.financingType.otherFinancingType || "",
+            currency: stepStore.state?.financingType.currency || "",
+            requestedAmount: stepStore.state?.financingType.requestedAmount || "",
+            proposedTenor: stepStore.state?.financingType.proposedTenor || "",
+            gracePeriod: stepStore.state?.financingType.gracePeriod || ""
+        })
+      }
+    }
+  } catch (error) {
+    console.error('Error fetching financing type data:', error)
+  }
+})
+
+const submitFinancingType = handleSubmit(async (values) => {
+  await checkAuth()
+
+  try {
+    if (!projectId.value) {
+      $notyf.error('No project found')
+      return
+    }
+
+    await stepStore.saveSection(
+      'investment',
+      'financingType',
+      values,
+      userId.value,
+      projectId.value,
+    )
+      
+    $notyf.success('Financing type saved successfully!')
+    navigateTo('financial-projections')
+  } catch (error) {
+    $notyf.error('Failed to save financing type')
+  }
+})
 </script>

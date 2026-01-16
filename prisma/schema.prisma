@@ -138,11 +138,11 @@ model TechnicalFeasibility {
 model InvestmentRequirement {
   id                       Int      @id @default(autoincrement())
   projectId                Int      @unique
-  totalInvestment          Float?
-  financingStructure       String?
-  financingType            String?
-  financialProjections     String?
-  successFactors           String?
+  totalInvestment          Json?
+  financingStructure       Json?
+  financingType            Json?
+  financialProjections     Json?
+  successFactors           Json?
   project                  Project  @relation(fields: [projectId], references: [id])
 }
 
@@ -153,9 +153,9 @@ model InvestmentRequirement {
 model GovernmentSupport {
   id                    Int      @id @default(autoincrement())
   projectId             Int      @unique
-  incentives            String?
-  economicImpact        String?
-  regulatoryEnvironment String?
+  incentives            Json?
+  economicImpact        Json?
+  regulatoryEnvironment Json?
   project               Project  @relation(fields: [projectId], references: [id])
 }
 
@@ -166,7 +166,7 @@ model GovernmentSupport {
 model ProjectTimeline {
   id                Int      @id @default(autoincrement())
   projectId         Int      @unique
-  implementationSchedule String?
+  implementationSchedule Json?
   project           Project  @relation(fields: [projectId], references: [id])
 }
 

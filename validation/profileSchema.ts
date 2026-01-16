@@ -15,7 +15,7 @@ export const profileSchema = yup.object({
     .max(25, "Company name must be less than 25 characters")
     .required("Company name is required"),
 
-  country: yup.string().required("Title is required"),
+  country: yup.string().required("country is required"),
 
   city: yup
     .string()

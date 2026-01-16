@@ -366,3 +366,34 @@ export const documentsUpload = [
   { id: 10, name: "Banking references  ", description: "Banking references" },
   { id: 11, name: "Others", description: "Others" },
 ];
+
+export const plantSizeOptions = [
+  { label: "Small", value: "small" },
+  { label: "Medium", value: "medium" },
+  { label: "Large", value: "large" },
+  { label: "Extra Large", value: "extra_large" },
+];
+
+export const financeTypeData = [
+  {
+    id: 1,
+    value: "Loan",
+    description: "Traditional loan with interest payments",
+  },
+  {
+    id: 2,
+    value: "Equity investment",
+    description: "Investment in exchange for ownership stake",
+  },
+  {
+    id: 3,
+    value: "Quasi-equity",
+    description: "Convertible debt or mezzanine financing",
+  },
+  {
+    id: 4,
+    value: "Combination of financial products",
+    description: "Mix of different financing options",
+  },
+  { id: 5, value: "Other", description: "Other financing types not listed" },
+];
