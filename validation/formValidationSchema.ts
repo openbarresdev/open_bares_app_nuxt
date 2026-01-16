@@ -206,6 +206,36 @@ const technicalSchema = object({
     .required("Primary user description is required"),
 });
 
+const humanResources = object({
+  mangtPositionNumber: string()
+    .min(0, "Management positions cannot be negative")
+    .required("Management positions is required"),
+
+  techSkilledWorkersNumber: string()
+    .min(0, "Technical/skilled workers cannot be negative")
+    .required("Technical/skilled workers is required"),
+
+  semiTechSkilledWorkersNumber: string()
+    .min(0, "Semi-skilled workers cannot be negative")
+    .required("Semi-skilled workers is required"),
+
+  unskilledWorkersNumber: string()
+    .min(0, "Unskilled workers cannot be negative")
+    .required("Unskilled workers is required"),
+
+  totalEmployment: string()
+    .min(0, "Total employment cannot be negative")
+    .required("Total employment is required"),
+
+  availableSkillsRequired: string()
+    .required("Availability of required skills is required")
+    .min(
+      10,
+      "Please provide at least 10 characters describing skill availability"
+    )
+    .max(1000, "Description is too long"),
+});
+
 export {
   sponsorInfoSchema,
   businessHistorySchema,
@@ -215,4 +245,5 @@ export {
   targetMarketSchema,
   marketEnvironmentSchema,
   technicalSchema,
+  humanResources,
 };

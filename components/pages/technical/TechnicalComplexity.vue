@@ -22,15 +22,14 @@
                 :errorMessage="errors.keyEquipementDesc"
                 />
 
-        <!-- <div @click="navigateTo('human-resources')"  class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 my-3">Save & Continue <span class="icon-[tabler--chevron-right] size-5"></span></div> -->
-            <button 
-                type="submit"
-                class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12"
-            > Save & Continue
-                <!-- <span v-if="stepSotre.isLoading" class="loading loading-spinner"></span>
-                {{ stepSotre.isLoading ? 'Saving...' : 'Save & Continue' }} -->
+              <button 
+                type="submit" :disabled="hasValidationErrors"
+                class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 my-3"
+                    > 
+                <span v-if="stepStore.isLoading" class="loading loading-spinner"></span>
+                {{ stepStore.isLoading ? 'Saving...' : 'Save & Continue' }}
                 <span class="icon-[tabler--chevron-right] size-5"></span>
-            </button>
+              </button>
         </form>
     </div>
 </template>
@@ -45,7 +44,7 @@ import { useForm, useField } from "vee-validate"
 
 const { userId, projectId, checkAuth } = useAuth()
 // const technicalStore = useTechnicalStore()
-const stepSotre = useStepStore();
+const stepStore = useStepStore();
 
 const profileStore = useProfileStore()
 const { $notyf } = useNuxtApp()
@@ -57,6 +56,9 @@ const { handleSubmit, errors, setValues } = useForm({
 const { value: specialTechComplexitiesDesc, errorMessage: specialTechComplexitiesDescError } = useField('specialTechComplexitiesDesc');
 const { value: keyEquipementDesc, errorMessage: keyEquipementDescError } = useField('keyEquipementDesc');
 
+const hasValidationErrors = computed(() => {
+    return Object.keys(errors.value).length > 0;
+});
 
 onMounted(async () => {
   await checkAuth()
@@ -66,12 +68,12 @@ onMounted(async () => {
     // await profileStore.getProjectId(userId.value)
     
     if (projectId.value) {
-      await stepSotre.fetchStep('technical', projectId.value)
+      await stepStore.fetchStep('technical', projectId.value)
 
-      if (stepSotre.state?.technicalComplexity) {
+      if (stepStore.state?.technicalComplexity) {
         setValues({
-          specialTechComplexitiesDesc: stepSotre.state?.technicalComplexity.specialTechComplexitiesDesc || "",
-          keyEquipementDesc: stepSotre.state?.technicalComplexity.keyEquipementDesc || "",
+          specialTechComplexitiesDesc: stepStore.state?.technicalComplexity.specialTechComplexitiesDesc || "",
+          keyEquipementDesc: stepStore.state?.technicalComplexity.keyEquipementDesc || "",
         });
       }
     }
@@ -91,7 +93,7 @@ const submittechnicalComplexity = handleSubmit(async (values) => {
       return
     }
 
-    await stepSotre.saveSection(
+    await stepStore.saveSection(
       'technical',
       'technicalComplexity',
       values,
