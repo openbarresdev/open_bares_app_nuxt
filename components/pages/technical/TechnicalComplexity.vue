@@ -37,12 +37,17 @@
 
 <script setup>
 import { technicalSchema } from '~/validation/formValidationSchema'
+import { useProfileStore } from '@/stores/profileStore'
+// import { useTechnicalStore } from '@/stores/technicalStore'
 import { useStepStore } from '@/stores/useStepStore'
+
 import { useForm, useField } from "vee-validate"
 
 const { userId, projectId, checkAuth } = useAuth()
+// const technicalStore = useTechnicalStore()
 const stepSotre = useStepStore();
 
+const profileStore = useProfileStore()
 const { $notyf } = useNuxtApp()
 
 const { handleSubmit, errors, setValues } = useForm({
@@ -57,14 +62,16 @@ onMounted(async () => {
   await checkAuth()
   
   try {
+    // Get projectId from profile store
+    // await profileStore.getProjectId(userId.value)
     
-    if (projectId) {
-      await stepSotre.fetchStep(projectId)
-      
-      if (stepSotre.technicalData?.technicalComplexity) {
+    if (projectId.value) {
+      await stepSotre.fetchStep('technical', projectId.value)
+
+      if (stepSotre.state?.technicalComplexity) {
         setValues({
-          specialTechComplexitiesDesc: stepSotre.technicalData.technicalComplexity.specialTechComplexitiesDesc || "",
-          keyEquipementDesc: stepSotre.technicalData.technicalComplexity.keyEquipementDesc || "",
+          specialTechComplexitiesDesc: stepSotre.state?.technicalComplexity.specialTechComplexitiesDesc || "",
+          keyEquipementDesc: stepSotre.state?.technicalComplexity.keyEquipementDesc || "",
         });
       }
     }
@@ -75,20 +82,15 @@ onMounted(async () => {
 const submittechnicalComplexity = handleSubmit(async (values) => {
   
   // console.log('Values', values);
-  console.log('step 0');
-
   await checkAuth()
+  // await profileStore.getProjectId(userId.value)
 
-  console.log('step 1');
-  
   try {
     if (!projectId.value) {
       $notyf.error('No project found')
       return
     }
 
-    console.log('step 2');
-    
     await stepSotre.saveSection(
       'technical',
       'technicalComplexity',
@@ -97,10 +99,8 @@ const submittechnicalComplexity = handleSubmit(async (values) => {
       projectId.value,
     )
       
-  console.log('step 3');
-    
     $notyf.success('Data saved successfully!')
-    navigateTo('market-environment')
+    navigateTo('human-resources')
   } catch (error) {
     $notyf.error('Failed to save data')
   }
