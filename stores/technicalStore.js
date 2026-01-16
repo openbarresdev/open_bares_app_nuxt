@@ -1,52 +1,47 @@
 import { defineStore } from "pinia";
 import { useDataStore } from "#imports";
 
-export const useMarketStore = defineStore("market", () => {
-  const marketData = ref({
-    productionAndSales: {
-      yearOne: {
-        productionVolume: "",
-        unitPrice: "",
-        totalRevenue: "",
-        netProfit: "",
-      },
-      yearTwo: {
-        productionVolume: "",
-        unitPrice: "",
-        totalRevenue: "",
-        netProfit: "",
-      },
-      yearThree: {
-        productionVolume: "",
-        unitPrice: "",
-        totalRevenue: "",
-        netProfit: "",
-      },
+export const useTechnicalStore = defineStore("technical", () => {
+  const technicalData = ref({
+    technicalComplexity: {
+      specialTechComplexitiesDesc: "",
+      keyEquipementDesc: "",
     },
-    targetMarket: {
+    RawMaterialsSupplyChain: {
       primaryCustomers: "",
       distributionChannels: "",
     },
-    marketEnvironment: {
+    PlantLocationSize: {
       sourceOfSupply: "",
-      mainCompetitors: "",
-      marketSubstitution: "",
-      importRestrictions: "",
-      criticalFactors: "",
+    },
+    OperatingCosts: {
+      primaryCustomers: "",
+      distributionChannels: "",
+    },
+    InfrastructureRequirements: {
+      primaryCustomers: "",
+      distributionChannels: "",
+    },
+    HumanResources: {
+      primaryCustomers: "",
+      distributionChannels: "",
+    },
+    EnvironmentalSocialImpact: {
+      primaryCustomers: "",
+      distributionChannels: "",
     },
   });
-   const isStepMarketComplete = ref(false);
+  const isStepTechnicalComplete = ref(false);
 
   const isLoading = ref(false);
   const error = ref(null);
   const dataStore = useDataStore();
-  
 
-  const updateMarketData = (data) => {
-    marketData.value = { ...marketData.value, ...data };
+  const updateTechnicalData = (data) => {
+    technicalData.value = { ...technicalData.value, ...data };
   };
 
-  const fetchMarketData = async (projectId) => {
+  const fetchtechnicalData = async (projectId) => {
     isLoading.value = true;
     error.value = null;
 
@@ -57,7 +52,7 @@ export const useMarketStore = defineStore("market", () => {
       });
 
       if (response.success && response.data) {
-        marketData.value = response.data;
+        technicalData.value = response.data;
       }
 
       return response;
@@ -69,17 +64,22 @@ export const useMarketStore = defineStore("market", () => {
     }
   };
 
-  const saveMarketData = async (userId, projectId, sectionName, sectionData) => {
+  const saveMarketData = async (
+    userId,
+    projectId,
+    sectionName,
+    sectionData
+  ) => {
     isLoading.value = true;
     error.value = null;
 
     console.log("user id", userId);
     console.log("project id", projectId);
     console.log("section", sectionName);
-    
+
     // console.log('Clicked');
     console.log("section data", sectionData);
-    
+
     try {
       const response = await $fetch("/api/market", {
         method: "POST",
@@ -90,18 +90,17 @@ export const useMarketStore = defineStore("market", () => {
       });
 
       if (response.success) {
-        updateMarketData(sectionData);
+        updateTechnicalData(sectionData);
 
         if (sectionName === "marketEnvironment") {
           isStepMarketComplete.value = true;
-  
+
           dataStore.updateApplicationSteps(
             { marketPercent: isStepMarketComplete.value },
             userId,
             projectId,
             sectionName
           );
-
         }
       }
 
@@ -115,11 +114,11 @@ export const useMarketStore = defineStore("market", () => {
   };
 
   return {
-    marketData: readonly(marketData),
+    technicalData: readonly(technicalData),
     isLoading: readonly(isLoading),
     error: readonly(error),
 
-    updateMarketData,
+    updateTechnicalData,
     fetchMarketData,
     saveMarketData,
   };

@@ -76,7 +76,7 @@ export const useProfileStore = defineStore('profileStore', () => {
   }
 // userId, projectId, sectionName, sectionData;
   // PUT
-  async function updateApplicant(applicant, user_id, notyf) {
+  async function updateApplicant(applicant, user_id, sectionName, notyf) {
     try {
       isLoading.value = true;
       error.value = "";
@@ -111,7 +111,8 @@ export const useProfileStore = defineStore('profileStore', () => {
        dataSore.updateApplicationSteps(
          { profilePercent: isStepProfileComplete.value },
          user_id,
-         applicant.value.id
+         applicant.value.id,
+         sectionName
        );
       
       console.log("ap", res.project[1]);

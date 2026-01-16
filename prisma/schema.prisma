@@ -121,13 +121,13 @@ model MarketAnalysis {
 model TechnicalFeasibility {
   id                       Int      @id @default(autoincrement())
   projectId                Int      @unique
-  technicalComplexity      String?
-  humanResources           String?
-  infrastructure           String?
-  operatingCosts           Float?
-  rawMaterials             String?
-  plantLocationSize        String?
-  environmentalImpact      String?
+  technicalComplexity Json?
+  humanResources      Json?
+  infrastructure      Json?
+  operatingCosts      Json?
+  rawMaterials        Json?
+  plantLocationSize   Json?
+  environmentalImpact Json?
   project                  Project  @relation(fields: [projectId], references: [id])
 }
 

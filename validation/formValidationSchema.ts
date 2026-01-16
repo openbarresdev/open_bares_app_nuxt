@@ -183,21 +183,28 @@ const targetMarketSchema = object({
 
 
 const marketEnvironmentSchema = object({
-  sourceOfSupply: string()
-    .required('Source of supply is required'),
-  
-  mainCompetitors: string()
-    .required('Main competitors is required'),
-  
-  marketSubstitution: string()
-    .required('Market substitution is required'),
-  
-  importRestrictions: string()
-    .required('Import restrictions is required'),
-  
-  criticalFactors: string()
-    .required('Critical factors is required')
-})
+  sourceOfSupply: string().required("Source of supply is required"),
+
+  mainCompetitors: string().required("Main competitors is required"),
+
+  marketSubstitution: string().optional(),
+
+  importRestrictions: string().optional(),
+
+  criticalFactors: string().optional(),
+});
+
+const technicalSchema = object({
+  specialTechComplexitiesDesc: string()
+    .min(10, "Description must be at least 10 characters")
+    .max(500, "Description too long")
+    .required("Primary user description is required"),
+
+  keyEquipementDesc: string()
+    .min(10, "Description must be at least 10 characters")
+    .max(500, "Description too long")
+    .required("Primary user description is required"),
+});
 
 export {
   sponsorInfoSchema,
@@ -207,4 +214,5 @@ export {
   productionAndSalesSchema,
   targetMarketSchema,
   marketEnvironmentSchema,
+  technicalSchema,
 };

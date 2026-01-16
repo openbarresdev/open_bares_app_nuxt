@@ -35,7 +35,6 @@
 
 <script setup>
 import { channels as distributionChannelsOptions } from "/assets/data/data";
-
 import { targetMarketSchema } from '~/validation/formValidationSchema'
 import { useMarketStore } from '@/stores/marketStore'
 import { useProfileStore } from '@/stores/profileStore'
@@ -77,7 +76,7 @@ onMounted(async () => {
 
 const submitTargetMarket = handleSubmit(async (values) => {
   
-  console.log('Values', values);
+//   console.log('Values', values);
   
   await profileStore.getProjectId(userId.value)
   
@@ -86,7 +85,7 @@ const submitTargetMarket = handleSubmit(async (values) => {
       $notyf.error('No project found')
       return
     }
-    await marketStore.saveMarketData(profileStore.projectId, {targetMarket : values})
+    await marketStore.saveMarketData(profileStore.projectId, 'targetMarket', {targetMarket : values})
     
     $notyf.success('Production data saved successfully!')
     navigateTo('market-environment')

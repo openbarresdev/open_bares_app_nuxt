@@ -167,9 +167,10 @@ export const useSponsorshipStore = defineStore("sponsorship", () => {
       ) {
         isStepSponsorshipComplete.value = true;
         dataStore.updateApplicationSteps(
-         { sponsorshipPercent: isStepSponsorshipComplete.value },
+          { sponsorshipPercent: isStepSponsorshipComplete.value },
           userId,
-          projectId
+          projectId,
+          sectionName
         );
       }
 

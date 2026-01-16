@@ -323,7 +323,7 @@ const submitProductionSales = handleSubmit(async (values) => {
         netProfit: values.yearThreeNetProfit,
       },
     }
-    await marketStore.saveMarketData(profileStore.projectId, {productionAndSales: productionData})
+    await marketStore.saveMarketData(profileStore.projectId, 'productionAndSales', {productionAndSales: productionData})
     
     $notyf.success('Production data saved successfully!')
     navigateTo('target-market')

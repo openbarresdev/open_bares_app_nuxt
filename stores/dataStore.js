@@ -30,14 +30,14 @@ export const useDataStore = defineStore(
       supportingDocumentsPercent: false,
     });
 
-    const updateApplicationSteps = (stepUpdates, userId, projectId) => {
+    const updateApplicationSteps = (stepUpdates, userId, projectId, sectionName) => {
       steps.value = {
         ...steps.value,
         ...stepUpdates,
       };
    
       if (userId && projectId) {
-        saveSteps( userId, projectId, steps.value );
+        saveSteps(sectionName, steps.value, userId, projectId);
       }
     };
 
