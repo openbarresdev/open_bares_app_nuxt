@@ -8,7 +8,7 @@
                     <div class="flex flex-wrap items-center" v-for="data in financeTypeData" :key="data.id">
                         <label class="custom-soft-option flex flex-row items-start gap-3 w-full border-none py-4.5">
                             <input 
-                                type="checkbox" 
+                                type="radio" 
                                 class="checkbox checkbox-primary checkbox-sm"
                                 :value="data.value"
                                 v-model="financingTypes"

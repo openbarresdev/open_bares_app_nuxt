@@ -397,3 +397,12 @@ export const financeTypeData = [
   },
   { id: 5, value: "Other", description: "Other financing types not listed" },
 ];
+
+export const govincentives = [
+  { id: 1, value: "Tax holidays" },
+  { id: 2, value: "Duty exemptions" },
+  { id: 3, value: "Investment allowances" },
+  { id: 4, value: "Export incentives" },
+  { id: 5, value: "Infrastructure support" },
+  { id: 6, value: "Other" },
+];

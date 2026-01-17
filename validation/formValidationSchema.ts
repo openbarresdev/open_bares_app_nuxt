@@ -1,10 +1,11 @@
-import { object, string, array, number } from "yup";
+import { object, string, array, number, StringSchema } from "yup";
 import {
   levels,
   currencies,
   plantSizeOptions,
   percentages,
   financeTypeData,
+  govincentives,
 } from "../assets/data/data";
 
 const sponsorInfoSchema = object({
@@ -638,11 +639,136 @@ export const financialProjections = object({
 const criticalSuccessFactors = object({
   keyFactors: string()
     .required("Critical success factors description is required")
-    .min(
-      10,
-      "Please provide at least 10 characters describing the key success factors"
-    )
     .max(5000, "Description is too long (maximum 5000 characters)"),
+});
+
+const incentivesValues = [
+  "Tax holidays",
+          "Customs duty exemptions",
+          "Grants/subsidies",
+          "Land allocation",
+          "Infrastructure support",
+          "Export incentives",
+          "Training subsidies",
+          "Other",
+];
+
+interface GovernmentIncentivesValues {
+  selectedIncentives?: string[];
+  otherIncentive?: string;
+  otherDetails?: string;
+}
+
+const governmentIncentives = object({
+  selectedIncentives: array()
+    .of(string())
+    .min(1, "Please select at least one government incentive")
+    .required("Government incentives selection is required")
+    .default([]),
+
+  otherIncentive: string()
+    .when("selectedIncentives", {
+      is: (incentives: string[] | undefined) => {
+        if (!incentives || !Array.isArray(incentives)) {
+          return false;
+        }
+        return incentives.includes("Other");
+      },
+      then: (schema: StringSchema) =>
+        schema
+          .required("Please specify the other government incentive")
+          .min(
+            2,
+            "Please provide at least 2 characters for the other incentive"
+          )
+          .max(100, "Other incentive description is too long"),
+      otherwise: (schema: StringSchema) => schema.notRequired(),
+    })
+    .default(""),
+
+  otherDetails: string()
+    .required("Other details are required")
+    .min(3, "Please provide at least 3 characters describing other details")
+    .max(2000, "Other details description is too long")
+    .default(""),
+});
+
+const economicDevelopmentImpact = object({
+  // Employment creation - number of jobs
+  employmentCreation: positiveNumber()
+    .required("Employment creation is required")
+    .min(0, "Number of jobs cannot be negative"),
+
+  // Technology transfer - could be number of technologies or rating (0-10)
+  technologyTransfer: positiveNumber()
+    .required("Technology transfer is required")
+    .min(0, "Technology transfer value cannot be negative"),
+
+  // Skills development description
+  skillsDevelopment: string()
+    .required("Skills development description is required")
+    .max(2000, "Skills development description is too long"),
+
+  // Export earnings in currency
+  exportEarnings: positiveNumber()
+    .required("Export earnings is required")
+    .min(0, "Export earnings cannot be negative"),
+
+  // Import substitution in currency
+  importSubstitution: positiveNumber()
+    .required("Import substitution is required")
+    .min(0, "Import substitution cannot be negative"),
+
+  // Other benefits description
+  otherBenefits: string()
+    .required("Other benefits description is required")
+    .max(2000, "Other benefits description is too long"),
+});
+
+const regulatoryEnvironment = object({
+  // Exchange control regulations
+  exchangeControlRegulations: string()
+    .required("Exchange control regulations are required")
+    .max(2000, "Exchange control regulations description is too long"),
+
+  // Capital entry conditions
+  capitalEntryConditions: string()
+    .required("Capital entry conditions are required")
+    .max(2000, "Capital entry conditions description is too long"),
+
+  // Capital repatriation conditions
+  capitalRepatriationConditions: string()
+    .required("Capital repatriation conditions are required")
+    .max(2000, "Capital repatriation conditions description is too long"),
+
+  // Other relevant regulations
+  otherRelevantRegulations: string()
+    .required("Other relevant regulations are required")
+    .max(2000, "Other relevant regulations description is too long"),
+});
+
+const implementationSchedule = object({
+  // Project completion date
+  completionDate: string()
+    .required("Project completion date is required")
+    .test("is-valid-date", "Please select a valid completion date", (value) => {
+      if (!value) return false;
+
+      // Check if it's a valid date string (adjust based on your date format)
+      const dateRegex = /^\d{2}-\d{2}-\d{4}$/;
+      if (!dateRegex.test(value)) return false;
+    }),
+
+  // Operation start date
+  operationDate: string()
+    .required("Commercial operations start date is required")
+    .test("is-valid-date", "Please select a valid operation date", (value) => {
+      if (!value) return false;
+
+      // Check if it's a valid date string
+      const dateRegex = /^\d{2}-\d{2}-\d{4}$/;
+      if (!dateRegex.test(value)) return false;
+    })
 });
 
 export {
@@ -664,4 +790,8 @@ export {
   financingStructure,
   typeOfFinancingRequested,
   criticalSuccessFactors,
+  governmentIncentives,
+  economicDevelopmentImpact,
+  regulatoryEnvironment,
+  implementationSchedule,
 };
