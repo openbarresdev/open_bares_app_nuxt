@@ -1,7 +1,7 @@
 <template>
 
     <div>
-        <CommonAccordion :title="title" :id="id" :initial-open="state" :description="description">
+        <CommonAccordion :title="title" :id="id" :initial-open="state" :description="description" :is-valid="isValid">
             <form action="" class="space-y-3">
                 <div class="space-y-6 px-1.5 w-full">
                    
@@ -46,12 +46,10 @@
 
                  </div>
 
-                <div
-                    @click=""
-                    class="btn btn-xl rounded-xl btn-gradient btn-block text-base border-none lg:h-12 my-3"
-                >
-                    Save <span class="icon-[tabler--chevron-right] size-5"></span>
-                </div>
+                 <div class="flex items-center justify-end gap-4 mx-2 mt-4">
+                    <span @click="closeAccordion()" class="py-3.5 px-4">cancel</span>
+                    <span @click="closeAccordion()" class="py-3.5 px-4 border-2 bg-primary text-white rounded-xl">save</span>
+                 </div>
             </form>
         </CommonAccordion>
     </div>
@@ -65,6 +63,7 @@ const props = defineProps({
   id: { type: String },
   description: { type: String },
   state: { type: Boolean, required: true },
+  isValid: { type: Boolean, required: false },
   
 })
 </script>

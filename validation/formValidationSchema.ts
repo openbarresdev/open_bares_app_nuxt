@@ -31,8 +31,8 @@ const sponsorInfoSchema = object({
 const businessHistorySchema = object({
   projectDescription: string()
     .min(10, 'Business description must be at least 10 characters')
-    .max(2000, 'Business description too long')
-    .required('Business description is required'),
+    .max(2000, 'Business description too long'),
+    // .required('Business description is required'),
   
   currency: string()
     .required('Currency is required'),
@@ -60,65 +60,71 @@ const businessHistorySchema = object({
 
 const managementStructureSchema = object({
   structureManagementDesc: string()
-    .min(10, "Business description must be at least 10 characters")
-    .max(2000, "Business description too long")
-    .required("Business description is required"),
+    .min(3, "Business description must be at least 3 characters")
+    .max(2000, "Business description too long"),
+    // .required("Business description is required"),
 
   ceoName: string()
-    .min(2, "CEO name must be at least 2 characters")
-    .required("CEO name is required"),
+    .min(2, "CEO name must be at least 2 characters"),
+    // .required("CEO name is required"),
 
-  ceoYearExperience: string().required("CEO experience is required"),
+  ceoYearExperience: string(),
+    // .required("CEO experience is required"),
 
   ceoPreviousPosition: string()
-    .min(2, "Previous position must be at least 2 characters")
-    .required("CEO previous position is required"),
+    .min(2, "Previous position must be at least 2 characters"),
+    // .required("CEO previous position is required"),
 
-  ceoEducationDegree: string().required("CEO education degree is required"),
+  ceoEducationDegree: string(),
+    // .required("CEO education degree is required"),
 
   cfoName: string()
-    .min(2, "CFO name must be at least 2 characters")
-    .required("CFO name is required"),
+    .min(2, "CFO name must be at least 2 characters"),
+    // .required("CFO name is required"),
 
-  cfoYearExperience: string().required("CFO experience is required"),
+  cfoYearExperience: string(),
+    // .required("CFO experience is required"),
 
   cfoPreviousPosition: string()
-    .min(2, "Previous position must be at least 2 characters")
-    .required("CFO previous position is required"),
+    .min(2, "Previous position must be at least 2 characters"),
+    // .required("CFO previous position is required"),
 
-  cfoEducationDegree: string().required("CFO education degree is required"),
+  cfoEducationDegree: string(),
+    // .required("CFO education degree is required"),
 
   ctoName: string()
-    .min(2, "CTO name must be at least 2 characters")
-    .required("CTO name is required"),
+    .min(2, "CTO name must be at least 2 characters"),
+    // .required("CTO name is required"),
 
-  ctoYearExperience: string().required("CTO experience is required"),
+  ctoYearExperience: string(),
+    // .required("CTO experience is required"),
 
   ctoPreviousPosition: string()
-    .min(2, "Previous position must be at least 2 characters")
-    .required("CTO previous position is required"),
+    .min(2, "Previous position must be at least 2 characters"),
+    // .required("CTO previous position is required"),
 
-  ctoEducationDegree: string().required("CTO education degree is required"),
+  ctoEducationDegree: string(),
+    // .required("CTO education degree is required"),
 });
 
 const technicalAssistanceSchema = object({
   managementAssist: string()
-    .min(5, 'Management assistance must be at least 5 characters')
+    // .min(5, 'Management assistance must be at least 5 characters')
     .max(500, 'Management assistance too long')
     .required('Management assistance is required'),
   
   productionAssist: string()
-    .min(5, 'Production assistance must be at least 5 characters')
+    // .min(5, 'Production assistance must be at least 5 characters')
     .max(500, 'Production assistance too long')
     .required('Production assistance is required'),
   
   marketingAssist: string()
-    .min(5, 'Marketing assistance must be at least 5 characters')
+    // .min(5, 'Marketing assistance must be at least 5 characters')
     .max(500, 'Marketing assistance too long')
     .required('Marketing assistance is required'),
   
   financialAssist: string()
-    .min(5, 'Financial assistance must be at least 5 characters')
+    // .min(5, 'Financial assistance must be at least 5 characters')
     .max(500, 'Financial assistance too long')
     .required('Financial assistance is required'),
   
@@ -750,26 +756,55 @@ const regulatoryEnvironment = object({
 const implementationSchedule = object({
   // Project completion date
   completionDate: string()
-    .required("Project completion date is required")
-    .test("is-valid-date", "Please select a valid completion date", (value) => {
-      if (!value) return false;
+    .required("Project completion date is required"),
+    // .test("is-valid-date", "Please select a valid completion date", (value) => {
+    //   if (!value) return false;
 
-      // Check if it's a valid date string (adjust based on your date format)
-      const dateRegex = /^\d{2}-\d{2}-\d{4}$/;
-      if (!dateRegex.test(value)) return false;
-    }),
+    //   // Check if it's a valid date string (adjust based on your date format)
+    //   const dateRegex = /^\d{2}-\d{2}-\d{4}$/;
+    //   if (!dateRegex.test(value)) return false;
+    // }),
 
   // Operation start date
   operationDate: string()
-    .required("Commercial operations start date is required")
-    .test("is-valid-date", "Please select a valid operation date", (value) => {
-      if (!value) return false;
+    .required("Commercial operations start date is required"),
+    // .test("is-valid-date", "Please select a valid operation date", (value) => {
+    //   if (!value) return false;
 
-      // Check if it's a valid date string
-      const dateRegex = /^\d{2}-\d{2}-\d{4}$/;
-      if (!dateRegex.test(value)) return false;
-    })
+    //   // Check if it's a valid date string
+    //   const dateRegex = /^\d{2}-\d{2}-\d{4}$/;
+    //   if (!dateRegex.test(value)) return false;
+    // })
 });
+
+const phaseSchema = object({
+  selectedStartDate: string().required("Start date required"),
+  selectedEndDate: string().required("End date is required"),
+  selectedDuration: string().required("Duration is required"),
+});
+
+// const phaseValidationSchema = (phaseId:any) => ({
+//   [`phase${phaseId}_startDate`]: string().required("Start date is required"),
+//   [`phase${phaseId}_endDate`]: string().required("End date is required"),
+//   [`phase${phaseId}_duration`]: string().required("Duration is required"),
+// });
+
+// // Ou si vous voulez un schéma complet
+// export const createPhaseSchema = (phaseIds:any) => {
+//   const schema = {};
+//   phaseIds.forEach((id:any) => {
+//     schema[`phase${id}_startDate`] = string().required(
+//       `Phase ${id} start date is required`
+//     );
+//     schema[`phase${id}_endDate`] = string().required(
+//       `Phase ${id} end date is required`
+//     );
+//     schema[`phase${id}_duration`] = string().required(
+//       `Phase ${id} duration is required`
+//     );
+//   });
+//   return schema;
+// };
 
 export {
   sponsorInfoSchema,
@@ -794,4 +829,5 @@ export {
   economicDevelopmentImpact,
   regulatoryEnvironment,
   implementationSchedule,
+  phaseSchema,
 };

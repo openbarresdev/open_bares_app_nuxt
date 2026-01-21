@@ -406,3 +406,13 @@ export const govincentives = [
   { id: 5, value: "Infrastructure support" },
   { id: 6, value: "Other" },
 ];
+
+export const phaseSteps = [
+  { id: 1, name: "Project planning and design" },
+  { id: 2, name: "Regulatory approvals" },
+  { id: 3, name: "Land acquisition" },
+  { id: 4, name: "Construction/installation" },
+  { id: 5, name: "Equipment procurement" },
+  { id: 6, name: "Testing and commissioning" },
+  { id: 7, name: "Commercial operations start" },
+];

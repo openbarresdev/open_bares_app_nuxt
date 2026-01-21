@@ -14,11 +14,14 @@
         :aria-labelledby="`${id}-heading`"
         @click="toggle"
       >
-        <span class="icon-[tabler--plus] accordion-item-active:hidden text-base-content size-4.5 block shrink-0"></span>
-        <span class="icon-[tabler--minus] accordion-item-active:block text-base-content size-4.5 hidden shrink-0"></span>
-        <span :id="`${id}-heading`" class="grow text-left text-base font-bold">
-          {{ title }}
-        </span>
+        <!-- <span class="icon-[tabler--plus] accordion-item-active:hidden text-base-content size-4.5 block shrink-0"></span> -->
+        <!-- <span class="icon-[tabler--minus] accordion-item-active:block text-base-content size-4.5 hidden shrink-0"></span> -->
+        <div class="flex items-center justify-between gap-1">
+          <span :id="`${id}-heading`" class="grow text-left text-base font-">
+            {{ title }}
+          </span>
+          <svg v-if="isValid" class="text-green-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10s10-4.5 10-10S17.5 2 12 2m4.2 8.3l-4.8 4.8c-.4.4-1 .4-1.4 0l-2.2-2.2c-.4-.4-.4-1 0-1.4s1-.4 1.4 0l1.5 1.5l4.1-4.1c.4-.4 1-.4 1.4 0s.4 1 0 1.4"/></svg>
+        </div>
       </button>
       
       <div 
@@ -43,7 +46,7 @@ const props = defineProps({
   id: { type: String, required: true },
   description: { type: String, required: false, default: "" },
   initialOpen: { type: Boolean, default: false },
-
+  isValid: { type: Boolean, default: false },
 })
 
 const isOpen = ref(props.initialOpen)
@@ -58,12 +61,4 @@ const closeAccordion = () => {
   isOpen.value = false
 }
 
-// defineExpose({
-//   closeAccordion,
-//   toggle,
-//   isOpen
-//   // open: () => (isOpen.value = true),
-//   // close: () => (isOpen.value = false),
-//   // toggle: () => (isOpen.value = !isOpen.value),
-// })
 </script>

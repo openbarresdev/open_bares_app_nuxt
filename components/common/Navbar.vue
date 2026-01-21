@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="flex items-center justify-center w-full">
-                    <CommonAppLogo :variant="'black'" :size="'24'" class="lg:hidden text-xs! w-full flex justify-center -ml-10"
+                    <CommonAppLogo :variant="'black'" :size="'24'" class="lg:hidden text-xs! w-full flex justify-center -ml-20"
                         :inNavbar="true" />
                 </div>
 
