@@ -33,11 +33,11 @@
             <button
               type="button"
               @click="resetOnePhase(index)"
-              class="py-3.5 px-4"
+              class="py-3.5 px-4 border-2 rounded-xl border-slate-300 lg:max-w-20 max-lg:min-w-1/2"
             >
               Cancel
             </button>
-            <button type="button" @click="closeOnePhase(index)" class="py-3.5 px-4 border-2 bg-primary text-white rounded-xl">save</button>
+            <button type="button" @click="closeOnePhase(index)" class="py-3.5 px-4 border-2 bg-primary text-white rounded-xl max-w-20 max-lg:min-w-1/2">save</button>
           </div>
         </CommonAccordion2>
       </div>

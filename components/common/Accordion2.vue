@@ -8,7 +8,7 @@
     <!-- Header -->
     <button
       type="button"
-      class="w-full flex items-center justify-between px-4 py-3 text-left  font-semibold transition-colors"
+      class="w-full flex items-center justify-between px-4 py-4 text-left  font-semibold transition-colors"
       :class="isOpen ? 'text-primary' : 'text-base-content'"
       @click="toggle"
     >
@@ -25,12 +25,8 @@
         
       </div>
 
-      <span
-        class="transition-transform duration-300"
-        :class="isOpen ? 'rotate-180' : ''"
-      >
-        ⌄
-      </span>
+      <svg class="rotate-0" :class="isOpen ? 'rotate-90' : ''" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M12.6 12L8 7.4L9.4 6l6 6l-6 6L8 16.6z"/></svg>
+    
     </button>
 
     <!-- Content -->

@@ -368,14 +368,16 @@ const { value: year3RoiPercentage, errorMessage: year3RoiPercentageError } = use
 const { value: year3RoePercentage, errorMessage: year3RoePercentageError } = useField('year3RoePercentage')
 
 // Year 4 Fields (Optional)
-const { value: year4Revenue, errorMessage: year4RevenueError } = useField('year4Revenue')
-const { value: year4NetProfit, errorMessage: year4NetProfitError } = useField('year4NetProfit')
+// const { value: year4Revenue, errorMessage: year4RevenueError } = useField('year4Revenue')
+// const { value: year4NetProfit, errorMessage: year4NetProfitError } = useField('year4NetProfit')
 
-// Year 5 Fields (Optional)
-const { value: year5Revenue, errorMessage: year5RevenueError } = useField('year5Revenue')
-const { value: year5NetProfit, errorMessage: year5NetProfitError } = useField('year5NetProfit')
+// // Year 5 Fields (Optional)
+// const { value: year5Revenue, errorMessage: year5RevenueError } = useField('year5Revenue')
+// const { value: year5NetProfit, errorMessage: year5NetProfitError } = useField('year5NetProfit')
 
 const hasValidationErrors = computed(() => {
+  console.log('errors', errors.value);
+  
     return Object.keys(errors.value).length > 0
 })
 
@@ -410,12 +412,12 @@ onMounted(async () => {
           year3RoePercentage: stepStore.state?.financialProjections.year3RoePercentage || "",
           
           // Year 4 (Optional)
-          year4Revenue: stepStore.state?.financialProjections.year4Revenue || "",
-          year4NetProfit: stepStore.state?.financialProjections.year4NetProfit || "",
+          // year4Revenue: stepStore.state?.financialProjections.year4Revenue || "",
+          // year4NetProfit: stepStore.state?.financialProjections.year4NetProfit || "",
           
-          // Year 5 (Optional)
-          year5Revenue: stepStore.state?.financialProjections.year5Revenue || "",
-          year5NetProfit: stepStore.state?.financialProjections.year5NetProfit || "",
+          // // Year 5 (Optional)
+          // year5Revenue: stepStore.state?.financialProjections.year5Revenue || "",
+          // year5NetProfit: stepStore.state?.financialProjections.year5NetProfit || "",
         })
       }
     }

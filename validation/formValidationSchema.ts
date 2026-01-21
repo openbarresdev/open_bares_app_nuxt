@@ -209,14 +209,14 @@ const marketEnvironmentSchema = object({
 
 const technicalSchema = object({
   specialTechComplexitiesDesc: string()
-    .min(10, "Description must be at least 10 characters")
-    .max(500, "Description too long")
-    .required("Primary user description is required"),
+    // .min(10, "Description must be at least 10 characters")
+    .max(500, "Description too long"),
+    // .required("Primary user description is required"),
 
   keyEquipementDesc: string()
-    .min(10, "Description must be at least 10 characters")
-    .max(500, "Description too long")
-    .required("Primary user description is required"),
+    // .min(10, "Description must be at least 10 characters")
+    .max(500, "Description too long"),
+    // .required("Primary user description is required"),
 });
 
 const humanResources = object({
@@ -242,10 +242,10 @@ const humanResources = object({
 
   availableSkillsRequired: string()
     .required("Availability of required skills is required")
-    .min(
-      10,
-      "Please provide at least 10 characters describing skill availability"
-    )
+    // .min(
+    //   10,
+    //   "Please provide at least 10 characters describing skill availability"
+    // )
     .max(1000, "Description is too long"),
 });
 
@@ -323,26 +323,26 @@ const operatingCostsAnnual = object({
 const rawMaterialsSupplyChain = object({
   sourceRawMaterials: string()
     .required("Source of raw materials is required")
-    .min(
-      10,
-      "Please provide at least 10 characters describing the source of raw materials"
-    )
+    // .min(
+    //   10,
+    //   "Please provide at least 10 characters describing the source of raw materials"
+    // )
     .max(2000, "Description is too long"),
 
   qualityAssuranceMeasures: string()
     .required("Quality assurance measures are required")
-    .min(
-      10,
-      "Please provide at least 10 characters describing quality assurance measures"
-    )
+    // .min(
+    //   10,
+    //   "Please provide at least 10 characters describing quality assurance measures"
+    // )
     .max(2000, "Description is too long"),
 
   importRestrictions: string()
     .required("Import restrictions information is required")
-    .min(
-      10,
-      "Please provide at least 10 characters describing import restrictions"
-    )
+    // .min(
+    //   10,
+    //   "Please provide at least 10 characters describing import restrictions"
+    // )
     .max(2000, "Description is too long"),
 });
 
@@ -378,23 +378,23 @@ const plantLocationAndSize = object({
 const environmentalAndSocialImpact = object({
   environmentalIssuesDesc: string()
     .required("Environmental issues description is required")
-    .min(
-      10,
-      "Please provide at least 10 characters describing environmental issues"
-    )
+    // .min(
+    //   10,
+    //   "Please provide at least 10 characters describing environmental issues"
+    // )
     .max(2000, "Description is too long"),
 
   mitigationMeasuresDesc: string()
     .required("Mitigation measures description is required")
-    .min(
-      10,
-      "Please provide at least 10 characters describing mitigation measures"
-    )
+    // .min(
+    //   10,
+    //   "Please provide at least 10 characters describing mitigation measures"
+    // )
     .max(2000, "Description is too long"),
 
   socialBenefitsDesc: string()
     .required("Social benefits description is required")
-    .min(10, "Please provide at least 10 characters describing social benefits")
+    // .min(10, "Please provide at least 10 characters describing social benefits")
     .max(2000, "Description is too long"),
 });
 
@@ -450,7 +450,7 @@ const financingStructure = object({
     .required("Sponsor equity percentage is required")
     .oneOf(
       percentages.map((c) => c.value),
-      "Please select a valid percentage"
+      "Required"
     ),
 
   // Requested Financing
@@ -462,7 +462,7 @@ const financingStructure = object({
     .required("Requested financing percentage is required")
     .oneOf(
       percentages.map((c) => c.value),
-      "Please select a valid percentage"
+      "Required"
     ),
 
   // Government Grants
@@ -474,7 +474,7 @@ const financingStructure = object({
     .required("Government grants percentage is required")
     .oneOf(
       percentages.map((c) => c.value),
-      "Please select a valid percentage"
+      "Required"
     ),
 
   // Others
@@ -486,7 +486,7 @@ const financingStructure = object({
     .required("Other financing percentage is required")
     .oneOf(
       percentages.map((c) => c.value),
-      "Please select a valid percentage"
+      "Required"
     ),
 
   // Total
@@ -498,7 +498,7 @@ const financingStructure = object({
     .required("Total percentage is required")
     .oneOf(
       percentages.map((c) => c.value),
-      "Please select a valid percentage"
+      "Required"
     ),
 });
 
@@ -684,10 +684,10 @@ const governmentIncentives = object({
       then: (schema: StringSchema) =>
         schema
           .required("Please specify the other government incentive")
-          .min(
-            2,
-            "Please provide at least 2 characters for the other incentive"
-          )
+          // .min(
+          //   2,
+          //   "Please provide at least 2 characters for the other incentive"
+          // )
           .max(100, "Other incentive description is too long"),
       otherwise: (schema: StringSchema) => schema.notRequired(),
     })
@@ -695,7 +695,7 @@ const governmentIncentives = object({
 
   otherDetails: string()
     .required("Other details are required")
-    .min(3, "Please provide at least 3 characters describing other details")
+    // .min(3, "Please provide at least 3 characters describing other details")
     .max(2000, "Other details description is too long")
     .default(""),
 });
