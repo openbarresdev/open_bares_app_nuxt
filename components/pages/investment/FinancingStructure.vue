@@ -194,19 +194,19 @@ onMounted(async () => {
     if (projectId.value) {
       await stepStore.fetchStep('investment', projectId.value)
 
-      if (stepStore.state?.financingType) {
+      if (stepStore.state?.financingStructure) {
         setValues({
-            currency: stepStore.state?.financingType.currency || "",
-            sponsorEquityAmount: stepStore.state?.financingType.sponsorEquityAmount || "",
-            sponsorEquityPercentage: stepStore.state?.financingType.sponsorEquityPercentage || "",
-            requestedFinancingAmount: stepStore.state?.financingType.requestedFinancingAmount || "",
-            requestedFinancingPercentage: stepStore.state?.financingType.requestedFinancingPercentage || "",
-            governmentGrantsAmount: stepStore.state?.financingType.governmentGrantsAmount || "",
-            governmentGrantsPercentage: stepStore.state?.financingType.governmentGrantsPercentage || "",
-            othersAmount: stepStore.state?.financingType.othersAmount || "",
-            othersPercentage: stepStore.state?.financingType.othersPercentage || "",
-            totalAmount: stepStore.state?.financingType.totalAmount || "",
-            totalPercentage: stepStore.state?.financingType.totalPercentage || ""
+            currency: stepStore.state?.financingStructure.currency || "",
+            sponsorEquityAmount: stepStore.state?.financingStructure.sponsorEquityAmount || "",
+            sponsorEquityPercentage: stepStore.state?.financingStructure.sponsorEquityPercentage || "",
+            requestedFinancingAmount: stepStore.state?.financingStructure.requestedFinancingAmount || "",
+            requestedFinancingPercentage: stepStore.state?.financingStructure.requestedFinancingPercentage || "",
+            governmentGrantsAmount: stepStore.state?.financingStructure.governmentGrantsAmount || "",
+            governmentGrantsPercentage: stepStore.state?.financingStructure.governmentGrantsPercentage || "",
+            othersAmount: stepStore.state?.financingStructure.othersAmount || "",
+            othersPercentage: stepStore.state?.financingStructure.othersPercentage || "",
+            totalAmount: stepStore.state?.financingStructure.totalAmount || "",
+            totalPercentage: stepStore.state?.financingStructure.totalPercentage || ""
         })
       }
     }
@@ -226,7 +226,7 @@ const submitFinancingStructure = handleSubmit(async (values) => {
 
     await stepStore.saveSection(
       'investment',
-      'financingType',
+      'financingStructure',
       values,
       userId.value,
       projectId.value,

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="flex max-lg:flex-col lg:gap-4 lg:items-center my-4 px-2 py-4 text-white bg-primary/60 rounded-md">
+        <div class="flex max-lg:flex-col lg:gap-4 lg:items-center my-1 px-2 lg:py-4 py-1 text-white bg-primary/60 rounded-md">
             <h2 class="lg:min-w-44">Application status</h2> 
             <div class="flex items-center gap-3 justify-between w-full max-lg:mb-2">
                 
@@ -24,7 +24,7 @@
                 </div>
 
             </div>
-            <div class="btn btn-xl rounded-xl btn-neutral btn-gradient btn-block text-base border-none lg:max-w-40 lg:h-10">Continuer</div>
+            <!-- <div class="btn btn-xl rounded-xl btn-neutral btn-gradient btn-block text-base border-none lg:max-w-40 lg:h-10">Continuer</div> -->
         </div>
     </div>
 </template>

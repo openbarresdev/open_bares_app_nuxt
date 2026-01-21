@@ -1,14 +1,14 @@
 <template>
     <div class="lg:max-w-2xl m-1">
-        <CommonPageHeading 
-            title="Your Profile"/>
+        <!-- <CommonPageHeading 
+            title="Your Profile"/> -->
         
-            <CommonApplicationStatus />
+            <!-- <CommonApplicationStatus /> -->
             
             <!-- Resume of your application -->
-            <div class="mt-10"> 
+            <div class=""> 
                 <CommonPageHeading 
-                    title="Start your application"
+                    title="Your Profile"
                     description="Complete the following information"/>
 
                 <form @submit.prevent="submitProfile" class="my-4 space-y-6">

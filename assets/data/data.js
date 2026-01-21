@@ -318,6 +318,12 @@ export const percentages = [
   { id: 1, value: "10%" },
   { id: 2, value: "20%" },
   { id: 3, value: "30%" },
+  { id: 3, value: "40%" },
+  { id: 3, value: "50%" },
+  { id: 3, value: "60%" },
+  { id: 3, value: "70%" },
+  { id: 3, value: "80%" },
+  { id: 3, value: "90%" },
   { id: 4, value: "100%" },
 ];
 

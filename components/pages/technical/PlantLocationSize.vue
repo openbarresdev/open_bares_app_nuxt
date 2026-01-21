@@ -111,8 +111,10 @@ onMounted(async () => {
   
   try {
     if (projectId.value) {
-      await stepStore.fetchStep('plantLocationSize', projectId.value)
+      await stepStore.fetchStep('technical', projectId.value)
 
+      // console.log('data', stepStore.state.technical);
+      
       if (stepStore.state?.plantLocationSize) {
         setValues({
             suppliersLocation: stepStore.state?.plantLocationSize.suppliersLocation || "",

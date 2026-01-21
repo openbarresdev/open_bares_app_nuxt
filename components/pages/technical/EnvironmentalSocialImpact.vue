@@ -78,7 +78,7 @@ onMounted(async () => {
   
   try {
     if (projectId.value) {
-      await stepStore.fetchStep('environmentalImpact', projectId.value)
+      await stepStore.fetchStep('technical', projectId.value)
 
       if (stepStore.state?.environmentalImpact) {
         setValues({
