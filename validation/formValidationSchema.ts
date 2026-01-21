@@ -187,9 +187,9 @@ const productionAndSalesSchema = object({
 
 const targetMarketSchema = object({
   primaryCustomers: string()
-    .min(10, "Description must be at least 10 characters")
-    .max(500, "Description too long")
-    .required("Primary user description is required"),
+    // .min(10, "Description must be at least 10 characters")
+    .max(500, "Description too long"),
+    // .required("Primary user description is required"),
 
   distributionChannels: string().required("Contribution channel is required"),
 });
@@ -502,34 +502,35 @@ const financingStructure = object({
     ),
 });
 
-const financingTypeValues = [
-  "Loan",
-  "Equity investment",
-  "Quasi-equity",
-  "Combination of financial products",
-  "Other",
-];
+// const financingTypeValues = [
+//   "Loan",
+//   "Equity investment",
+//   "Quasi-equity",
+//   "Combination of financial products",
+//   "Other",
+// ];
 
 const typeOfFinancingRequested = object({
   // Multiple selection for financing types
-  financingTypes: array()
-    .of(string().oneOf(financingTypeValues, "Invalid financing type selected"))
-    .min(1, "Please select at least one financing type")
+  financingTypes: string()
+    // .of(string().oneOf(financingTypeValues, "Invalid financing type selected"))
+    // .min(1, "Please select at least one financing type")
     .required("Financing type selection is required"),
 
+   otherFinancingType: string(),
   // Conditional validation for "Other" option
-  otherFinancingType: string().when("financingTypes", {
-    is: (types) => types && types.includes("Other"),
-    then: (schema) =>
-      schema
-        .required("Please specify the other financing type")
-        .min(
-          2,
-          "Please provide at least 2 characters for the other financing type"
-        )
-        .max(100, "Other financing type description is too long"),
-    otherwise: (schema) => schema.notRequired(),
-  }),
+  // otherFinancingType: string().when("financingTypes", {
+  //   is: (types:any) => types && types.includes("Other"),
+  //   then: (schema) =>
+  //     schema
+  //       .required("Please specify the other financing type")
+  //       .min(
+  //         2,
+  //         "Please provide at least 2 characters for the other financing type"
+  //       )
+  //       .max(100, "Other financing type description is too long"),
+  //   otherwise: (schema) => schema.notRequired(),
+  // }),
 
   currency: string()
     .required("Currency is required")

@@ -59,6 +59,13 @@ import { phaseSchema } from "~/validation/formValidationSchema";
 import { years } from "/assets/data/data"
 import { useForm, useField } from 'vee-validate'
 
+const props = defineProps({
+  initialData: {
+    type: Object,
+    default: () => ({ startDate: '', endDate: '', duration: '' })
+  }
+});
+
 const { handleSubmit, errors, setValues } = useForm({
     validationSchema: phaseSchema,
 });
@@ -67,10 +74,27 @@ const { value: selectedStartDate, errorMessage: startDateError } = useField('sel
 const { value: selectedEndDate, errorMessage: endDateError } = useField('selectedEndDate')
 const { value: selectedDuration, errorMessage: durationError }  = useField('selectedDuration')
 
-const emit = defineEmits(['update:phaseData', 'reset'])
+const emit = defineEmits(['update:phaseData', 'update:isValid', 'reset']);
+
+let isInternalChange = false;
+
+// WATCHER: When the parent passes new data (after API fetch), update the local fields
+watch(() => props.initialData, (newData) => {
+    if (newData) {
+    isInternalChange = true; // On bloque l'emit
+    selectedStartDate.value = newData.startDate || '';
+    selectedEndDate.value = newData.endDate || '';
+    selectedDuration.value = newData.duration || '';
+
+    // On libère après la mise à jour des champs
+    nextTick(() => { isInternalChange = false; });
+  }
+}, { immediate: true, deep: true });
 
 // Émettre les données quand elles changent
 watch([selectedStartDate, selectedEndDate, selectedDuration], () => {
+   if (isInternalChange) return;
+
   const phaseData = {
     startDate: selectedStartDate.value,
     endDate: selectedEndDate.value,
@@ -85,6 +109,9 @@ watch([selectedStartDate, selectedEndDate, selectedDuration], () => {
     emit('update:isValid', !!isValid)
 }, { deep: true }) 
   
+// watch(() => meta.value.valid, (newValid) => {
+//   emit('update:isValid', newValid);
+// }, { immediate: true });
 
 // Méthode pour obtenir les données du formulaire
 const getData = () => {

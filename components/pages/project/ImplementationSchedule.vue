@@ -9,7 +9,13 @@
       @submit.prevent="submitImplementationSchedule"
       class="py-3 lg:w-full max-lg:w-full"
     >
-      <div class="max-w-xl space-y-4 py-3">
+
+      <div v-if="isLoading" class="flex justify-center p-10">
+        <span class="loading loading-spinner">Loading schedule...</span>
+      </div>
+
+
+      <div v-else class="max-w-xl space-y-4 py-3">
         <CommonAccordion2
           v-for="(phase, index) in phaseSteps"
           :key="phase.id"
@@ -18,6 +24,7 @@
         >
           <CommonPhases2
             :ref="(el) => (phaseRefs[index] = el)"
+            :initialData="phasesResults[phase.id]"
             @update:phaseData="handlePhaseUpdate(phase.id, $event)"
             @update:isValid="handleValidationUpdate(phase.id, $event)"
           />
@@ -100,6 +107,7 @@ const { $notyf } = useNuxtApp();
 // Stockage des données et de la validité
 const phasesResults = ref({})
 const phasesValidity = ref({})
+const isLoading = ref(true);
 
 // Gestion des Refs dynamiques
 const phaseRefs = ref([])
@@ -150,7 +158,7 @@ onMounted(async () => {
   try {
     if (projectId.value) {
       await stepStore.fetchStep("timeline", projectId.value);
-
+      
       if (stepStore.state?.implementationSchedule) {
         const data = stepStore.state.implementationSchedule;
 
@@ -161,12 +169,21 @@ onMounted(async () => {
 
         // Set phase states if they exist in the data
         if (data.phaseStates) {
+          // phasesResults.value = data.phaseStates;
+          Object.assign(phasesResults.value, savedData.phaseStates);
         }
       }
     }
   } catch (error) {
     console.error("Error fetching implementation schedule:", error);
+  }finally {
+    isLoading.value = false;
   }
+
+  // Update data in the object when child emits change
+  // const handlePhaseUpdate = (id, data) => {
+  //   phasesResults.value[id] = data;
+  // };
 });
 
 const submitImplementationSchedule = handleSubmit(async (values) => {
