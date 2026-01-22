@@ -135,6 +135,7 @@ export const userMenu = [
     fullTitle: "Setting upp your profile",
     iconName: "icon-[tabler--user]",
     items: [],
+    stepKey: "profilePercent",
   },
   {
     id: 2,
@@ -148,6 +149,7 @@ export const userMenu = [
       "Management Structure",
       "Technical Assistance",
     ],
+    stepKey: "sponsorshipPercent",
   },
   {
     id: 3,
@@ -160,6 +162,7 @@ export const userMenu = [
       "Target Market",
       "Market Environment",
     ],
+    stepKey: "marketPercent",
   },
   {
     id: 4,
@@ -176,6 +179,7 @@ export const userMenu = [
       "Plant Location and Size",
       "Environmental and Social Impact",
     ],
+    stepKey: "technicalPercent",
   },
   {
     id: 5,
@@ -190,6 +194,7 @@ export const userMenu = [
       "Financial Projections",
       "Critical Success Factors",
     ],
+    stepKey: "investmentPercent",
   },
   {
     id: 6,
@@ -202,6 +207,7 @@ export const userMenu = [
       "Economic Development Impact",
       "Regulatory Environment",
     ],
+    stepKey: "governmentPercent",
   },
   {
     id: 7,
@@ -210,6 +216,7 @@ export const userMenu = [
     fullTitle: "Project Timeline",
     iconName: "icon-[tabler--calendar]",
     items: ["Implementation Schedule"],
+    stepKey: "timelinePercent",
   },
   {
     id: 8,
@@ -218,6 +225,7 @@ export const userMenu = [
     fullTitle: "Supporting Documents",
     iconName: "icon-[tabler--files]",
     items: [],
+    stepKey: "documentsPercent",
   },
 ];
 

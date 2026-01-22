@@ -2,20 +2,30 @@
   <div>
     <!-- Overlay (mobile only) -->
     <transition name="fade">
-      <div v-if="isMobile && isAsideOpenRef" class="fixed inset-0 bg-base-300/60 z-40 lg:hidden" @click="emitClose()" />
+      <div
+        v-if="isMobile && isAsideOpenRef"
+        class="fixed inset-0 bg-base-300/60 z-40 lg:hidden"
+        @click="emitClose()"
+      />
     </transition>
 
     <!-- Sidebar -->
     <transition name="slide-fade">
-      <aside :class="[
-        'fixed inset-y-0 start-0 z-50 bg-white lg:rounded-xl shadow-lg transition-transform lg:translate-x-0 lg:shadow-none lg:w-76 max-lg:min-w-90 max-lg:p-1 lg:m-6',
-        { '-translate-x-full': isMobile && !isAsideOpenRef }
-      ]" aria-label="Sidebar">
+      <aside
+        :class="[
+          'fixed inset-y-0 start-0 z-50 bg-white lg:rounded-xl shadow-lg transition-transform lg:translate-x-0 lg:shadow-none lg:w-76 max-lg:min-w-90 max-lg:p-1 lg:m-6',
+          { '-translate-x-full': isMobile && !isAsideOpenRef },
+        ]"
+        aria-label="Sidebar"
+      >
         <div class="relative h-full flex flex-col">
           <!-- Close button: only on mobile -->
-          <button v-if="isMobile" type="button"
+          <button
+            v-if="isMobile"
+            type="button"
             class="btn btn-text btn-circle btn-sm absolute end-2 top-2 lg:hidden bg-zinc-200/40 border-2 border-white w-10 h-10 rounded-xl"
-            @click="emitClose()">
+            @click="emitClose()"
+          >
             <span class="icon-[tabler--x] size-6"></span>
           </button>
 
@@ -25,26 +35,54 @@
           <!-- Menu -->
           <div class="h-full overflow-y-auto">
             <ul class="accordion menu menu-sm lg:gap-2 overflow-y-auto p-">
-              <li v-for="section in sections" :key="section.id" class="accordion-item py-">
+              <li
+                v-for="section in sections"
+                :key="section.id"
+                class="accordion-item py-"
+              >
                 <button
                   class="accordion-toggle inline-flex items-center p-2 text-start text-sm font-normal w-full max-lg:h-13!"
-                  :class="{ 'bg-primary text-white': openSection === section.id }" @click="handleSectionClick(section)">
+                  :class="{
+                    'bg-primary text-white': openSection === section.id,
+                  }"
+                  @click="handleSectionClick(section)"
+                >
                   <span :class="`${section.iconName} size-6`"></span>
-                  <span class="grow">{{ section.title }}</span>
+                  <span class="grow flex"
+                    >{{ section.title }}
+                    <span  v-if="isStepComplete(section)"
+                      class="text-xs border-2 border-dashed px-1 rounded-md mx-2 text-green-500 flex items-center"
+                      >complete
+                    
+                      <!-- <svg class="mx-1 text-green-400" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24"><path fill="currentColor" d="m10 13.6l5.9-5.9q.275-.275.7-.275t.7.275t.275.7t-.275.7l-6.6 6.6q-.3.3-.7.3t-.7-.3l-2.6-2.6q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275z"/></svg> -->
+                      <svg class="mx-1 text-green-400" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="currentColor" d="m10.6 16.6l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4zM12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"/></svg>
+                    </span>
+                  </span>
 
-                  <span v-if="section.items && section.items.length"
+                  <span
+                    v-if="section.items && section.items.length"
                     class="size-6 shrink-0 transition-transform duration-300 icon-[tabler--chevron-right]"
-                    :class="{ 'rotate-90': openSection === section.id }"></span>
+                    :class="{ 'rotate-90': openSection === section.id }"
+                  ></span>
                 </button>
 
-                <div v-if="section.items && section.items.length"
+                <div
+                  v-if="section.items && section.items.length"
                   class="accordion-content mt-1 w-full overflow-hidden transition-[height] duration-300 bg-zinc-100"
-                  v-show="openSection === section.id">
+                  v-show="openSection === section.id"
+                >
                   <ul class="space-y-1 p-2">
                     <li v-for="(item, index) in section.items" :key="index">
-                      <a href="#" class="block px-2 max-lg:py-3.5 transition-colors duration-200"
-                        :class="activeItemId === `${section.id}-${index}` ? 'bg-zinc-300' : 'hover:bg-gray-200'"
-                        @click.prevent="handleItemClick(section, item, index)">
+                      <a
+                        href="#"
+                        class="block px-2 max-lg:py-3.5 transition-colors duration-200"
+                        :class="
+                          activeItemId === `${section.id}-${index}`
+                            ? 'bg-zinc-300'
+                            : 'hover:bg-gray-200'
+                        "
+                        @click.prevent="handleItemClick(section, item, index)"
+                      >
                         {{ item }}
                       </a>
                     </li>
@@ -52,10 +90,16 @@
                 </div>
               </li>
 
-              <hr class="text-zinc-300 my-1">
-              <div @click="logoutUser" class="inline-flex items-center p-2 text-start text-sm font-normal w-full h-11 max-lg:h-14! gap-2 btn btn-xlrounded-md btn-neutral btn-gradient opacity-80 hover:opacity-100 text-white cursor-pointer max-lg:mt-3" data-overlay="#middle-center-modal" ria-haspopup="dialog" aria-expanded="false">
+              <hr class="text-zinc-300 my-1" />
+              <div
+                @click="logoutUser"
+                class="inline-flex items-center p-2 text-start text-sm font-normal w-full h-11 max-lg:h-14! gap-2 btn btn-xlrounded-md btn-neutral btn-gradient opacity-80 hover:opacity-100 text-white cursor-pointer max-lg:mt-3"
+                data-overlay="#middle-center-modal"
+                ria-haspopup="dialog"
+                aria-expanded="false"
+              >
                 <span class="icon-[solar--power-bold-duotone] size-6"></span>
-                  <span class="grow"> Log Out </span>
+                <span class="grow"> Log Out </span>
               </div>
 
             </ul>
@@ -70,7 +114,9 @@
 import { toRefs, watch, onMounted, onUnmounted, ref } from "vue";
 import { useAuth } from "~/composables/useAuth";
 import { useHSModal } from '~/composables/useHSModal';
+import { useDataStore } from '~/stores/dataStore';
 
+const dataStore = useDataStore();
 
 const props = defineProps({
   sections: { type: Array, required: false, default: () => [] },
@@ -93,7 +139,7 @@ watch(isAsideOpenRef, (val) => {
 // -------------------------------------
 const activeItemId = ref(null);
 const openSection = ref(null);
-const { checkAuth } = useAuth();
+const { userId, projectId, checkAuth } = useAuth();
 
 const toggleSection = (id) => {
   openSection.value = openSection.value === id ? null : id;
@@ -155,14 +201,33 @@ const emitClose = () => {
   emit("closeAside");
 };
 
-onMounted(() => {
-  handleResize(); 
+
+const isStepComplete = (section) => {
+  if (dataStore.steps && section.stepKey) {
+    return dataStore.steps[section.stepKey] === true
+  }
+  return false
+}
+
+
+onMounted(async () => {
+  handleResize();
   window.addEventListener("resize", handleResize);
+
+  await checkAuth()
+
+  if (userId.value && projectId.value) {
+    dataStore.loadSteps(userId.value, projectId.value)
+
+    // console.log('results', dataStore.steps);
+    
+  }
+    
 });
 
 onUnmounted(() => {
   window.removeEventListener("resize", handleResize);
-  document.body.classList.remove("overflow-hidden"); 
+  document.body.classList.remove("overflow-hidden");
 });
 
 const { openModal } = useHSModal('#middle-center-modal');
@@ -171,9 +236,8 @@ const logoutUser = async () => {
     emitClose();
     openModal()
 
-    
-}
 
+}
 </script>
 
 <style scoped>
