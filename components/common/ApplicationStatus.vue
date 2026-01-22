@@ -38,7 +38,7 @@ const dataStore = useDataStore();
 
 onMounted(async () => {
     await checkAuth();
-    dataStore.loadSteps(userId, projectId)
+    await dataStore.loadSteps(userId, projectId)
 })
 
 </script>

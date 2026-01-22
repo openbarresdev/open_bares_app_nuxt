@@ -67,48 +67,52 @@ export const useStepStore = defineStore("step", () => {
   ) => {
     isLoading.value = true;
     error.value = null;
-    //   console.log("stepName", stepName);
-    //   console.log("sectionName", sectionName);
-    //   console.log("sectionData", sectionData);
-    //   console.log("userId", userId);
-    //   console.log("projectId", projectId);
+    
     try {
+      let dataToSave = { ...sectionData };
+      let currency : string | undefined;
+
+      if (dataToSave.currency) {
+        currency = dataToSave.currency;
+        delete dataToSave.currency;
+      }
+
+      console.log('currency', currency);
+      
+
       const response = await $fetch(`/api/steps/${stepName}`, {
         method: "POST",
         body: {
           projectId,
           sectionName,
-          sectionData,
+          sectionData: dataToSave,
         },
       });
 
       if (response.success) {
         updateSection(sectionName, sectionData);
-        console.log("sectionName", sectionName);
 
-        if (
-          sectionName === "technicalAssistance" ||
-          "marketEnvironment" ||
-          "environmentalImpact" ||
-          "successFactors" ||
-          "regulatoryEnvironment" ||
-          "implementationSchedule" ||
-          "documentLinks"
-        ) {
-          console.log('Application step processing');
-          
-          isLastSection.value = true;
-          dataStore.updateApplicationSteps(
-            { [`${stepName}Percent`]: true },
+        const sectionToPercentMap: Record<string, string> = {
+          marketEnvironment: "marketPercent",
+          environmentalImpact: "technicalPercent",
+          successFactors: "investmentPercent",
+          regulatoryEnvironment: "governmentPercent",
+          implementationSchedule: "timelinePercent",
+          documentLinks: "documentsPercent",
+          profile: "profilePercent",
+          technicalAssistance: "sponsorshipPercent",
+        };
+
+          const percentName = sectionToPercentMap[sectionName] || `${stepName}Percent`;
+
+        // console.log(`Mapping: ${sectionName} → ${percentName}`);
+
+          await dataStore.updateApplicationSteps(
+            percentName,
             userId,
             projectId,
-            stepName
+            currency
           );
-          console.log("Application step processing end");
-        }
-          // if (isLastSection.value) {
-            
-          // }
       }
 
       return response;

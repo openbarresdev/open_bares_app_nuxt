@@ -18,12 +18,12 @@ export const useProfileStore = defineStore('profileStore', () => {
     industrialSector: "",
     projectDescription: "",
   });
-  const isStepProfileComplete = ref(false);
+  // const isStepProfileComplete = ref(false);
   const isLoading = ref(false);
   const error = ref("");
   const projectId = ref("");
 
-  const dataSore = useDataStore();
+  const dataStore = useDataStore();
 
   // actions here
   const countriesOptions = computed(() => {
@@ -97,32 +97,33 @@ export const useProfileStore = defineStore('profileStore', () => {
 
       applicant.value = res.project; // save updated result from DB
       // console.log("Project id", applicant.value.id);
-      
+      // console.log("sectionName", sectionName);
+      // console.log("user_id", user_id);
 
-      console.log("applicant data", applicant);
+       if (res.success) {
 
-      notyf.success("Saved successfully!");
+         const sectionToPercentMap = {
+           marketEnvironment: "marketPercent",
+           environmentalImpact: "technicalPercent",
+           successFactors: "investmentPercent",
+           regulatoryEnvironment: "governmentPercent",
+           implementationSchedule: "timelinePercent",
+           documentLinks: "documentsPercent",
+           profile: "profilePercent",
+           technicalAssistance: "sponsorshipPercent",
+         };
 
-      isStepProfileComplete.value = true;
+         const percentName =
+           sectionToPercentMap[sectionName];
 
-      // console.log('user is', user_id);
-      // console.log("project", projectId);
-      
-       dataSore.updateApplicationSteps(
-         { profilePercent: isStepProfileComplete.value },
-         user_id,
-         applicant.value.id,
-         sectionName
-       );
-      
-      console.log("ap", res.project[1]);
-      
-      //  await dataSore.updateStep(
-      //    "profilePercent",
-      //    isStepProfileComplete.value,
-      //    user_id,
-      //    applicant.project.id
-      //  );
+         // console.log(`Mapping: ${sectionName} → ${percentName}`);
+
+         await dataStore.updateApplicationSteps(
+           percentName,
+           user_id,
+           applicant.value.id,
+         );
+       }
 
       setTimeout(() => {
         navigateTo("/user/dashboard/sponsorship/sponsor-information");
@@ -157,7 +158,7 @@ export const useProfileStore = defineStore('profileStore', () => {
     applicant,
     isLoading,
     error,
-    isStepProfileComplete,
+    // isStepProfileComplete,
     projectId,
 
     // actions returned

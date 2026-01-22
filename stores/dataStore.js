@@ -1,13 +1,9 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
-import { useProfileStore, useSponsorshipStore } from "#imports";
-// import { useAuth } from "~/composables/useAuth";
 
 export const useDataStore = defineStore(
   "dataSore",
   () => {
-    const profileSore = useProfileStore();
-    const sponsorshipStore = useSponsorshipStore();
     const completedStepsCount = ref();
     const totalSteps = ref();
     const percentageProgress = ref(0);
@@ -16,33 +12,57 @@ export const useDataStore = defineStore(
     const isFirstSteps = ref(true);
     const preferences = ref({
       currency: "euro",
+      lang: "",
     });
 
-    // Application process 
+    // Application process
     const steps = ref({
       profilePercent: false,
       sponsorshipPercent: false,
       marketPercent: false,
       technicalPercent: false,
-      investmentFinancingPercent: false,
-      governmentSupportPercent: false,
-      projectTimelinePercent: false,
-      supportingDocumentsPercent: false,
+      investmentPercent: false,
+      governmentPercent: false,
+      timelinePercent: false,
+      documentsPercent: false,
     });
 
-    const updateApplicationSteps = (stepUpdates, userId, projectId, sectionName) => {
-      steps.value = {
-        ...steps.value,
-        ...stepUpdates,
-      };
-   
-      if (userId && projectId) {
-        saveSteps(sectionName, steps.value, userId, projectId);
+    const updateApplicationSteps = async (
+      stepKey,
+      userId,
+      projectId,
+      currency,
+      lang = null
+    ) => {
+      if (!userId || !projectId) return;
+
+      steps.value[stepKey] = true;
+      console.log("setpKey", stepKey);
+      // console.log("steps.value[setpKey]", steps.value[stepKey]);
+
+      await saveSteps(userId, projectId, {
+        [stepKey]: true,
+      });
+
+      if (currency) {
+        preferences.value.currency = currency;
+        await savePreferences(userId, projectId, {
+          currency,
+        });
       }
+
+      if (lang) {
+        preferences.value.lang = lang;
+        await savePreferences(userId, projectId, {
+          lang,
+        });
+      }
+
+      calculateProgress(steps.value);
     };
 
     const loadSteps = async (userId, projectId) => {
-      console.log("fetchig application steps...");
+      console.log("fetchig application data...");
 
       isLoading.value = true;
       const { data } = await useFetch("/api/application-settings", {
@@ -50,16 +70,30 @@ export const useDataStore = defineStore(
       });
 
       if (data.value?.success) {
-        
-        const mergedSteps = { ...steps.value, ...data.value.data };
+        const response = data.value.data;
 
-        calculateProgress(mergedSteps);
+        console.log('fetched steps data');
+        
+        // Charger les steps
+        if (response.steps) {
+          steps.value = { ...steps.value, ...response.steps };
+        }
+
+        // Charger les préférences (currency)
+        if (response.preferences) {
+          preferences.value = { ...preferences.value, ...response.preferences };
+        }
+
+        // Calculer le progrès
+        calculateProgress(steps.value);
 
         isLoading.value = false;
-
         isFirstSteps.value = false;
 
-        return mergedSteps;
+        return {
+          steps: steps.value,
+          preferences: preferences.value,
+        };
       }
       // console.log('something failed');
       isFirstSteps.value = true;
@@ -67,53 +101,65 @@ export const useDataStore = defineStore(
       return null;
     };
 
-    const saveSteps = async (
-      userId,
-      projectId,
-      stepUpdates
-    ) => {
-      console.log("saving to database started...");
-      steps.value = { ...steps.value, ...stepUpdates };
-
-      // console.log( "user id", userId);
-      // console.log(projectId);
-      
+    const saveSteps = async (userId, projectId, stepUpdates) => {
       const { data } = await useFetch("/api/application-settings", {
         method: "POST",
-        body: { userId, projectId, steps: steps.value },
+        body: {
+          userId,
+          projectId,
+          steps: stepUpdates,
+        },
       });
+
+      console.log("data datsore", data.value);
 
       return data.value?.success || false;
     };
 
-    const updateStep = async (
-      stepName,
-      value,
-      userId,
-      projectId
-    ) => {
+    const savePreferences = async (userId, projectId, preferencesData) => {
+      const { data } = await useFetch("/api/application-settings", {
+        method: "POST",
+        body: {
+          userId,
+          projectId,
+          preferences: preferencesData,
+        },
+      });
+
+      console.log("API Response:", data.value);
+      // console.log("API Error:", error.value);
+
+      return data.value?.success || false;
+    };
+
+    const setLanguage = async (userId, projectId, lang) => {
+      preferences.value.lang = lang;
+
       if (userId && projectId) {
-        await saveSteps(userId, projectId, { [stepName]: value });
-      } else {
-        steps.value[stepName] = value;
+        return await savePreferences(userId, projectId, { lang });
       }
+
+      return true;
+    };
+
+    const loadLanguage = async (userId, projectId) => {
+      const result = await loadSteps(userId, projectId);
+
+      return preferences.value.lang;
     };
 
     const calculateProgress = (steps) => {
-
-      totalSteps.value = Object.keys(steps).length;
-
       const allSteps = Object.keys(steps);
-
       const completedSteps = allSteps.filter((key) => steps[key] === true);
 
-      console.log(completedSteps);
-      
+      // console.log("Completed steps:", completedSteps);
+      // console.log("Total steps:", allSteps.length);
+
+      totalSteps.value = allSteps.length;
+      completedStepsCount.value = completedSteps.length;
       percentageProgress.value = Math.round(
         (completedSteps.length / allSteps.length) * 100
       );
-
-      completedStepsCount.value = completedSteps.length;
 
       return percentageProgress.value;
     };
@@ -126,14 +172,16 @@ export const useDataStore = defineStore(
       percentageProgress,
       isLoading,
       isFirstSteps,
-      
+
       // Actions
       steps,
       loadSteps,
       saveSteps,
-      updateStep,
+      // updateStep,
       updateApplicationSteps,
       calculateProgress,
+      loadLanguage,
+      setLanguage,
 
       // Actions API
     };

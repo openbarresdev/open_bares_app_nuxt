@@ -157,22 +157,26 @@ export const useSponsorshipStore = defineStore("sponsorship", () => {
           ...sponsorship.value[sectionName],
           ...sectionData,
         };
+
+        const sectionToPercentMap = {
+          marketEnvironment: "marketPercent",
+          environmentalImpact: "technicalPercent",
+          successFactors: "investmentPercent",
+          regulatoryEnvironment: "governmentPercent",
+          implementationSchedule: "timelinePercent",
+          documentLinks: "documentsPercent",
+          profile: "profilePercent",
+          technicalAssistance: "sponsorshipPercent",
+        };
+
+        const percentName = sectionToPercentMap[sectionName];
+
+        // console.log(`Mapping: ${sectionName} → ${percentName}`);
+
+        await dataStore.updateApplicationSteps(percentName, userId, projectId);        
       }
 
-      // console.log('DATA'), response.data;
-      if (
-        response.success &&
-        response.data &&
-        sectionName === "technicalAssistance"
-      ) {
-        isStepSponsorshipComplete.value = true;
-        dataStore.updateApplicationSteps(
-          { sponsorshipPercent: isStepSponsorshipComplete.value },
-          userId,
-          projectId,
-          sectionName
-        );
-      }
+      
 
       // const { userId } = useAuth();
 

@@ -1,5 +1,10 @@
 export const STEP_CONFIG = {
   sponsorship: {
+    profile: {
+      model: "Project",
+      sections: ["profile"],
+    },
+
     model: "sponsorship",
     sections: [
       "sponsorInfo",

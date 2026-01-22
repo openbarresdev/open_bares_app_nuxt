@@ -41,7 +41,7 @@ export const useTechnicalStore = defineStore("technical", () => {
     technicalData.value = { ...technicalData.value, ...data };
   };
 
-  const fetchtechnicalData = async (projectId) => {
+  const fetchMarketData = async (projectId) => {
     isLoading.value = true;
     error.value = null;
 

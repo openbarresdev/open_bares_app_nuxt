@@ -92,17 +92,23 @@ export const useMarketStore = defineStore("market", () => {
       if (response.success) {
         updateMarketData(sectionData);
 
-        if (sectionName === "marketEnvironment") {
-          isStepMarketComplete.value = true;
-  
-          dataStore.updateApplicationSteps(
-            { marketPercent: isStepMarketComplete.value },
-            userId,
-            projectId,
-            sectionName
-          );
+        const sectionToPercentMap = {
+          marketEnvironment: "marketPercent",
+          environmentalImpact: "technicalPercent",
+          successFactors: "investmentPercent",
+          regulatoryEnvironment: "governmentPercent",
+          implementationSchedule: "timelinePercent",
+          documentLinks: "documentsPercent",
+          profile: "profilePercent",
+          technicalAssistance: "sponsorshipPercent",
+        };
 
-        }
+        const percentName =
+          sectionToPercentMap[sectionName];
+
+        // console.log(`Mapping: ${sectionName} → ${percentName}`);
+
+        await dataStore.updateApplicationSteps(percentName, userId, projectId);
       }
 
       return response;
