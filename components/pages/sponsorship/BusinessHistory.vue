@@ -19,7 +19,7 @@
       <div class="text-base font-medium text-black">
         Annual Revenue (Last 3 Years):
       </div>
-      <div class="space-y-4 w-2/3 max-lg:w-full">
+      <div class="space-y-4 w-2/3 max-lg:w-full mt-8 max-lg:mb-20">
         <div class="inline-flex items-center gap-2 w-full">
           <div class="lg:text-base max-lg:text-sm min-w-32">Currency:</div>
           <CommonSelectVariant
@@ -98,18 +98,20 @@
         </div>
       </div>
 
-      <button
-        type="submit"
-        class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 my-3"
-        :disabled="sponsorshipStore.isLoading"
-      >
-        <span
-          v-if="sponsorshipStore.isLoading"
-          class="loading loading-spinner"
-        ></span>
-        {{ sponsorshipStore.isLoading ? "Saving..." : "Save & Continue" }}
-        <span class="icon-[tabler--chevron-right] size-5"></span>
-      </button>
+      <div class="lg:static fixed bottom-0 left-0 right-0 bg-white w-full p-2">
+        <button
+          type="submit"
+          class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 my-1"
+          :disabled="sponsorshipStore.isLoading"
+        >
+          <span
+            v-if="sponsorshipStore.isLoading"
+            class="loading loading-spinner"
+          ></span>
+          {{ sponsorshipStore.isLoading ? "Saving..." : "Save & Continue" }}
+          <span class="icon-[tabler--chevron-right] size-5"></span>
+        </button>
+      </div>
     </form>
   </div>
 </template>

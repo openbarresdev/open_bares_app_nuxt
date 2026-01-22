@@ -3,7 +3,7 @@
         <CommonPageHeading title="Total Investment Requirements" description="Capital expenditure breakdown" />
         
         <form @submit.prevent="submitTotalInvestment" class="space-y-3 my-3">
-            <div class="space-y-4 w-2/3 max-lg:w-full">
+            <div class="space-y-4 w-2/3 max-lg:w-full max-lg:mb-20">
                 <div class="inline-flex items-center gap-2 w-full">
                     <div class="lg:text-base max-lg:text-sm w-2/3 max-lg:min-w-32">Currency: </div>
                     <CommonSelectVariant 
@@ -103,16 +103,18 @@
                     />
                 </div>
             </div>
-
-            <button 
-                type="submit" 
-                :disabled="hasValidationErrors"
-                class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 my-3"
-            > 
-                <span v-if="stepStore.isLoading" class="loading loading-spinner"></span>
-                {{ stepStore.isLoading ? 'Saving...' : 'Save & Continue' }}
-                <span class="icon-[tabler--chevron-right] size-5"></span>
-            </button>
+            
+            <div class="lg:static fixed bottom-0 left-0 right-0 bg-white w-full p-2">
+                <button 
+                    type="submit" 
+                    :disabled="hasValidationErrors"
+                    class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 my-0"
+                > 
+                    <span v-if="stepStore.isLoading" class="loading loading-spinner"></span>
+                    {{ stepStore.isLoading ? 'Saving...' : 'Save & Continue' }}
+                    <span class="icon-[tabler--chevron-right] size-5"></span>
+                </button>
+            </div>
         </form>
     </div>
 </template>

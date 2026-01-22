@@ -49,13 +49,14 @@
 
                 <div class="text-base">Legal structure</div>
                     
-                <CommonRadiaButton
+                <CommonRadiaButton class="max-lg:mb-14"
                     v-model="legalStructure"
                     :options="legalStructureOptions"
                     :hasError="!!legalStructureError"
                     :errorMessage="legalStructureError"
                 />
 
+                <div class="lg:static fixed bottom-0 left-0 right-0 bg-white w-full p-2">
                 <button type="submit" 
                   class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12"
                   :disabled="sponsorshipStore.isLoading"
@@ -63,6 +64,7 @@
                   <span v-if="sponsorshipStore.isLoading" class="loading loading-spinner"></span>
                   {{ sponsorshipStore.isLoading ? 'Saving...' : 'Save & Continue' }}
                 </button>
+                </div>
             </form>
     </div>
 </template>

@@ -43,7 +43,7 @@
                 />
         <CommonPageHeading title="" description="Critical factors determining market potential" />
 
-                 <CommonTextArea class="mt-4"
+                 <CommonTextArea class="mt-4 max-lg:mb-20"
                 label="Critical factors"
                 :rows="5"
                 placeholder="Provide your Critical factors"
@@ -52,15 +52,17 @@
                 :errorMessage="errors.criticalFactors"
                 />
 
-        <button 
-                type="submit"
-                class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 mb-4"
-                > Save & Continue
-                <!-- <span v-if="marketStore.isLoading" class="loading loading-spinner"></span>
-                {{ marketStore.isLoading ? 'Saving...' : 'Save & Continue' }} -->
-                <span class="icon-[tabler--chevron-right] size-5"></span>
-        </button>
-        <!-- <div @click="nextPage.goToNextPage('technical/technical-complexity')"  class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 my-3">Save & continue <span class="icon-[tabler--chevron-right] size-5"></span></div> -->
+        <div class="lg:static fixed bottom-0 left-0 right-0 bg-white w-full p-2">
+          <button 
+                  type="submit"
+                  class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 mb-4"
+                  > Save & Continue
+                  <!-- <span v-if="marketStore.isLoading" class="loading loading-spinner"></span>
+                  {{ marketStore.isLoading ? 'Saving...' : 'Save & Continue' }} -->
+                  <span class="icon-[tabler--chevron-right] size-5"></span>
+          </button>
+          <!-- <div @click="nextPage.goToNextPage('technical/technical-complexity')"  class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 my-3">Save & continue <span class="icon-[tabler--chevron-right] size-5"></span></div> -->
+        </div>
 
         </form>
     </div>

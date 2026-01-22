@@ -3,7 +3,7 @@
         <CommonPageHeading title="Supporting Documents" description="Please attach the following documents with your application"/>
         
 
-         <div class="mb-8" v-for="doc in documentsUpload" :key="doc.id">
+         <div class="mb-8 max-lg:mb-20" v-for="doc in documentsUpload" :key="doc.id">
             <div class="flex items-center justify-between">
                 <h2 class="my-3">{{ doc.description }}</h2>
                 <span v-if="hasFile === doc.id" class="text-green-400">ok</span>
@@ -18,8 +18,19 @@
             />
         
             <!-- <a :href="`/api//${doc.name}`" target="_blank">View</a> -->
+          </div>
 
-        </div>
+        <div class="lg:static fixed bottom-0 left-0 right-0 bg-white w-full p-2">
+        <button
+          type="submit"
+          
+          class="btn btn-xl rounded-xl btn-secondary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 my-o"
+        >Complete Application
+          <!-- <span class="loading loading-spinner"></span> -->
+          <!-- {{ stepStore.isLoading ? "Saving..." : "Complete Application" }} -->
+          <span class="icon-[tabler--chevron-right] size-5"></span>
+        </button>
+      </div>
 
   </div>
 </template>

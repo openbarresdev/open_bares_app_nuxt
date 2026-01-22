@@ -65,7 +65,7 @@
               :errorMessage="financialAssistError"
             />
           </div>
-          <div class="inline-flex items-center gap-2 w-full">
+          <div class="inline-flex items-center gap-2 w-full max-lg:mb-20">
             <div class="lg:text-base max-lg:text-sm w-1/2">Others</div>
             <CommonInputsVariant
               class="w-full"
@@ -79,18 +79,20 @@
           </div>
         </div>
 
-        <button
-          type="submit"
-          class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 my-6"
-          :disabled="sponsorshipStore.isLoading"
-        >
-          <span
-            v-if="sponsorshipStore.isLoading"
-            class="loading loading-spinner"
-          ></span>
-          {{ sponsorshipStore.isLoading ? "Saving..." : "Save & Continue" }}
-          <span class="icon-[tabler--chevron-right] size-5"></span>
-        </button>
+        <div class="lg:static fixed bottom-0 left-0 right-0 bg-white shadow-blue-950 w-full p-2">
+          <button
+            type="submit"
+            class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 my-1"
+            :disabled="sponsorshipStore.isLoading"
+          >
+            <span
+              v-if="sponsorshipStore.isLoading"
+              class="loading loading-spinner"
+            ></span>
+            {{ sponsorshipStore.isLoading ? "Saving..." : "Save & Continue" }}
+            <span class="icon-[tabler--chevron-right] size-5"></span>
+          </button>
+        </div>
       </form>
     </div>
   </div>

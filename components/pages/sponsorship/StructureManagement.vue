@@ -132,7 +132,7 @@
         </div>
       </div>
 
-      <div class="lg:flex max-lg:flex-col items-center gap-4 w-full mt-12">
+      <div class="lg:flex max-lg:flex-col items-center gap-4 w-full mt-12 max-lg:mb-20">
         <!-- CTO Section -->
         <div class="space-y-6 mx-1 lg:w-1/2 max-lg:w-full">
           <p class="lg:text-base max-lg:text-sm mb-8">
@@ -189,18 +189,20 @@
         </div>
       </div>
 
-      <button
-        type="submit"
-        class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 my-3"
-        :disabled="sponsorshipStore.isLoading"
-      >
-        <span
-          v-if="sponsorshipStore.isLoading"
-          class="loading loading-spinner"
-        ></span>
-        {{ sponsorshipStore.isLoading ? "Saving..." : "Save & Continue" }}
-        <span class="icon-[tabler--chevron-right] size-5"></span>
-      </button>
+      <div class="lg:static fixed bottom-0 left-0 right-0 bg-white w-full p-2">
+        <button
+          type="submit"
+          class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 my-3"
+          :disabled="sponsorshipStore.isLoading"
+        >
+          <span
+            v-if="sponsorshipStore.isLoading"
+            class="loading loading-spinner"
+          ></span>
+          {{ sponsorshipStore.isLoading ? "Saving..." : "Save & Continue" }}
+          <span class="icon-[tabler--chevron-right] size-5"></span>
+        </button>
+      </div>
     </form>
   </div>
 </template>
