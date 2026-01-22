@@ -132,7 +132,9 @@
         </div>
       </div>
 
-      <div class="lg:flex max-lg:flex-col items-center gap-4 w-full mt-12 max-lg:mb-20">
+      <div
+        class="lg:flex max-lg:flex-col items-center gap-4 w-full mt-12 max-lg:mb-20"
+      >
         <!-- CTO Section -->
         <div class="space-y-6 mx-1 lg:w-1/2 max-lg:w-full">
           <p class="lg:text-base max-lg:text-sm mb-8">
@@ -192,14 +194,14 @@
       <div class="lg:static fixed bottom-0 left-0 right-0 bg-white w-full p-2">
         <button
           type="submit"
-          class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 my-3"
-          :disabled="sponsorshipStore.isLoading"
+          :disabled="hasValidationErrors"
+          class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 my-1"
         >
           <span
-            v-if="sponsorshipStore.isLoading"
+            v-if="stepStore.isLoading"
             class="loading loading-spinner"
           ></span>
-          {{ sponsorshipStore.isLoading ? "Saving..." : "Save & Continue" }}
+          {{ stepStore.isLoading ? "Saving..." : "Save & Continue" }}
           <span class="icon-[tabler--chevron-right] size-5"></span>
         </button>
       </div>
@@ -210,13 +212,11 @@
 <script setup>
 import { managementStructureSchema } from "~/validation/formValidationSchema";
 import { educationDegree, yearExperience } from "/assets/data/data";
-import { useSponsorshipStore } from "@/stores/sponsorshipStore";
-import { useProfileStore } from "@/stores/profileStore";
+import { useStepStore } from "@/stores/useStepStore";
 import { useForm, useField } from "vee-validate";
 
-const { userId, checkAuth } = useAuth();
-const sponsorshipStore = useSponsorshipStore();
-const profileStore = useProfileStore();
+const { userId, projectId, checkAuth } = useAuth();
+const stepStore = useStepStore();
 const { $notyf } = useNuxtApp();
 
 const { handleSubmit, errors, setValues } = useForm({
@@ -250,58 +250,45 @@ const { value: ctoPreviousPosition, errorMessage: ctoPreviousPositionError } =
 const { value: ctoEducationDegree, errorMessage: ctoEducationDegreeError } =
   useField("ctoEducationDegree");
 
+const hasValidationErrors = computed(() => {
+  return Object.keys(errors.value).length > 0;
+});
+
 onMounted(async () => {
   await checkAuth();
 
   try {
-    // Get projectId from profile store
-    await profileStore.getProjectId(userId.value);
+    if (projectId.value) {
+      await stepStore.fetchStep("sponsorship", projectId.value);
 
-    if (profileStore.projectId) {
-      await sponsorshipStore.fetchSponsorship(profileStore.projectId);
+      console.log("Sponsorship management structure:", stepStore.state);
 
-      console.log(
-        "Sponsorship management structure:",
-        sponsorshipStore.sponsorship
-      );
-
-      if (sponsorshipStore.sponsorship?.managementStructure) {
-        try {
-          const parsedData = sponsorshipStore.sponsorship.managementStructure;
-          setValues({
-            structureManagementDesc: parsedData.structureManagementDesc || "",
-            ceoName: parsedData.ceo?.name || "",
-            ceoYearExperience: parsedData.ceo?.yearExperience || "",
-            ceoPreviousPosition: parsedData.ceo?.previousPosition || "",
-            ceoEducationDegree: parsedData.ceo?.educationDegree || "",
-            cfoName: parsedData.cfo?.name || "",
-            cfoYearExperience: parsedData.cfo?.yearExperience || "",
-            cfoPreviousPosition: parsedData.cfo?.previousPosition || "",
-            cfoEducationDegree: parsedData.cfo?.educationDegree || "",
-            ctoName: parsedData.cto?.name || "",
-            ctoYearExperience: parsedData.cto?.yearExperience || "",
-            ctoPreviousPosition: parsedData.cto?.previousPosition || "",
-            ctoEducationDegree: parsedData.cto?.educationDegree || "",
-          });
-        } catch (error) {
-          console.error("Failed to parsed data:", error);
-          // If parsing fails, set empty values
-          // setValues({
-          //     structureManagementDesc: '',
-          //     ceoName: '',
-          //     ceoYearExperience: '',
-          //     ceoPreviousPosition: '',
-          //     ceoEducationDegree: '',
-          //     cfoName: '',
-          //     cfoYearExperience: '',
-          //     cfoPreviousPosition: '',
-          //     cfoEducationDegree: '',
-          //     ctoName: '',
-          //     ctoYearExperience: '',
-          //     ctoPreviousPosition: '',
-          //     ctoEducationDegree: '',
-          // });
-        }
+      if (stepStore.state?.managementStructure) {
+        setValues({
+          structureManagementDesc:
+            stepStore.state?.managementStructure.structureManagementDesc || "",
+          ceoName: stepStore.state?.managementStructure.ceo?.name || "",
+          ceoYearExperience:
+            stepStore.state?.managementStructure.ceo?.yearExperience || "",
+          ceoPreviousPosition:
+            stepStore.state?.managementStructure.ceo?.previousPosition || "",
+          ceoEducationDegree:
+            stepStore.state?.managementStructure.ceo?.educationDegree || "",
+          cfoName: stepStore.state?.managementStructure.cfo?.name || "",
+          cfoYearExperience:
+            stepStore.state?.managementStructure.cfo?.yearExperience || "",
+          cfoPreviousPosition:
+            stepStore.state?.managementStructure.cfo?.previousPosition || "",
+          cfoEducationDegree:
+            stepStore.state?.managementStructure.cfo?.educationDegree || "",
+          ctoName: stepStore.state?.managementStructure.cto?.name || "",
+          ctoYearExperience:
+            stepStore.state?.managementStructure.cto?.yearExperience || "",
+          ctoPreviousPosition:
+            stepStore.state?.managementStructure.cto?.previousPosition || "",
+          ctoEducationDegree:
+            stepStore.state?.managementStructure.cto?.educationDegree || "",
+        });
       }
     }
   } catch (error) {
@@ -310,17 +297,16 @@ onMounted(async () => {
 });
 
 const submitManagementStructure = handleSubmit(async (values) => {
-  await profileStore.getProjectId(userId.value);
+  await checkAuth();
 
   try {
-    if (!profileStore.projectId) {
+    if (!projectId.value) {
       $notyf.error("No project found");
       return;
     }
 
-    // Prepare data in the nested structure for database
+    // Prepare data in the nested structure
     const managementStructureData = {
-      // managementStructure: {
       structureManagementDesc: values.structureManagementDesc,
       ceo: {
         name: values.ceoName,
@@ -340,15 +326,14 @@ const submitManagementStructure = handleSubmit(async (values) => {
         previousPosition: values.ctoPreviousPosition,
         educationDegree: values.ctoEducationDegree,
       },
-      // }
     };
 
-    // console.log('Management structure data:', managementStructureData);
-
-    await sponsorshipStore.saveSponsorshipSection(
-      profileStore.projectId,
+    await stepStore.saveSection(
+      "sponsorship",
       "managementStructure",
-      managementStructureData
+      managementStructureData,
+      userId.value,
+      projectId.value
     );
 
     $notyf.success("Management structure saved successfully!");

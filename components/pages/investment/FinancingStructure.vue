@@ -199,12 +199,14 @@ onMounted(async () => {
       await stepStore.fetchStep('investment', projectId.value)
 
       if (userId.value) {
-            await dataStore.loadSteps(userId.value, projectId.value)
+          await dataStore.loadSteps(userId.value, projectId.value)
+            setValues({
+              currency: dataStore.preferences.currency || "",
+          })
         }
 
       if (stepStore.state?.financingStructure) {
         setValues({
-            currency: dataStore.preferences.currency || "",
             // currency: stepStore.state?.financingStructure.currency || "",
             sponsorEquityAmount: stepStore.state?.financingStructure.sponsorEquityAmount || "",
             sponsorEquityPercentage: stepStore.state?.financingStructure.sponsorEquityPercentage || "",

@@ -79,17 +79,19 @@
           </div>
         </div>
 
-        <div class="lg:static fixed bottom-0 left-0 right-0 bg-white shadow-blue-950 w-full p-2">
+        <div
+          class="lg:static fixed bottom-0 left-0 right-0 bg-white w-full p-2"
+        >
           <button
             type="submit"
+            :disabled="hasValidationErrors"
             class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 my-1"
-            :disabled="sponsorshipStore.isLoading"
           >
             <span
-              v-if="sponsorshipStore.isLoading"
+              v-if="stepStore.isLoading"
               class="loading loading-spinner"
             ></span>
-            {{ sponsorshipStore.isLoading ? "Saving..." : "Save & Continue" }}
+            {{ stepStore.isLoading ? "Saving..." : "Save & Continue" }}
             <span class="icon-[tabler--chevron-right] size-5"></span>
           </button>
         </div>
@@ -100,13 +102,11 @@
 
 <script setup>
 import { technicalAssistanceSchema } from "~/validation/formValidationSchema";
-import { useSponsorshipStore } from "@/stores/sponsorshipStore";
-import { useProfileStore } from "@/stores/profileStore";
+import { useStepStore } from "@/stores/useStepStore";
 import { useForm, useField } from "vee-validate";
 
-const { userId, checkAuth } = useAuth();
-const sponsorshipStore = useSponsorshipStore();
-const profileStore = useProfileStore();
+const { userId, projectId, checkAuth } = useAuth();
+const stepStore = useStepStore();
 const { $notyf } = useNuxtApp();
 const nextPage = usePageNav();
 
@@ -125,41 +125,31 @@ const { value: financialAssist, errorMessage: financialAssistError } =
   useField("financialAssist");
 const { value: others, errorMessage: othersError } = useField("others");
 
+const hasValidationErrors = computed(() => {
+  return Object.keys(errors.value).length > 0;
+});
+
 onMounted(async () => {
   await checkAuth();
 
   try {
-    // Get projectId from profile store
-    await profileStore.getProjectId(userId.value);
+    if (projectId.value) {
+      await stepStore.fetchStep("sponsorship", projectId.value);
 
-    if (profileStore.projectId) {
-      await sponsorshipStore.fetchSponsorship(profileStore.projectId);
+      console.log("Sponsorship technical assistance:", stepStore.state);
 
-      console.log(
-        "Sponsorship technical assistance:",
-        sponsorshipStore.sponsorship
-      );
-
-      if (sponsorshipStore.sponsorship?.technicalAssistance) {
-        try {
-          const parsedData = sponsorshipStore.sponsorship.technicalAssistance;
-          setValues({
-            managementAssist: parsedData.managementAssist || "",
-            productionAssist: parsedData.productionAssist || "",
-            marketingAssist: parsedData.marketingAssist || "",
-            financialAssist: parsedData.financialAssist || "",
-            others: parsedData.others || "",
-          });
-        } catch {
-          // If parsing fails, set empty values
-          setValues({
-            managementAssist: "",
-            productionAssist: "",
-            marketingAssist: "",
-            financialAssist: "",
-            others: "",
-          });
-        }
+      if (stepStore.state?.technicalAssistance) {
+        setValues({
+          managementAssist:
+            stepStore.state?.technicalAssistance.managementAssist || "",
+          productionAssist:
+            stepStore.state?.technicalAssistance.productionAssist || "",
+          marketingAssist:
+            stepStore.state?.technicalAssistance.marketingAssist || "",
+          financialAssist:
+            stepStore.state?.technicalAssistance.financialAssist || "",
+          others: stepStore.state?.technicalAssistance.others || "",
+        });
       }
     }
   } catch (error) {
@@ -168,27 +158,20 @@ onMounted(async () => {
 });
 
 const submitTechnicalAssistance = handleSubmit(async (values) => {
-  await profileStore.getProjectId(userId.value);
+  await checkAuth();
 
   try {
-    if (!profileStore.projectId) {
+    if (!projectId.value) {
       $notyf.error("No project found");
       return;
     }
 
-    // Prepare data for database
-    // const technicalAssistanceData = {
-    //     technicalAssistance: values,
-    //     // sectionName: 'technicalAssistance'
-    // };
-
-    // console.log('Technical assistance data:', technicalAssistanceData);
-
-    await sponsorshipStore.saveSponsorshipSection(
-      userId.value,
-      profileStore.projectId,
+    await stepStore.saveSection(
+      "sponsorship",
       "technicalAssistance",
-      values
+      values,
+      userId.value,
+      projectId.value
     );
 
     $notyf.success("Technical assistance saved successfully!");

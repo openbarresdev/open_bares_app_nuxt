@@ -101,14 +101,14 @@
       <div class="lg:static fixed bottom-0 left-0 right-0 bg-white w-full p-2">
         <button
           type="submit"
+          :disabled="hasValidationErrors"
           class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 my-1"
-          :disabled="sponsorshipStore.isLoading"
         >
           <span
-            v-if="sponsorshipStore.isLoading"
+            v-if="stepStore.isLoading"
             class="loading loading-spinner"
           ></span>
-          {{ sponsorshipStore.isLoading ? "Saving..." : "Save & Continue" }}
+          {{ stepStore.isLoading ? "Saving..." : "Save & Continue" }}
           <span class="icon-[tabler--chevron-right] size-5"></span>
         </button>
       </div>
@@ -119,15 +119,13 @@
 <script setup>
 import { businessHistorySchema } from "~/validation/formValidationSchema";
 import { currencies } from "/assets/data/data";
-import { useSponsorshipStore } from "@/stores/sponsorshipStore";
-import { useDataStore } from '~/stores/dataStore';
-import { useProfileStore } from "@/stores/profileStore";
+import { useDataStore } from "~/stores/dataStore";
+import { useStepStore } from "@/stores/useStepStore";
 import { useForm, useField } from "vee-validate";
 
-const { userId, checkAuth } = useAuth();
+const { userId, projectId, checkAuth } = useAuth();
+const stepStore = useStepStore();
 const dataStore = useDataStore();
-const sponsorshipStore = useSponsorshipStore();
-const profileStore = useProfileStore();
 const { $notyf } = useNuxtApp();
 
 const { handleSubmit, errors, setValues } = useForm({
@@ -148,51 +146,38 @@ const { value: totalAssets, errorMessage: totalAssetsError } =
   useField("totalAssets");
 const { value: netWorth, errorMessage: netWorthError } = useField("netWorth");
 
+const hasValidationErrors = computed(() => {
+  return Object.keys(errors.value).length > 0;
+});
+
 onMounted(async () => {
   await checkAuth();
 
   try {
-    // Get projectId from profile store
-    await profileStore.getProjectId(userId.value);
-
-    if (profileStore.projectId) {
-      await sponsorshipStore.fetchSponsorship(profileStore.projectId);
+    if (projectId.value) {
+      await stepStore.fetchStep("sponsorship", projectId.value);
 
       if (userId.value) {
-            await dataStore.loadSteps(userId.value, profileStore.projectId)
+        await dataStore.loadSteps(userId.value, projectId.value);
+        setValues({
+          currency: dataStore.preferences.currency || "",
+        });
       }
-        
-      console.log(
-        "Sponsorship business history:",
-        sponsorshipStore.sponsorship
-      );
 
-      if (sponsorshipStore.sponsorship?.sponsorBusinessHist) {
-        try {
-          const parsedData = sponsorshipStore.sponsorship.sponsorBusinessHist;
-          setValues({
-            currency: dataStore.preferences.currency || "",
-            // currency: parsedData.currency || "",
-            projectDescription: parsedData.projectDescription || "",
-            firstYearRevenue: parsedData.firstYearRevenue || "",
-            secondYearRevenue: parsedData.secondYearRevenue || "",
-            thirdYearRevenue: parsedData.thirdYearRevenue || "",
-            totalAssets: parsedData.totalAssets || "",
-            netWorth: parsedData.netWorth || "",
-          });
-        } catch {
-          console.error("Failed to load business history data:", error);
-          // If parsing fails, set empty values
-          // setValues({
-          //     projectDescription: '',
-          //     currency: '',
-          //     firstYearRevenue: '',
-          //     secondYearRevenue: '',
-          //     thirdYearRevenue: '',
-          //     totalAssets: '',
-          //     netWorth: ''
-          // });
-        }
+      if (stepStore.state?.sponsorBusinessHist) {
+        setValues({
+          // currency: stepStore.state?.sponsorBusinessHist.currency || "",
+          projectDescription:
+            stepStore.state?.sponsorBusinessHist.projectDescription || "",
+          firstYearRevenue:
+            stepStore.state?.sponsorBusinessHist.firstYearRevenue || "",
+          secondYearRevenue:
+            stepStore.state?.sponsorBusinessHist.secondYearRevenue || "",
+          thirdYearRevenue:
+            stepStore.state?.sponsorBusinessHist.thirdYearRevenue || "",
+          totalAssets: stepStore.state?.sponsorBusinessHist.totalAssets || "",
+          netWorth: stepStore.state?.sponsorBusinessHist.netWorth || "",
+        });
       }
     }
   } catch (error) {
@@ -201,34 +186,26 @@ onMounted(async () => {
 });
 
 const submitBusinessHistory = handleSubmit(async (values) => {
-  await profileStore.getProjectId(userId.value);
+  await checkAuth();
 
   try {
-    if (!profileStore.projectId) {
+    if (!projectId.value) {
       $notyf.error("No project found");
       return;
     }
 
-    // Prepare data for database (store as JSON object)
-    // const businessHistoryData = {
-    //     sponsorBusinessHist: values
-    // };
-
-    // Update store with form data
-    sponsorshipStore.updateBusinessHistory(values);
-
-    // console.log('Business history data:', businessHistoryData);
-
-    await sponsorshipStore.saveSponsorshipSection(
-      profileStore.projectId,
+    await stepStore.saveSection(
+      "sponsorship",
       "sponsorBusinessHist",
-      values
+      values,
+      userId.value,
+      projectId.value
     );
 
     $notyf.success("Business history saved successfully!");
     navigateTo("management-structure");
   } catch (error) {
-    $notyf.error("Failed to save business history 2");
+    $notyf.error("Failed to save business history");
   }
 });
 </script>

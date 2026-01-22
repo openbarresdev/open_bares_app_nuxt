@@ -30,7 +30,7 @@ const sponsorInfoSchema = object({
 
 const businessHistorySchema = object({
   projectDescription: string()
-    .min(10, 'Business description must be at least 10 characters')
+    // .min(10, 'Business description must be at least 10 characters')
     .max(2000, 'Business description too long'),
     // .required('Business description is required'),
   
@@ -59,48 +59,48 @@ const businessHistorySchema = object({
 });
 
 const managementStructureSchema = object({
-  structureManagementDesc: string()
-    .min(3, "Business description must be at least 3 characters")
-    .max(2000, "Business description too long"),
+  structureManagementDesc: string(),
+    // .min(3, "Business description must be at least 3 characters")
+    // .max(2000, "Business description too long"),
     // .required("Business description is required"),
 
-  ceoName: string()
-    .min(2, "CEO name must be at least 2 characters"),
+  ceoName: string(),
+    // .min(2, "CEO name must be at least 2 characters"),
     // .required("CEO name is required"),
 
   ceoYearExperience: string(),
     // .required("CEO experience is required"),
 
-  ceoPreviousPosition: string()
-    .min(2, "Previous position must be at least 2 characters"),
+  ceoPreviousPosition: string(),
+    // .min(2, "Previous position must be at least 2 characters"),
     // .required("CEO previous position is required"),
 
   ceoEducationDegree: string(),
     // .required("CEO education degree is required"),
 
-  cfoName: string()
-    .min(2, "CFO name must be at least 2 characters"),
+  cfoName: string(),
+    // .min(2, "CFO name must be at least 2 characters"),
     // .required("CFO name is required"),
 
   cfoYearExperience: string(),
     // .required("CFO experience is required"),
 
-  cfoPreviousPosition: string()
-    .min(2, "Previous position must be at least 2 characters"),
+  cfoPreviousPosition: string(),
+    // .min(2, "Previous position must be at least 2 characters"),
     // .required("CFO previous position is required"),
 
   cfoEducationDegree: string(),
     // .required("CFO education degree is required"),
 
-  ctoName: string()
-    .min(2, "CTO name must be at least 2 characters"),
+  ctoName: string(),
+    // .min(2, "CTO name must be at least 2 characters"),
     // .required("CTO name is required"),
 
   ctoYearExperience: string(),
     // .required("CTO experience is required"),
 
-  ctoPreviousPosition: string()
-    .min(2, "Previous position must be at least 2 characters"),
+  ctoPreviousPosition: string(),
+    // .min(2, "Previous position must be at least 2 characters"),
     // .required("CTO previous position is required"),
 
   ctoEducationDegree: string(),
@@ -151,37 +151,38 @@ const productionAndSalesSchema = object({
     .matches(/^[0-9,]+(\.[0-9]{2})?$/, "Please enter a valid value")
     .required("Required"),
 
+  
   yearTwoProductionVolume: string()
     .matches(/^[0-9,]+(\.[0-9]{2})?$/, "Please enter a valid value")
-    .optional(),
+    .required(),
 
   yearTwoUnitPrice: string()
     .matches(/^[0-9,]+(\.[0-9]{2})?$/, "Please enter a valid value")
-    .optional(),
+    .required(),
 
   yearTwoTotalRevenue: string()
     .matches(/^[0-9,]+(\.[0-9]{2})?$/, "Please enter a valid value")
-    .optional(),
+    .required(),
 
   yearTwoNetProfit: string()
     .matches(/^[0-9,]+(\.[0-9]{2})?$/, "Please enter a valid value")
-    .optional(),
+    .required(),
 
   yearThreeProductionVolume: string()
     .matches(/^[0-9,]+(\.[0-9]{2})?$/, "Please enter a valid value")
-    .optional(),
+    .required(),
 
   yearThreeUnitPrice: string()
     .matches(/^[0-9,]+(\.[0-9]{2})?$/, "Please enter a valid value")
-    .optional(),
+    .required(),
 
   yearThreeTotalRevenue: string()
     .matches(/^[0-9,]+(\.[0-9]{2})?$/, "Please enter a valid value")
-    .optional(),
+    .required(),
 
   yearThreeNetProfit: string()
     .matches(/^[0-9,]+(\.[0-9]{2})?$/, "Please enter a valid value")
-    .optional(),
+    .required(),
 });
 
 
@@ -735,22 +736,22 @@ const economicDevelopmentImpact = object({
 const regulatoryEnvironment = object({
   // Exchange control regulations
   exchangeControlRegulations: string()
-    .required("Exchange control regulations are required")
+    // .required("Exchange control regulations are required")
     .max(2000, "Exchange control regulations description is too long"),
 
   // Capital entry conditions
   capitalEntryConditions: string()
-    .required("Capital entry conditions are required")
+    // .required("Capital entry conditions are required")
     .max(2000, "Capital entry conditions description is too long"),
 
   // Capital repatriation conditions
   capitalRepatriationConditions: string()
-    .required("Capital repatriation conditions are required")
+    // .required("Capital repatriation conditions are required")
     .max(2000, "Capital repatriation conditions description is too long"),
 
   // Other relevant regulations
   otherRelevantRegulations: string()
-    .required("Other relevant regulations are required")
+    // .required("Other relevant regulations are required")
     .max(2000, "Other relevant regulations description is too long"),
 });
 

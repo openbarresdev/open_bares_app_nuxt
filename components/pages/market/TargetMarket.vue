@@ -8,8 +8,8 @@
                 :rows="5"
                 placeholder="Provide your Primary customers/users"
                 v-model = "primaryCustomers"
-                :hasError="primaryCustomersError"
-                :errorMessage="errors.primaryCustomers"
+                :hasError="!!primaryCustomersError"
+                :errorMessage="primaryCustomersError"
                 />
 
             <CommonPageHeading title="" description="Distribution channels to be used" />
@@ -23,10 +23,11 @@
             <div class="lg:static fixed bottom-0 left-0 right-0 bg-white w-full p-2">
               <button 
                   type="submit"
+                  :disabled="hasValidationErrors || stepStore.isLoading"
                   class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12"
-              > Save & Continue
-                  <!-- <span v-if="marketStore.isLoading" class="loading loading-spinner"></span>
-                  {{ marketStore.isLoading ? 'Saving...' : 'Save & Continue' }} -->
+              > 
+                  <span v-if="stepStore.isLoading" class="loading loading-spinner"></span>
+                  {{ stepStore.isLoading ? 'Saving...' : 'Save & Continue' }}
                   <span class="icon-[tabler--chevron-right] size-5"></span>
               </button>
             </div>
@@ -38,13 +39,11 @@
 <script setup>
 import { channels as distributionChannelsOptions } from "/assets/data/data";
 import { targetMarketSchema } from '~/validation/formValidationSchema'
-import { useMarketStore } from '@/stores/marketStore'
-import { useProfileStore } from '@/stores/profileStore'
+import { useStepStore } from '@/stores/useStepStore'
 import { useForm, useField } from "vee-validate"
 
-const { userId, checkAuth } = useAuth()
-const marketStore = useMarketStore()
-const profileStore = useProfileStore()
+const { userId, projectId, checkAuth } = useAuth()
+const stepStore = useStepStore()
 const { $notyf } = useNuxtApp()
 
 const { handleSubmit, errors, setValues } = useForm({
@@ -54,46 +53,50 @@ const { handleSubmit, errors, setValues } = useForm({
 const { value: primaryCustomers, errorMessage: primaryCustomersError } = useField('primaryCustomers');
 const { value: distributionChannels, errorMessage: distributionChannelsError } = useField('distributionChannels');
 
+const hasValidationErrors = computed(() => {
+    return Object.keys(errors.value).length > 0;
+});
 
 onMounted(async () => {
   await checkAuth()
   
   try {
-    // Get projectId from profile store
-    await profileStore.getProjectId(userId.value)
-    
-    if (profileStore.projectId) {
-      await marketStore.fetchMarketData(profileStore.projectId)
-      
-      if (marketStore.marketData?.targetMarket) {
+    if (projectId.value) {
+      await stepStore.fetchStep('market', projectId.value);
+
+      if (stepStore.state?.targetMarket) {
         setValues({
-          primaryCustomers: marketStore.marketData.targetMarket.primaryCustomers || "",
-          distributionChannels: marketStore.marketData.targetMarket.distributionChannels || "",
+          primaryCustomers: stepStore.state.targetMarket.primaryCustomers || "",
+          distributionChannels: stepStore.state.targetMarket.distributionChannels || "",
         });
       }
     }
   } catch (error) {
+    console.error('Failed to load target market data:', error)
   }
 })
 
 const submitTargetMarket = handleSubmit(async (values) => {
-  
-//   console.log('Values', values);
-  
-  await profileStore.getProjectId(userId.value)
+  await checkAuth()
   
   try {
-    if (!profileStore.projectId) {
+    if (!projectId.value) {
       $notyf.error('No project found')
       return
     }
-    await marketStore.saveMarketData(profileStore.projectId, 'targetMarket', {targetMarket : values})
+
+    await stepStore.saveSection(
+      'market',
+      'targetMarket',
+      values,
+      userId.value,
+      projectId.value,
+    );
     
-    $notyf.success('Production data saved successfully!')
+    $notyf.success('Target market data saved successfully!')
     navigateTo('market-environment')
   } catch (error) {
-    $notyf.error('Failed to save production data')
+    $notyf.error('Failed to save target market data')
   }
 })
-
 </script>

@@ -214,10 +214,11 @@
           <div class="lg:static fixed bottom-0 left-0 right-0 bg-white w-full p-2">
             <button 
               type="submit"
+              :disabled="hasValidationErrors || stepStore.isLoading"
               class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12"
-            > Save & Continue
-              <!-- <span v-if="marketStore.isLoading" class="loading loading-spinner"></span>
-              {{ marketStore.isLoading ? 'Saving...' : 'Save & Continue' }} -->
+            > 
+              <span v-if="stepStore.isLoading" class="loading loading-spinner"></span>
+              {{ stepStore.isLoading ? 'Saving...' : 'Save & Continue' }}
               <span class="icon-[tabler--chevron-right] size-5"></span>
             </button>
           </div>
@@ -229,13 +230,11 @@
 
 <script setup>
 import { productionAndSalesSchema } from '~/validation/formValidationSchema'
-import { useMarketStore } from '@/stores/marketStore'
-import { useProfileStore } from '@/stores/profileStore'
+import { useStepStore } from '@/stores/useStepStore'
 import { useForm, useField } from "vee-validate"
 
-const { userId, checkAuth } = useAuth()
-const marketStore = useMarketStore()
-const profileStore = useProfileStore()
+const { userId, projectId, checkAuth } = useAuth()
+const stepStore = useStepStore()
 const { $notyf } = useNuxtApp()
 
 const { handleSubmit, errors, setValues } = useForm({
@@ -258,52 +257,46 @@ const { value: yearThreeUnitPrice, errorMessage: yearThreeUnitPriceError } = use
 const { value: yearThreeTotalRevenue, errorMessage: yearThreeTotalRevenueError } = useField('yearThreeTotalRevenue')
 const { value: yearThreeNetProfit, errorMessage: yearThreeNetProfitError } = useField('yearThreeNetProfit')
 
+const hasValidationErrors = computed(() => {
+    return Object.keys(errors.value).length > 0;
+});
 
 onMounted(async () => {
   await checkAuth()
-  console.log('marketStore marketData', marketStore.marketData.productionAndSales);
   
   try {
-    // Get projectId from profile store
-    await profileStore.getProjectId(userId.value)
-    
-    if (profileStore.projectId) {
-      await marketStore.fetchMarketData(profileStore.projectId)
-      
-      // if (marketStore.marketData?.productionAndSales?.yearOne) {
-      if (marketStore.marketData?.productionAndSales) {
+    if (projectId.value) {
+      await stepStore.fetchStep('market', projectId.value);
+
+      if (stepStore.state?.productionAndSales) {
         setValues({
-          yearOneProductionVolume: marketStore.marketData.productionAndSales.yearOne.productionVolume || "",
-          yearOneUnitPrice: marketStore.marketData.productionAndSales.yearOne.unitPrice || "",
-          yearOneTotalRevenue: marketStore.marketData.productionAndSales.yearOne.totalRevenue || "",
-          yearOneNetProfit: marketStore.marketData.productionAndSales.yearOne.netProfit || "",
+          yearOneProductionVolume: stepStore.state.productionAndSales.yearOne?.productionVolume || "",
+          yearOneUnitPrice: stepStore.state.productionAndSales.yearOne?.unitPrice || "",
+          yearOneTotalRevenue: stepStore.state.productionAndSales.yearOne?.totalRevenue || "",
+          yearOneNetProfit: stepStore.state.productionAndSales.yearOne?.netProfit || "",
 
-          yearTwoProductionVolume: marketStore.marketData.productionAndSales.yearTwo.productionVolume || "",
-          yearTwoUnitPrice: marketStore.marketData.productionAndSales.yearTwo.unitPrice || "",
-          yearTwoTotalRevenue: marketStore.marketData.productionAndSales.yearTwo.totalRevenue || "",
-          yearTwoNetProfit: marketStore.marketData.productionAndSales.yearTwo.netProfit || "",
+          yearTwoProductionVolume: stepStore.state.productionAndSales.yearTwo?.productionVolume || "",
+          yearTwoUnitPrice: stepStore.state.productionAndSales.yearTwo?.unitPrice || "",
+          yearTwoTotalRevenue: stepStore.state.productionAndSales.yearTwo?.totalRevenue || "",
+          yearTwoNetProfit: stepStore.state.productionAndSales.yearTwo?.netProfit || "",
 
-          yearThreeProductionVolume: marketStore.marketData.productionAndSales.yearThree.productionVolume || "",
-          yearThreeUnitPrice: marketStore.marketData.productionAndSales.yearThree.unitPrice || "",
-          yearThreeTotalRevenue: marketStore.marketData.productionAndSales.yearThree.totalRevenue || "",
-          yearThreeNetProfit: marketStore.marketData.productionAndSales.yearThree.netProfit || "",
+          yearThreeProductionVolume: stepStore.state.productionAndSales.yearThree?.productionVolume || "",
+          yearThreeUnitPrice: stepStore.state.productionAndSales.yearThree?.unitPrice || "",
+          yearThreeTotalRevenue: stepStore.state.productionAndSales.yearThree?.totalRevenue || "",
+          yearThreeNetProfit: stepStore.state.productionAndSales.yearThree?.netProfit || "",
         });
-
       }
     }
   } catch (error) {
-    console.error('Failed to load market data:', error)
+    console.error('Failed to load production and sales data:', error)
   }
 })
 
 const submitProductionSales = handleSubmit(async (values) => {
-  
-  console.log('Values', values);
-  
-  await profileStore.getProjectId(userId.value)
+  await checkAuth()
   
   try {
-    if (!profileStore.projectId) {
+    if (!projectId.value) {
       $notyf.error('No project found')
       return
     }
@@ -328,12 +321,19 @@ const submitProductionSales = handleSubmit(async (values) => {
         netProfit: values.yearThreeNetProfit,
       },
     }
-    await marketStore.saveMarketData(profileStore.projectId, 'productionAndSales', {productionAndSales: productionData})
     
-    $notyf.success('Production data saved successfully!')
+    await stepStore.saveSection(
+      'market',
+      'productionAndSales',
+      productionData,
+      userId.value,
+      projectId.value,
+    );
+    
+    $notyf.success('Production and sales data saved successfully!')
     navigateTo('target-market')
   } catch (error) {
-    $notyf.error('Failed to save production data')
+    $notyf.error('Failed to save production and sales data')
   }
 })
 </script>

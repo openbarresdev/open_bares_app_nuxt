@@ -57,13 +57,14 @@
                 />
 
                 <div class="lg:static fixed bottom-0 left-0 right-0 bg-white w-full p-2">
-                <button type="submit" 
-                  class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12"
-                  :disabled="sponsorshipStore.isLoading"
-                > 
-                  <span v-if="sponsorshipStore.isLoading" class="loading loading-spinner"></span>
-                  {{ sponsorshipStore.isLoading ? 'Saving...' : 'Save & Continue' }}
-                </button>
+                  <button 
+                    type="submit" :disabled="hasValidationErrors"
+                    class="btn btn-xl rounded-xl btn-primary btn-gradient btn-block text-base border-none lg:max-w-60 lg:h-12 my-1"
+                        > 
+                    <span v-if="stepStore.isLoading" class="loading loading-spinner"></span>
+                    {{ stepStore.isLoading ? 'Saving...' : 'Save & Continue' }}
+                    <span class="icon-[tabler--chevron-right] size-5"></span>
+                  </button>
                 </div>
             </form>
     </div>
@@ -72,12 +73,13 @@
 <script setup>
 import { sponsorInfoSchema } from '~/validation/sponsorshipSchema';
 import { legalStructure as legalStructureOptions } from "/assets/data/data";
-import { useSponsorshipStore } from '@/stores/sponsorshipStore';
-import { useProfileStore } from '@/stores/profileStore';
+import { useStepStore } from '@/stores/useStepStore';
 import { useForm, useField } from "vee-validate";
+import { useProfileStore } from '@/stores/profileStore';
 
-const { userId, checkAuth } = useAuth();
-const sponsorshipStore = useSponsorshipStore();
+
+const { userId, projectId, checkAuth } = useAuth();
+const stepStore = useStepStore();
 const profileStore = useProfileStore();
 const { $notyf } = useNuxtApp();
 
@@ -92,26 +94,25 @@ const { value: countryOfIncorporation, errorMessage: countryOfIncorporationError
 const { value: dateOfIncorporation, errorMessage: dateOfIncorporationError } = useField('dateOfIncorporation')
 const { value: legalStructure, errorMessage: legalStructureError } = useField('legalStructure')
 
+const hasValidationErrors = computed(() => {
+    return Object.keys(errors.value).length > 0;
+});
+
 onMounted(async () => {
     await checkAuth();
     
     try {
-        // Get projectId from profile store
-        await profileStore.getProjectId(userId.value);
-        
-        if (profileStore.projectId) {
-            await sponsorshipStore.fetchSponsorship(profileStore.projectId);
+        if (projectId.value) {
+            await stepStore.fetchStep('sponsorship', projectId.value);
 
-            // console.log('Sponsorship info', sponsorshipStore.sponsorship);
-            
             // Populate form with persisted store data
-            if (sponsorshipStore.sponsorship?.sponsorInfo) {
+            if (stepStore.state?.sponsorInfo) {
                 setValues({
-                    sponsor: sponsorshipStore.sponsorship.sponsorInfo.sponsor || '',
-                    regnumber: sponsorshipStore.sponsorship.sponsorInfo.regnumber || '',
-                    countryOfIncorporation: sponsorshipStore.sponsorship.sponsorInfo.countryOfIncorporation || '',
-                    dateOfIncorporation: sponsorshipStore.sponsorship.sponsorInfo.dateOfIncorporation || '',
-                    legalStructure: sponsorshipStore.sponsorship.sponsorInfo.legalStructure || ''
+                    sponsor: stepStore.state?.sponsorInfo.sponsor || '',
+                    regnumber: stepStore.state?.sponsorInfo.regnumber || '',
+                    countryOfIncorporation: stepStore.state?.sponsorInfo.countryOfIncorporation || '',
+                    dateOfIncorporation: stepStore.state?.sponsorInfo.dateOfIncorporation || '',
+                    legalStructure: stepStore.state?.sponsorInfo.legalStructure || ''
                 });
             }
         }
@@ -121,23 +122,20 @@ onMounted(async () => {
 });
 
 const submitSponsorInfo = handleSubmit(async (values) => {
-    await profileStore.getProjectId(userId.value);
+    await checkAuth();
     
     try {
-        if (!profileStore.projectId) {
+        if (!projectId.value) {
             $notyf.error('No project found');
             return;
         }
 
-        // Update store with form data
-        sponsorshipStore.updateSponsorInfo(values);
-
-        console.log('profileStore.projectId is', profileStore.projectId);
-        
-        await sponsorshipStore.saveSponsorshipSection(
-            profileStore.projectId, 
+        await stepStore.saveSection(
+            'sponsorship',
             'sponsorInfo',
-            values
+            values,
+            userId.value,
+            projectId.value,
         );
         
         $notyf.success('Sponsor information saved successfully!');
