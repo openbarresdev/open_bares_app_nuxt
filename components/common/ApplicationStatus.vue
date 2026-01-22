@@ -5,7 +5,7 @@
             <div class="flex items-center gap-3 justify-between w-full max-lg:mb-2">
                 
                 <!-- Progress bar -->
-                <div v-if="dataStore.isLoading === false && dataStore.isFirstSteps === false" class="progress h-4 w-full" role="progressbar" aria-label="25% Progressbar" :aria-valuenow="dataStore.percentageProgress" aria-valuemin="0" aria-valuemax="100">
+                <div v-if="dataStore.isLoading === false && dataStore.isFirstSteps === false" class="progress h-4 w-full" role="progressbar" :aria-label="25% Progressbar" :aria-valuenow="dataStore.percentageProgress" aria-valuemin="0" aria-valuemax="100">
                     <div class="progress-bar w-1/4 font-normal">
                         {{ dataStore.completedStepsCount}}/{{ dataStore.totalSteps}} étapes
                     </div>
