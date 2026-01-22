@@ -19,7 +19,7 @@
 import flatpickr from 'flatpickr';
 
 const props = defineProps({
-  wrapperClass: { type: String, default: 'max-w-sm' },
+  wrapperClass: { type: String, default: 'lg:max-w-sm' },
   placeholder: { type: String, default: 'YYYY-MM-DD' },
   inputId: { type: String, default: 'flatpickr-input' },
   name: { type: String, default: '' },

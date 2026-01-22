@@ -43,7 +43,7 @@
       </div>
 
       <div class="sm:inline-flex items-center gap-2 space-y-3 w-full mx-2 mt-6">
-        <div class="lg:text-base max-lg:text-sm w-1/2">
+        <div class="lg:text-base max-lg:text-sm md:w-1/2 max-lg:mb-6">
           Expected project completion date
         </div>
         <CommonDateInput
@@ -61,7 +61,7 @@
       </div>
 
       <div class="sm:inline-flex items-center gap-2 space-y-3 w-full m-2 mt-6 max-lg:mb-20">
-        <div class="lg:text-base max-lg:text-sm w-1/2">
+        <div class="lg:text-base max-lg:text-sm md:w-1/2 max-lg:mb-6">
           Commercial operations start date
         </div>
         <CommonDateInput

@@ -188,8 +188,8 @@ const productionAndSalesSchema = object({
 const targetMarketSchema = object({
   primaryCustomers: string()
     // .min(10, "Description must be at least 10 characters")
-    .max(500, "Description too long"),
-    // .required("Primary user description is required"),
+    // .max(500, "Description too long"),
+    .required("Primary user description is required"),
 
   distributionChannels: string().required("Contribution channel is required"),
 });

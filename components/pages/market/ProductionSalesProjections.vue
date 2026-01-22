@@ -66,9 +66,10 @@
                 :errorMessage="yearOneNetProfitError"
               />
             </div>
+
           </div>
 
-          <div v-if="!yearOneProductionVolumeError && !yearOneUnitPriceError && !yearOneTotalRevenueError && !yearOneNetProfitError"
+          <div v-if="!yearOneProductionVolumeError && !yearOneUnitPriceError && !yearOneTotalRevenueError && !yearOneNetProfitError && !!yearOneProductionVolume && !!yearOneUnitPrice && !!yearOneTotalRevenue && !!yearOneNetProfit"
            class="my-8 px-4 py-1 text-green-500 font-semibold bg-green-100 w-full rounded-md">
             <div class="flex items-center justify-between">
               <span>Year 1 Completed</span>
@@ -135,7 +136,7 @@
             </div>
           </div>
 
-          <div v-if="!yearTwoProductionVolumeError && !yearTwoUnitPriceError && !yearTwoTotalRevenueError && !yearTwoNetProfitError"
+          <div v-if="!yearTwoProductionVolumeError && !!yearTwoProductionVolume && !yearTwoUnitPriceError && !!yearTwoUnitPrice && !yearTwoTotalRevenueError && !!yearTwoTotalRevenue && !yearTwoNetProfitError && !!yearTwoNetProfit"
           class="my-8 px-4 py-1 text-green-500 font-semibold bg-green-100 w-full rounded-md">
             <div class="flex items-center justify-between">
               <span>Year 2 Completed</span>
@@ -202,7 +203,7 @@
             </div>
           </div>
 
-          <div v-if="!yearThreeProductionVolumeError && !yearThreeUnitPriceError && !yearThreeTotalRevenueError && !yearThreeNetProfitError"
+          <div v-if="!yearThreeProductionVolumeError && !yearThreeUnitPriceError && !yearThreeTotalRevenueError && !yearThreeNetProfitError && !!yearThreeProductionVolume && !!yearThreeUnitPrice && !!yearThreeTotalRevenue && !!yearThreeNetProfit"
           class="my-8 px-4 py-1 text-green-500 font-semibold bg-green-100 w-full rounded-md">
             <div class="flex items-center justify-between">
               <span>Year 3 Completed</span>

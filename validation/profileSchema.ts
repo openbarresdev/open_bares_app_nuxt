@@ -24,9 +24,9 @@ export const profileSchema = yup.object({
     .required("Your city is required"),
 
   state: yup
-    .string()
-    .min(3, "The state must be at least 3 characters")
-    .max(15, "The state must be less than 15 characters"),
+    .string(),
+    // .min(3, "The state must be at least 3 characters")
+    // .max(15, "The state must be less than 15 characters"),
   // .required("The state is required"),
 
   projectType: yup.string().required("Project title is required"),
