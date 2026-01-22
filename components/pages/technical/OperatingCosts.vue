@@ -131,11 +131,13 @@
 <script setup>
 import { operatingCostsAnnual } from '~/validation/formValidationSchema'
 import { useStepStore } from '@/stores/useStepStore'
+import { useDataStore } from '~/stores/dataStore';
 import { useForm, useField } from "vee-validate"
 import { currencies } from "/assets/data/data"
 
 const { userId, projectId, checkAuth } = useAuth()
 const stepStore = useStepStore()
+const dataStore = useDataStore();
 
 const { $notyf } = useNuxtApp()
 
@@ -163,11 +165,16 @@ onMounted(async () => {
   
   try {
     if (projectId.value) {
-      await stepStore.fetchStep('technical', projectId.value)
+        await stepStore.fetchStep('technical', projectId.value)
+
+        if (userId.value) {
+            await dataStore.loadSteps(userId.value, projectId.value)
+        }
 
       if (stepStore.state?.operatingCosts) {
         setValues({
-            currency: stepStore.state?.operatingCosts.currency || "",
+            currency: dataStore.preferences.currency || "",
+            // currency: stepStore.state?.operatingCosts.currency || "",
             rawMaterialCosts: stepStore.state?.operatingCosts.rawMaterialCosts || "",
             laborCosts: stepStore.state?.operatingCosts.laborCosts || "",
             utilitiesCosts: stepStore.state?.operatingCosts.utilitiesCosts || "",

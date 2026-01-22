@@ -124,9 +124,11 @@ import { totalInvestmentRequirements } from '~/validation/formValidationSchema'
 import { useStepStore } from '@/stores/useStepStore'
 import { useForm, useField } from "vee-validate"
 import { currencies } from "/assets/data/data"
+import { useDataStore } from '~/stores/dataStore';
 
 const { userId, projectId, checkAuth } = useAuth()
 const stepStore = useStepStore()
+const dataStore = useDataStore();
 
 const { $notyf } = useNuxtApp()
 
@@ -155,9 +157,14 @@ onMounted(async () => {
     if (projectId.value) {
       await stepStore.fetchStep('investment', projectId.value)
 
+      if (userId.value) {
+            await dataStore.loadSteps(userId.value, projectId.value)
+        }
+
       if (stepStore.state?.totalInvestment) {
         setValues({
-            currency: stepStore.state?.totalInvestment.currency || "",
+            currency: dataStore.preferences.currency || "",
+            // currency: stepStore.state?.totalInvestment.currency || "",
             landSitePreparation: stepStore.state?.totalInvestment.landSitePreparation || "",
             buildingsInfrastructure: stepStore.state?.totalInvestment.buildingsInfrastructure || "",
             machineryEquipment: stepStore.state?.totalInvestment.machineryEquipment || "",

@@ -38,7 +38,14 @@ const dataStore = useDataStore();
 
 onMounted(async () => {
     await checkAuth();
-    await dataStore.loadSteps(userId, projectId)
+
+    try {
+        if (userId.value && projectId.value) {
+            await dataStore.loadSteps(userId, projectId)
+           }
+        } catch (error) {
+        console.error(error);
+    }
 })
 
 </script>

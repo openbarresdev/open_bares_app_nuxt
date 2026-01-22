@@ -39,7 +39,7 @@
                     <div class="inline-flex items-center justify-between gap-2 w-full">
                         <div class="lg:text-base max-lg:text-sm w-3/5 max-lg:min-w-32">Currency: </div>
                         <CommonSelectVariant 
-                            class="w-30"
+                            class="w-40"
                             label=" "
                             :options="currencies"
                             v-model="currency"
@@ -107,11 +107,13 @@
 <script setup>
 import { typeOfFinancingRequested } from '~/validation/formValidationSchema'
 import { useStepStore } from '@/stores/useStepStore'
+import { useDataStore } from '~/stores/dataStore';
 import { useForm, useField } from "vee-validate"
 import { currencies, financeTypeData } from "/assets/data/data"
 
 const { userId, projectId, checkAuth } = useAuth()
 const stepStore = useStepStore()
+const dataStore = useDataStore();
 
 const { $notyf } = useNuxtApp()
 
@@ -145,11 +147,16 @@ onMounted(async () => {
     if (projectId.value) {
       await stepStore.fetchStep('investment', projectId.value)
 
+      if (userId.value) {
+            await dataStore.loadSteps(userId.value, projectId.value)
+      }
+        
       if (stepStore.state?.financingType) {
         setValues({
+             currency: dataStore.preferences.currency || "",
+          // currency: stepStore.state?.financingType.currency || "",
             financingTypes: stepStore.state?.financingType.financingTypes || [],
             otherFinancingType: stepStore.state?.financingType.otherFinancingType || "",
-            currency: stepStore.state?.financingType.currency || "",
             requestedAmount: stepStore.state?.financingType.requestedAmount || "",
             proposedTenor: stepStore.state?.financingType.proposedTenor || "",
             gracePeriod: stepStore.state?.financingType.gracePeriod || ""

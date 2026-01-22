@@ -120,10 +120,12 @@
 import { businessHistorySchema } from "~/validation/formValidationSchema";
 import { currencies } from "/assets/data/data";
 import { useSponsorshipStore } from "@/stores/sponsorshipStore";
+import { useDataStore } from '~/stores/dataStore';
 import { useProfileStore } from "@/stores/profileStore";
 import { useForm, useField } from "vee-validate";
 
 const { userId, checkAuth } = useAuth();
+const dataStore = useDataStore();
 const sponsorshipStore = useSponsorshipStore();
 const profileStore = useProfileStore();
 const { $notyf } = useNuxtApp();
@@ -156,6 +158,10 @@ onMounted(async () => {
     if (profileStore.projectId) {
       await sponsorshipStore.fetchSponsorship(profileStore.projectId);
 
+      if (userId.value) {
+            await dataStore.loadSteps(userId.value, profileStore.projectId)
+      }
+        
       console.log(
         "Sponsorship business history:",
         sponsorshipStore.sponsorship
@@ -165,8 +171,9 @@ onMounted(async () => {
         try {
           const parsedData = sponsorshipStore.sponsorship.sponsorBusinessHist;
           setValues({
+            currency: dataStore.preferences.currency || "",
+            // currency: parsedData.currency || "",
             projectDescription: parsedData.projectDescription || "",
-            currency: parsedData.currency || "",
             firstYearRevenue: parsedData.firstYearRevenue || "",
             secondYearRevenue: parsedData.secondYearRevenue || "",
             thirdYearRevenue: parsedData.thirdYearRevenue || "",

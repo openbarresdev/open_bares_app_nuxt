@@ -12,7 +12,7 @@ export const useDataStore = defineStore(
     const isFirstSteps = ref(true);
     const preferences = ref({
       currency: "euro",
-      lang: "",
+      lang: "en",
     });
 
     // Application process
@@ -72,7 +72,6 @@ export const useDataStore = defineStore(
       if (data.value?.success) {
         const response = data.value.data;
 
-        console.log('fetched steps data');
         
         // Charger les steps
         if (response.steps) {
@@ -111,7 +110,7 @@ export const useDataStore = defineStore(
         },
       });
 
-      console.log("data datsore", data.value);
+      // console.log("data datsore", data.value);
 
       return data.value?.success || false;
     };
@@ -146,6 +145,14 @@ export const useDataStore = defineStore(
       const result = await loadSteps(userId, projectId);
 
       return preferences.value.lang;
+      // console.log("languages", result.preferences.currency);
+    };
+
+    const getPreferences = () => {
+      return {
+        currency: preferences.value.currency,
+        lang: preferences.value.lang,
+      };
     };
 
     const calculateProgress = (steps) => {
@@ -163,6 +170,14 @@ export const useDataStore = defineStore(
 
       return percentageProgress.value;
     };
+
+    // watch(
+    //   steps,
+    //   () => {
+    //     calculateProgress();
+    //   },
+    //   { deep: true }
+    // );
 
     return {
       // State
@@ -182,7 +197,7 @@ export const useDataStore = defineStore(
       calculateProgress,
       loadLanguage,
       setLanguage,
-
+      getPreferences,
       // Actions API
     };
   }

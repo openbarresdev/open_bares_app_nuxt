@@ -150,11 +150,13 @@
 <script setup>
 import { financingStructure } from '~/validation/formValidationSchema'
 import { useStepStore } from '@/stores/useStepStore'
+import { useDataStore } from '~/stores/dataStore';
 import { useForm, useField } from "vee-validate"
 import { percentages, currencies } from "/assets/data/data"
 
 const { userId, projectId, checkAuth } = useAuth()
 const stepStore = useStepStore()
+const dataStore = useDataStore();
 
 const { $notyf } = useNuxtApp()
 
@@ -196,9 +198,14 @@ onMounted(async () => {
     if (projectId.value) {
       await stepStore.fetchStep('investment', projectId.value)
 
+      if (userId.value) {
+            await dataStore.loadSteps(userId.value, projectId.value)
+        }
+
       if (stepStore.state?.financingStructure) {
         setValues({
-            currency: stepStore.state?.financingStructure.currency || "",
+            currency: dataStore.preferences.currency || "",
+            // currency: stepStore.state?.financingStructure.currency || "",
             sponsorEquityAmount: stepStore.state?.financingStructure.sponsorEquityAmount || "",
             sponsorEquityPercentage: stepStore.state?.financingStructure.sponsorEquityPercentage || "",
             requestedFinancingAmount: stepStore.state?.financingStructure.requestedFinancingAmount || "",
