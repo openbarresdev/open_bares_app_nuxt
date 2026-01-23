@@ -29,12 +29,19 @@ export default defineNuxtConfig({
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
     JWT_SECRET: process.env.JWT_SECRET,
 
+    cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME,
+    cloudinaryApiKey: process.env.CLOUDINARY_API_KEY,
+    cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET,
+
     public: {
       // baseURL: process.env.BASE_URL || "",
       // apiKey: process.env.API_KEY || "",
 
       GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
       AUTH_ORIGIN: process.env.AUTH_ORIGIN,
+
+      maxFileSize: 20 * 1024 * 1024, // 20MB
+      allowedFileTypes: ['pdf', 'jpg', 'jpeg', 'png', 'doc', 'docx']
     },
     private: {},
   },

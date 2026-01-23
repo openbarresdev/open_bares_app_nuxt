@@ -178,7 +178,37 @@ model ProjectTimeline {
 model SupportingDocuments {
   id                Int      @id @default(autoincrement())
   projectId         Int      @unique
-  documentLinks     String?  // JSON array of URLs
+  documentLinks     Json?  // JSON array of URLs - À CONSERVER pour compatibilité
   notes             String?
   project           Project  @relation(fields: [projectId], references: [id])
+
+  documents         Document[] // Relation 1:N avec Document
+  
+  @@map("supporting_documents")
+  
+}
+/////////////////////////////////////////////////////
+// DOCUMENTS CLOUDINARY
+/////////////////////////////////////////////////////
+
+model Document {
+  id                String    @id @default(cuid())
+  supportingDocId   Int       // Référence à SupportingDocuments
+  supportingDocs    SupportingDocuments @relation(fields: [supportingDocId], references: [id])
+  
+  docType           String    // business_license, id_card, tax_certificate, etc.
+  originalName      String    // Nom original du fichier
+  cloudinaryId      String    @unique  // ID Cloudinary complet
+  publicId          String    // public_id Cloudinary
+  url               String    // URL Cloudinary
+  format            String    // pdf, jpg, png
+  size              Int       // Taille en bytes
+  
+  isVerified        Boolean   @default(false)
+  uploadedAt        DateTime  @default(now())
+  metadata          Json?     // Métadonnées supplémentaires
+  
+  @@index([supportingDocId])
+  @@index([docType])
+  @@index([uploadedAt])
 }
