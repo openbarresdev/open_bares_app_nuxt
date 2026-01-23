@@ -92,20 +92,16 @@ export const useStepStore = defineStore("step", () => {
       if (response.success) {
         updateSection(sectionName, sectionData);
 
-        const sectionToPercentMap: Record<string, string> = {
-          marketEnvironment: "marketPercent",
-          environmentalImpact: "technicalPercent",
-          successFactors: "investmentPercent",
-          regulatoryEnvironment: "governmentPercent",
-          implementationSchedule: "timelinePercent",
-          documentLinks: "documentsPercent",
-          profile: "profilePercent",
-          technicalAssistance: "sponsorshipPercent",
-        };
-
-          const percentName = sectionToPercentMap[sectionName] || `${stepName}Percent`;
-
-        // console.log(`Mapping: ${sectionName} → ${percentName}`);
+        if (
+          sectionName === "marketEnvironment" ||
+          sectionName === "environmentalImpact" ||
+          sectionName === "successFactors" ||
+          sectionName ==="regulatoryEnvironment" ||
+          sectionName ==="implementationSchedule" ||
+          sectionName ==="documentLinks" ||
+          sectionName ==="technicalAssistance"
+        ) {
+          const percentName = `${stepName}Percent`;
 
           await dataStore.updateApplicationSteps(
             percentName,
@@ -113,6 +109,7 @@ export const useStepStore = defineStore("step", () => {
             projectId,
             currency
           );
+        }
       }
 
       return response;

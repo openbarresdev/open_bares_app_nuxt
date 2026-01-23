@@ -695,7 +695,7 @@ const governmentIncentives = object({
     .default(""),
 
   otherDetails: string()
-    .required("Other details are required")
+    // .required("Other details are required")
     // .min(3, "Please provide at least 3 characters describing other details")
     .max(2000, "Other details description is too long")
     .default(""),
@@ -713,9 +713,9 @@ const economicDevelopmentImpact = object({
     .min(0, "Technology transfer value cannot be negative"),
 
   // Skills development description
-  skillsDevelopment: string()
-    .required("Skills development description is required")
-    .max(2000, "Skills development description is too long"),
+  skillsDevelopment: string(),
+    // .required("Skills development description is required")
+    // .max(2000, "Skills development description is too long"),
 
   // Export earnings in currency
   exportEarnings: positiveNumber()
@@ -729,8 +729,8 @@ const economicDevelopmentImpact = object({
 
   // Other benefits description
   otherBenefits: string()
-    .required("Other benefits description is required")
-    .max(2000, "Other benefits description is too long"),
+    // .required("Other benefits description is required")
+    // .max(2000, "Other benefits description is too long"),
 });
 
 const regulatoryEnvironment = object({

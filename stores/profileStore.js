@@ -102,26 +102,10 @@ export const useProfileStore = defineStore('profileStore', () => {
 
        if (res.success) {
 
-         const sectionToPercentMap = {
-           marketEnvironment: "marketPercent",
-           environmentalImpact: "technicalPercent",
-           successFactors: "investmentPercent",
-           regulatoryEnvironment: "governmentPercent",
-           implementationSchedule: "timelinePercent",
-           documentLinks: "documentsPercent",
-           profile: "profilePercent",
-           technicalAssistance: "sponsorshipPercent",
-         };
-
-         const percentName =
-           sectionToPercentMap[sectionName];
-
-         // console.log(`Mapping: ${sectionName} → ${percentName}`);
-
          await dataStore.updateApplicationSteps(
-           percentName,
+           "profilePercent",
            user_id,
-           applicant.value.id,
+           applicant.value.id
          );
        }
 
