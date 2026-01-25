@@ -168,11 +168,11 @@ const navigateWithRole = async (path) => {
     return navigateTo("/login");
   }
   const role = authUser.role;
-  let base = "/";
-  if (role === "ADMIN" || role === "SUPER_ADMIN") base = "/admin/dashboard";
-  else if (role === "USER") base = "/user/dashboard";
-  const finalPath = `${base}/${path}`.replace(/\/+/g, "/");
-  await navigateTo(finalPath, { replace: true });
+  // let base = "/";
+  // if (role === "ADMIN" || role === "SUPER_ADMIN") base = "/admin/dashboard";
+  // else if (role === "USER") base = "/user/dashboard";
+  // const finalPath = `${base}/${path}`.replace(/\/+/g, "/");
+  // await navigateTo(finalPath, { replace: true });
 };
 
 const isMobile = ref(true);

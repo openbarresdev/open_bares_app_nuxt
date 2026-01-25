@@ -7,7 +7,7 @@ export const loginHandler = async (values, notyf) => {
 
     notyf.success("Login successful! Redirecting...");
     setTimeout(() => {
-      navigateTo("/");
+      navigateTo("/user/dashboard");
     }, 3000);
     
   } catch (err) {

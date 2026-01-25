@@ -9,73 +9,12 @@
           class="w-full max-lg:my-1 lg:flex lg:h-16 lg:items-center lg:gap-2"
         >
           <div class="navbar-start items-center justify-between max-lg:w-full">
-            <!-- <a
-              class="text-base-content flex items-center gap-3 text-xl font-bold"
-              href="#"
-            > -->
-              <!-- <CommonAppLogo :variant="'black'" :size="'32'" class="px-2 -py-2" /> -->
                <CommonAppLogo :variant="'black'" :size="'32'" class=""
                         :inNavbar="true" />
-              <!-- CrowdHill Funding -->
-            <!-- </a> -->
-            <!-- <button
-              @click="toggleMenu"
-              class="btn btn-outline btn-square lg:hidden"
-            >
-              <span class="icon-[tabler--menu-2]" v-if="!isMenuOpen"></span>
-              <span class="icon-[tabler--x]" v-else></span>
-            </button> -->
+          
             <CommonLanguageSwitcher class="lg:hidden" />
 
           </div>
-
-          <!-- <div
-            :class="[
-              'lg:navbar-center transition-all duration-300 lg:flex',
-              isMenuOpen ? 'block' : 'hidden',
-            ]"
-            class="mobile-menu"
-          >
-            <ul
-              class="menu menu-horizontal gap-4 p-0 text-base max-md:flex-col lg:flex"
-            >
-              <li>
-                <a
-                  href="#who-we-are"
-                  class="hover:text-primary p-0 hover:bg-transparent"
-                  >Who We Are</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#investment-focus"
-                  class="hover:text-primary p-0 hover:bg-transparent"
-                  >Investment Focus</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#success-stories"
-                  class="hover:text-primary p-0 hover:bg-transparent"
-                  >Success Stories</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#investment-process"
-                  class="hover:text-primary p-0 hover:bg-transparent"
-                  >Process</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#contact"
-                  class="hover:text-primary p-0 hover:bg-transparent"
-                  >Contact</a
-                >
-              </li>
-            </ul>
-          </div> -->
 
           <div class="navbar-end max-lg:hidden">
 
@@ -123,14 +62,12 @@
                   class="text-primary-content z-1 intersect-once intersect:motion-preset-slide-up intersect:motion-duration-800 intersect:motion-opacity-in-0 intersect:motion-delay-400 mb-1 text-2xl font-semibold sm:text-4xl xl:text-5xl"
                 >
                   Visionary Entrepreneurs
-                  <!-- <span class="badge badge-success badge-xl sm:h-13 outline-success/40 sm:px-4.75 intersect-once intersect:motion-preset-bounce intersect:motion-duration-1000 intersect:motion-delay-600 h-7 rotate-[-2.14deg] transform rounded-full px-2 text-[22px] outline outline-[3.5px] sm:text-[42px]">Grow</span> -->
                 </h4>
                 <h4
                   class="text-primary-content intersect-once intersect:motion-preset-slide-up intersect:motion-duration-800 intersect:motion-opacity-in-0 intersect:motion-delay-600 mb-5 text-2xl font-semibold sm:text-4xl xl:text-5xl"
                 >
                   In Emerging Markets
                 </h4>
-                <!-- <p class="text-base-100/80 intersect-once intersect:motion-preset-slide-up intersect:motion-duration-800 intersect:motion-opacity-in-0 intersect:motion-delay-800 mb-4 text-lg xl:text-xl">We help brands scale with data-backed strategies, high-converting ads, and scroll-stopping content that delivers results.</p> -->
                 <NuxtLink
                   to="/login"
                   class="btn btn-lg text-primary z-1 hover:bg-base-100 intersect-once intersect:motion-preset-slide-up intersect:motion-duration-800 intersect:motion-opacity-in-0 intersect:motion-delay-1000 group rounded-full [--btn-color:#FDFDFE]"
@@ -234,7 +171,6 @@
                   height="24"
                   viewBox="0 0 24 24"
                 >
-                  <!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE -->
                   <path
                     fill="currentColor"
                     d="m10.6 13.8l-2.15-2.15q-.275-.275-.7-.275t-.7.275t-.275.7t.275.7L9.9 15.9q.3.3.7.3t.7-.3l5.65-5.65q.275-.275.275-.7t-.275-.7t-.7-.275t-.7.275zM12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"
@@ -254,7 +190,6 @@
                   height="24"
                   viewBox="0 0 24 24"
                 >
-                  <!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE -->
                   <path
                     fill="currentColor"
                     d="m10.6 13.8l-2.15-2.15q-.275-.275-.7-.275t-.7.275t-.275.7t.275.7L9.9 15.9q.3.3.7.3t.7-.3l5.65-5.65q.275-.275.275-.7t-.275-.7t-.7-.275t-.7.275zM12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"
@@ -274,7 +209,6 @@
                   height="24"
                   viewBox="0 0 24 24"
                 >
-                  <!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE -->
                   <path
                     fill="currentColor"
                     d="m10.6 13.8l-2.15-2.15q-.275-.275-.7-.275t-.7.275t-.275.7t.275.7L9.9 15.9q.3.3.7.3t.7-.3l5.65-5.65q.275-.275.275-.7t-.275-.7t-.7-.275t-.7.275zM12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"
@@ -294,7 +228,6 @@
                   height="24"
                   viewBox="0 0 24 24"
                 >
-                  <!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE -->
                   <path
                     fill="currentColor"
                     d="m10.6 13.8l-2.15-2.15q-.275-.275-.7-.275t-.7.275t-.275.7t.275.7L9.9 15.9q.3.3.7.3t.7-.3l5.65-5.65q.275-.275.275-.7t-.275-.7t-.7-.275t-.7.275zM12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"
@@ -314,7 +247,6 @@
                   height="24"
                   viewBox="0 0 24 24"
                 >
-                  <!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE -->
                   <path
                     fill="currentColor"
                     d="m10.6 13.8l-2.15-2.15q-.275-.275-.7-.275t-.7.275t-.275.7t.275.7L9.9 15.9q.3.3.7.3t.7-.3l5.65-5.65q.275-.275.275-.7t-.275-.7t-.7-.275t-.7.275zM12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"
@@ -334,7 +266,6 @@
                   height="24"
                   viewBox="0 0 24 24"
                 >
-                  <!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE -->
                   <path
                     fill="currentColor"
                     d="m10.6 13.8l-2.15-2.15q-.275-.275-.7-.275t-.7.275t-.275.7t.275.7L9.9 15.9q.3.3.7.3t.7-.3l5.65-5.65q.275-.275.275-.7t-.275-.7t-.7-.275t-.7.275zM12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"
@@ -693,10 +624,7 @@
                 strategic guidance, and global networks to accelerate your
                 growth trajectory.
               </p>
-              <!-- <a href="./service-listing.html" class="btn btn-primary btn-text btn-lg intersect-once intersect:motion-preset-slide-up intersect:motion-duration-800 intersect:motion-opacity-in-0 intersect:motion-delay-600 group rounded-full">
-                  View All Services
-                  <i class="icon-[tabler--arrow-right] rtl:group-hover:rotate-225 size-5 transition-all duration-300 group-hover:-rotate-45 rtl:rotate-180"></i>
-                </a> -->
+              
             </div>
             <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
               <div
@@ -816,7 +744,6 @@
                 </p>
               </li>
               <li class="flex items-center justify-start gap-2">
-                <!--<i class="icon-[tabler--circle-check] size-4.5 text-primary mt-1 shrink-0"></i> -->
                 <i
                   class="icon-[tabler--circle-check] size-4.5 text-primary lg:mt-1 shrink-0 -mt-2"
                 ></i>
@@ -920,10 +847,6 @@
                         <div class="flex items-center gap-2">
                           <div class="avatar">
                             <div class="size-10 rounded-full bg-base-300">
-                              <!-- <img
-                                src="../assets/img/avatars/3.png"
-                                alt="AgriTech Solutions, Kenya"
-                              /> -->
                             </div>
                           </div>
                           <div>
@@ -932,7 +855,6 @@
                             </h4>
                             <p class="text-base-content/80 text-sm">
                               CEO & Founder
-                              <!-- <span class="text-base-content font-semibold">Google</span> -->
                             </p>
                           </div>
                         </div>
@@ -966,7 +888,6 @@
                             </h4>
                             <p class="text-base-content/80 text-sm">
                               Co Founder at
-                              <!-- <span class="text-base-content font-semibold">Lemondeezy</span> -->
                             </p>
                           </div>
                         </div>
@@ -1001,7 +922,6 @@
                             </h4>
                             <p class="text-base-content/80 text-sm">
                               Chairman
-                              <!-- <span class="text-base-content font-semibold">Spotify</span> -->
                             </p>
                           </div>
                         </div>
@@ -1035,7 +955,6 @@
                             </h4>
                             <p class="text-base-content/80 text-sm">
                               CEO & Founder
-                              <!-- <span class="text-base-content font-semibold">Google</span> -->
                             </p>
                           </div>
                         </div>
@@ -1069,7 +988,6 @@
                             </h4>
                             <p class="text-base-content/80 text-sm">
                               Co Founder at
-                              <!-- <span class="text-base-content font-semibold">Lemondeezy</span> -->
                             </p>
                           </div>
                         </div>
@@ -1104,7 +1022,6 @@
                             </h4>
                             <p class="text-base-content/80 text-sm">
                               Chairman
-                              <!-- <span class="text-base-content font-semibold">Spotify</span> -->
                             </p>
                           </div>
                         </div>
@@ -1218,54 +1135,6 @@
             © 2026 CrowdHill Funding. All rights reserved.
           </p>
     </footer>
-
-    <!-- <footer class="footer">
-      <div class="container mx-auto">
-        <div class="footer-content hidden">
-          <div class="footer-section hidden">
-            <h3>CONTACT INFORMATION</h3>
-            <div class="address">
-              <h4>Headquarters:</h4>
-              <p>
-                Global Investment Center<br />
-                1250 International Plaza, Suite 4000<br />
-                Washington, DC 20006, United States
-              </p>
-            </div>
-            <div class="offices">
-              <h4>Regional Offices:</h4>
-              <p>Djibouti | Singapore | São Paulo | Mumbai | Dubai</p>
-            </div>
-          </div>
-
-          <div class="footer-section hidden">
-            <h3>CONTACTS</h3>
-            <p><strong>General Inquiries:</strong> info@crowdhillfunding.org</p>
-            <p>
-              <strong>Investment Proposals:</strong>
-              investments@crowdhillfunding.org
-            </p>
-            <p><strong>Phone:</strong> +1 (202) 555-0123</p>
-          </div>
-
-          <div class="footer-section hidden">
-            <h3>COMMITMENT</h3>
-            <p class="commitment">
-              We are committed to transparent, ethical investment practices and
-              maintain the highest standards of corporate governance. All
-              investment decisions are subject to thorough due diligence and
-              approval by our Investment Committee.
-            </p>
-          </div>
-        </div>
-
-        <div class="footer-bottom">
-          <p class="copyright">
-            © 2026 CrowdHill Funding. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </footer> -->
   </div>
 </template>
 
@@ -1277,54 +1146,4 @@
   margin: 0 auto;
   padding: 0 20px;
 }
-
-/* Footer */
-/* .footer {
-  background: #1a202c;
-  color: #cbd5e0;
-  padding: 60px 0 30px;
-} */
-/* 
-.footer-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 40px;
-  margin-bottom: 40px;
-}
-
-.footer-section h3 {
-  color: white;
-  margin-bottom: 20px;
-  font-size: 1.2rem;
-}
-
-.footer-section h4 {
-  color: #a0aec0;
-  margin: 20px 0 10px;
-  font-size: 1rem;
-}
-
-.commitment {
-  font-style: italic;
-  color: #a0aec0;
-  line-height: 1.7;
-}
-
-.footer-bottom {
-  text-align: center;
-  padding-top: 30px;
-  border-top: 1px solid #2d3748;
-}
-
-.tagline {
-  font-size: 1.3rem;
-  color: #e2e8f0;
-  margin-bottom: 10px;
-  font-style: italic;
-}
-
-.copyright {
-  color: #a0aec0;
-  font-size: 0.9rem;
-} */
 </style>

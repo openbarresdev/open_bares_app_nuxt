@@ -10,10 +10,14 @@ interface CustomJwtPayload {
 export default defineNuxtRouteMiddleware((to) => {
   const token = useCookie("auth_token").value;
 
-  const publicRoutes = ["/login", "/signup"];
+  const publicRoutes = ["/login", "/signup", "/"];
   const isPublic = publicRoutes.includes(to.path);
   const isAuthenticated = !!token;
 
+   if (to.path === "/") {
+     return;
+  }
+  
   if (!isAuthenticated && !isPublic) {
     return navigateTo("/login");
   }
@@ -27,8 +31,8 @@ export default defineNuxtRouteMiddleware((to) => {
       // console.log("Rôle utilisateur :", role);
 
       if (
-        ((role === "ADMIN" || role === "SUPER_ADMIN") && to.path === "/") ||
-        isPublic
+        (role === "ADMIN" || role === "SUPER_ADMIN") &&
+        to.path.startsWith("/user")
       ) {
         return navigateTo("/admin/dashboard");
       }
@@ -36,6 +40,14 @@ export default defineNuxtRouteMiddleware((to) => {
       if (role === "USER" && to.path.startsWith("/admin")) {
         return navigateTo("/user/dashboard");
       }
+
+      // Rediriger depuis login/signup si déjà connecté
+      if ((to.path === "/login" || to.path === "/signup") && isAuthenticated) {
+        return navigateTo(
+          role === "USER" ? "/user/dashboard" : "/admin/dashboard"
+        );
+      }
+      
     } catch (err) {
       console.error("Erreur de décodage du token :", err);
       return navigateTo("/login");
