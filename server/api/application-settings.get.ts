@@ -36,7 +36,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // Helper function pour parser les données JSON depuis Prisma
-    const parseJsonField = (field) => {
+    const parseJsonField = (field:any) => {
       if (!field) return {};
 
       if (typeof field === "string") {

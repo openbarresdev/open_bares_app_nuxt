@@ -83,6 +83,8 @@ export const useDataStore = defineStore(
           preferences.value = { ...preferences.value, ...response.preferences };
         }
 
+        // console.log('steps', steps.value);
+        
         // Calculer le progrès
         calculateProgress(steps.value);
 
