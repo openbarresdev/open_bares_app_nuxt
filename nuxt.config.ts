@@ -50,7 +50,8 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: "page", mode: "out-in" },
     head: {
-      title: "Crownhill Funding ||  Get investments quickly and safety",
+      title:
+        "Crownhill Funding ||  Strategic Investment Partnership for Sustainable Growth",
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
       meta: [

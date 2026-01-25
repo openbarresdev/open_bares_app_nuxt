@@ -8,11 +8,11 @@
 </template>
 
 <script setup>
-const route = useRoute()
+// const route = useRoute()
 
-useHead({
-  meta: [{ property: 'og:title', content: `Crownhill Funding - Strategic Investment Partnership for Sustainable Growth` }]
-})
+// useHead({
+//   meta: [{ property: 'og:title', content: `Crownhill Funding - ${route.meta.title}` }]
+// })
 </script>
 
 <style>
