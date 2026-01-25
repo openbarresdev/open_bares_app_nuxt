@@ -41,7 +41,7 @@ export default defineNuxtConfig({
       AUTH_ORIGIN: process.env.AUTH_ORIGIN,
 
       maxFileSize: 20 * 1024 * 1024, // 20MB
-      allowedFileTypes: ['pdf', 'jpg', 'jpeg', 'png', 'doc', 'docx']
+      allowedFileTypes: ["pdf", "jpg", "jpeg", "png", "doc", "docx"],
     },
     private: {},
   },
@@ -74,24 +74,38 @@ export default defineNuxtConfig({
           href: "https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css",
           rel: "stylesheet",
         },
+        {
+          href: "/css/output.css",
+          rel: "stylesheet",
+        },
       ],
 
       script: [
         {
-          src: "https://cdn.jsdelivr.net/npm/flatpickr",
+          src: "/js/agency.js",
+          defer: "true",
+          tagPosition: "bodyClose",
+        },
+        {
+          src: "/js/main.js",
           defer: "true",
           tagPosition: "bodyClose",
         },
         // {
-        //   src: "https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js",
+        //   src: "/js/theme-utils.js",
         //   defer: "true",
         //   tagPosition: "bodyClose",
         // },
-        // {
-        //   src: "https://unpkg.com/dropzone@5/dist/min/dropzone.min.js",
-        //   defer: "true",
-        //   tagPosition: "bodyClose",
-        // },
+        {
+          src: "/js/observer.min.js",
+          defer: "true",
+          tagPosition: "bodyClose",
+        },
+        {
+          src: "/js/theme-utils.js",
+          defer: "true",
+          tagPosition: "bodyClose",
+        },
       ],
     },
   },
