@@ -1130,7 +1130,7 @@
       </section>
     </main>
 
-     <footer class="bg-base-300 py-3">
+     <footer class="bg-base-300 py-1">
          <p class="text-white text-center">
             © 2026 CrowdHill Funding. All rights reserved.
           </p>

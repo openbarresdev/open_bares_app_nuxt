@@ -11,7 +11,7 @@
 const route = useRoute()
 
 useHead({
-  meta: [{ property: 'og:title', content: `App Name - ${route.meta.title}` }]
+  meta: [{ property: 'og:title', content: `Crownhill Funding - Strategic Investment Partnership for Sustainable Growth` }]
 })
 </script>
 
