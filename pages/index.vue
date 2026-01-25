@@ -9,29 +9,15 @@
           class="w-full max-lg:my-1 lg:flex lg:h-16 lg:items-center lg:gap-2"
         >
           <div class="navbar-start items-center justify-between max-lg:w-full">
-            <a
+            <!-- <a
               class="text-base-content flex items-center gap-3 text-xl font-bold"
               href="#"
-            >
-              <!-- <span class="text-primary">
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 34 34"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M25.5 0H8.5C3.80558 0 0 3.80558 0 8.5V25.5C0 30.1944 3.80558 34 8.5 34H25.5C30.1944 34 34 30.1944 34 25.5V8.5C34 3.80558 30.1944 0 25.5 0Z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </span> -->
+            > -->
               <!-- <CommonAppLogo :variant="'black'" :size="'32'" class="px-2 -py-2" /> -->
                <CommonAppLogo :variant="'black'" :size="'32'" class=""
                         :inNavbar="true" />
               <!-- CrowdHill Funding -->
-            </a>
+            <!-- </a> -->
             <!-- <button
               @click="toggleMenu"
               class="btn btn-outline btn-square lg:hidden"
@@ -108,7 +94,7 @@
       </nav>
     </header>
 
-    <main class="w-full flex-1 grow xl:h-screen">
+    <main class="w-full flex-1 grow">
       <!-- Hero Section -->
       <section class="relative overflow-x-hidden">
         <div
@@ -1212,28 +1198,6 @@
                     placeholder="Type here"
                   ></textarea>
                 </div>
-                <!-- Services Checkboxes -->
-                <!-- <div>
-                                            <p class="text-base-content mb-4 font-medium">Services</p>
-                                            <div class="grid gap-x-6 gap-y-4 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
-                                                <div class="flex items-center gap-1">
-                                                    <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" id="websitedesign">
-                                                    <label class="label-text py-0 text-base" for="websitedesign">Website Design</label>
-                                                </div>
-                                                <div class="flex items-center gap-1">
-                                                    <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" id="contentcreation">
-                                                    <label class="label-text py-0 text-base" for="contentcreation">Content Creation</label>
-                                                </div>
-                                                <div class="flex items-center gap-1">
-                                                    <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" id="ux-design">
-                                                    <label class="label-text py-0 text-base" for="ux-design">UX Design</label>
-                                                </div>
-                                                <div class="flex items-center gap-1">
-                                                    <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" id="strategy-consulting">
-                                                    <label class="label-text py-0 text-base" for="strategy-consulting">Strategy & Consulting</label>
-                                                </div>
-                                            </div>
-                                        </div> -->
                 <button
                   type="submit"
                   class="btn btn-primary w-full rounded-full py-8"
@@ -1242,33 +1206,23 @@
                   <span class="icon-[tabler--send] size-5"></span>
                 </button>
               </form>
-              <!-- Map Section -->
-              <!-- <div class="intersect-once intersect:motion-preset-slide-up intersect:motion-duration-800 intersect:motion-opacity-in-0 intersect:motion-delay-1000 overflow-hidden rounded-lg">
-                                        <iframe
-                                            class="size-full"
-                                            frameborder="0"
-                                            scrolling="no"
-                                            marginheight="0"
-                                            marginwidth="0"
-                                            id="gmap_canvas"
-                                            src="https://maps.google.com/maps?width=520&amp;height=400&amp;hl=en&amp;q=%20new%20york+(New%20york)&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-                                        ></iframe>
-                                        <script type="text/javascript" src="Your google API key"></script>
-                                    </div> -->
+             
             </div>
           </div>
         </div>
       </section>
     </main>
-    <!-- 
-        <button id="scrollToTopBtn" class="btn btn-circle btn-soft btn-secondary/20 bottom-15 end-15 motion-preset-slide-right motion-duration-800 motion-delay-100 fixed absolute z-[3] hidden" aria-label="Circle Soft Icon Button">
-                <span class="icon-[tabler--chevron-up] size-5 shrink-0"></span>
-            </button> -->
 
-    <footer class="footer hidden">
+     <footer class="bg-base-300 py-3">
+         <p class="text-white text-center">
+            © 2026 CrowdHill Funding. All rights reserved.
+          </p>
+    </footer>
+
+    <!-- <footer class="footer">
       <div class="container mx-auto">
-        <div class="footer-content">
-          <div class="footer-section">
+        <div class="footer-content hidden">
+          <div class="footer-section hidden">
             <h3>CONTACT INFORMATION</h3>
             <div class="address">
               <h4>Headquarters:</h4>
@@ -1284,7 +1238,7 @@
             </div>
           </div>
 
-          <div class="footer-section">
+          <div class="footer-section hidden">
             <h3>CONTACTS</h3>
             <p><strong>General Inquiries:</strong> info@crowdhillfunding.org</p>
             <p>
@@ -1294,7 +1248,7 @@
             <p><strong>Phone:</strong> +1 (202) 555-0123</p>
           </div>
 
-          <div class="footer-section">
+          <div class="footer-section hidden">
             <h3>COMMITMENT</h3>
             <p class="commitment">
               We are committed to transparent, ethical investment practices and
@@ -1306,15 +1260,12 @@
         </div>
 
         <div class="footer-bottom">
-          <p class="tagline">
-            Building prosperity together, one investment at a time.
-          </p>
           <p class="copyright">
-            © 2024 CrowdHill Funding. All rights reserved.
+            © 2026 CrowdHill Funding. All rights reserved.
           </p>
         </div>
       </div>
-    </footer>
+    </footer> -->
   </div>
 </template>
 
@@ -1328,12 +1279,12 @@
 }
 
 /* Footer */
-.footer {
+/* .footer {
   background: #1a202c;
   color: #cbd5e0;
   padding: 60px 0 30px;
-}
-
+} */
+/* 
 .footer-content {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1375,5 +1326,5 @@
 .copyright {
   color: #a0aec0;
   font-size: 0.9rem;
-}
+} */
 </style>
