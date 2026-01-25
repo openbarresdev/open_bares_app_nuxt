@@ -38,7 +38,7 @@
       <section class="relative overflow-x-hidden">
         <div
           style="
-            background-image: url('/img/hero-section.png');
+            background-image: url('/img/hero-section.jpg');
             background-position: center center;
             background-size: cover;
           "
