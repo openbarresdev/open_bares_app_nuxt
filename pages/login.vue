@@ -93,7 +93,7 @@ import { loginSchema } from "~/validation/loginSchema";
 
 const $notyf = useNotyf();
 
-const bgImageUrl = ref('https://img.freepik.com/premium-photo/coins-background-chart-finance-concept_367038-1804.jpg?w=1480');
+const bgImageUrl = ref('/img/login-img.jpg');
 
 const { handleSubmit, errors } = useForm({
     validationSchema: loginSchema,

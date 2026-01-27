@@ -121,12 +121,12 @@
             <div
               class="intersect-once intersect:motion-preset-slide-up intersect:motion-duration-800 intersect:motion-opacity-in-0 intersect:motion-delay-300"
             >
-              <img src="/img/about.png" alt="" class="rounded-box" />
+              <img src="/img/about.jpg" alt="" class="rounded-box" />
             </div>
             <div
               class="max-lg:hidden intersect-once intersect:motion-preset-slide-up intersect:motion-duration-800 intersect:motion-opacity-in-0 intersect:motion-delay-500"
             >
-              <img src="/img/about-2.png" alt="" class="rounded-box" />
+              <img src="/img/about-2.jpg" alt="" class="rounded-box" />
             </div>
           </div>
 

@@ -130,7 +130,7 @@ import { googleAuthHandler } from "~/handlers/googleAuthHandler";
 
 const $notyf = useNotyf();
 
-const bgImageUrl = ref('https://img.freepik.com/premium-photo/variety-beautiful-designs-modern-technologies-news-presenters-illustration-background_824086-1484.jpg');
+const bgImageUrl = ref('/img/signup-img.jpg');
 
 const { handleSubmit, errors } = useForm({
   validationSchema: registerSchema,
