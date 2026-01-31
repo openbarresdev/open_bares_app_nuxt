@@ -10,8 +10,8 @@
     <CommonInfoRow label="Registration Number" :value="sponsorInfo?.regnumber" />
     <CommonInfoRow label="Country of Incorporation" :value="sponsorInfo?.countryOfIncorporation" />
     <CommonInfoRow label="Legal Structure" :value="sponsorInfo?.legalStructure" />
-    <CommonInfoRow label="Date of Incorporation" :value="sponsorInfo?.dateOfIncorporation" />
-    
+    <CommonInfoRow label="Date of Incorporation" :value="formatDate(sponsorInfo?.dateOfIncorporation)" />
+
     <h4 class="font-semibold text-primary mt-4">Business History</h4>
     <CommonInfoRow label="Project Description" :value="sponsorBusinessHist?.projectDescription" />
     <CommonInfoRow label="Net Worth" :value="sponsorBusinessHist?.netWorth" />
@@ -55,4 +55,13 @@ defineProps({
     required: true,
   },    
 })
+
+const formatDate = (date) => {
+    if (!date) return '—'
+    return new Date(date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+    })
+}
 </script>

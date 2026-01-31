@@ -111,7 +111,11 @@
                                                 :implementation-schedule="timelineData.implementationSchedule"
                                             />
                                         </div>
-                                        <div v-else-if="expandedSteps === 'documents'"></div>
+                                        <div v-else-if="expandedSteps === 'documents'">
+                                            <AdminUiDocumentsStep
+                                                :documents="userDocuments || []"
+                                            />
+                                        </div>
                                         
                                         <div v-else>
                                             <AdminUiProjectInfo
@@ -260,9 +264,7 @@ const governmentData = ref({
 })
 
 const timelineData = ref({ implementationSchedule: {} })
-
-// const documentsData = ref({ documents: [] })
-
+const userDocuments = ref(null)
 
 const loadUserDetails = async (step, userId, projectId) => {
     expandedSteps.value =
@@ -340,10 +342,30 @@ const loadUserDetails = async (step, userId, projectId) => {
                     break;
                 case 'documents':
                     // Handle documents step
-                    // documentsData.value = {
-                    //     documents: stepStore.state?.documents || [],
-                    // }
+                    try {
+                        const supportingDocId = ref(null);
 
+                        const supportingDoc = await $fetch(
+                        `/api/supporting-documents?projectId=${projectId}`
+                        );
+
+                        if (supportingDoc.success && supportingDoc.data) {
+                        supportingDocId.value = supportingDoc.data.id;
+
+                        // console.log(supportingDocId.value);
+                        
+                            const documents = await $fetch(
+                                `/api/documents?supportingDocId=${supportingDoc.data.id}`
+                            );
+                            userDocuments.value = documents.data || {};
+
+                            console.log('documents', userDocuments.value);
+                            
+                        }
+                    } catch (error) {
+                        console.error("Failed to load documents:", error);
+                    }
+                   
                     break;
 
                 default:

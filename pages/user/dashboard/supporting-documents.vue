@@ -568,7 +568,7 @@ const submitDocuments = async () => {
       });
 
       alert("Application submitted successfully!");
-      navigateTo("/dashboard");
+      navigateTo("/user/dashboard");
     }
   } catch (error) {
     console.error("Submission failed:", error);
