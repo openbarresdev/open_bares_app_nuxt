@@ -40,7 +40,7 @@
                                 {{ formatDate(user.project?.createdAt || user.createdAt) }}
                             </td>
                         </tr>
-
+                            
                         <!-- ligne details -->
                         <tr v-if="expandedUserId === user.id">
                             <td colspan="7" class="bg-zinc-100 p-4">
@@ -93,20 +93,18 @@
         <div v-if="loading" class="text-center py-4">
             Loading applicants...
         </div>
-
+       
         <div v-if="error" class="text-red-500 py-2">
             {{ error }}
         </div>
-    </div>
+    </div> 
 </template>
 
 <script setup>
 import { storeToRefs } from 'pinia';
 import { useAdminApplicantsStore } from '@/stores/adminApplicants';
-// import { useProfileStore } from '@/stores/profileStore'
 import { useStepStore } from '@/stores/useStepStore';
 
-// const profileStore = useProfileStore();
 const stepStore = useStepStore();
 
 const stepsSections = [
@@ -119,11 +117,13 @@ const stepsSections = [
     'timeline',
     'documents',
 ]
+
 const steps = ref(null);
 
 const { checkAuth } = useAuth();
 
 const store = useAdminApplicantsStore();
+
 
 const { applicants, loading, error } = storeToRefs(store);
 
@@ -132,19 +132,25 @@ const expandedSteps = ref(null)
 
 onMounted(async () => {
     await checkAuth();
+    await checkAuth();
     store.fetchApplicants();
 
     for (const user of store.applicants) {
         if (user.id && user.project?.id) {
             store.fetchApplicationSettings(user.id)
+        if (user.id && user.project?.id) {
+            store.fetchApplicationSettings(user.id)
         }
+    }
     }
 })
 
 const getProgress = (userId) => {
+    
     const steps = store.applicationSettingsMap[userId]?.steps
     if (!steps || typeof steps !== 'object') return 0
 
+    
     const values = Object.values(steps)
     if (!values.length) return 0
 
@@ -159,6 +165,7 @@ const formatDate = (date) => {
         month: 'short',
         day: 'numeric',
     })
+   
 }
 
 
