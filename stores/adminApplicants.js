@@ -30,14 +30,14 @@ export const useAdminApplicantsStore = defineStore("adminApplicants", {
       }
     },
 
-     async fetchApplicationSettings(userId) {
-      if (this.applicationSettingsMap[userId]) return
+    async fetchApplicationSettings(userId) {
+      if (this.applicationSettingsMap[userId]) return;
 
-       const { data } = await useFetch(`/api/admin/users/${userId}`)
-       
+      const { data } = await useFetch(`/api/admin/users/${userId}`);
+
       if (data.value?.data?.applicationSettings) {
         this.applicationSettingsMap[userId] =
-          data.value.data.applicationSettings
+          data.value.data.applicationSettings;
       }
     },
   },

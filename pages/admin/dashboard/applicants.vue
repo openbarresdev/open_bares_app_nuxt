@@ -18,7 +18,9 @@
                 <tbody class="text-black">
                     <template v-for="user in applicants" :key="user.id">
                         <!-- ligne principale -->
-                        <tr class="row-hover cursor-pointer" :class="{ 'bg-primary text-white hover:bg-primary hover:text-white row-none' : expandedUserId === user.id}" @click="userDetails(user.id, user.project?.id)">
+                        <tr class="row-hover cursor-pointer"
+                            :class="{ 'bg-primary text-white hover:bg-primary hover:text-white row-none': expandedUserId === user.id }"
+                            @click="userDetails(user.id)">
                             <td>{{ user.project?.companyName || '—' }}</td>
                             <td class="capitalize">{{ user.project?.industrialSector || '—' }}</td>
                             <td>{{ user.project?.country || '—' }}</td>
@@ -43,18 +45,43 @@
                         <tr v-if="expandedUserId === user.id">
                             <td colspan="7" class="bg-zinc-100 p-4">
                                 <div :id="`print-${user.id}`">
-                                    <h4 class="font-semibold mb-2">Applicant details</h4>
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="font-bold text-2xl text-primary">Application Details</h3>
 
-                                    <pre class="text-xsp-3">
-                                       {{ store.applicationSettingsMap[user.id]?.steps || 'No data' }}
-                                    </pre>
+                                        <button class="btn btn-sm mt-2" @click.stop="printSection(user.id)">
+                                            <icon class="icon-[tabler--printer] text-white"></icon>
+                                        </button>
+                                    </div>
 
-                                    
-                                    <button class="btn btn-sm mt-2" @click.stop="printSection(user.id)">
-                                        Print
-                                        <span class="icon-[tabler--printer] text-white"></span>
-                                    </button>
+                                    <div class="flex items-center justify-start w-full overflow-hidden gap-2">
+                                        <span @click="loadUserDetails(steps, user.id, user.project?.id)"
+                                            v-for="(steps) in stepsSections"
+                                            class="w-30 bg-gray-200 hover:bg-gray-300 rounded-md cursor-pointer py-2 px-4 capitalize text-medium text-center">
+                                            {{ steps }}
+                                        </span>
+                                    </div>
+
+                                    <div v-if="expandedSteps === 'sponsorship'">sponsored</div>
+                                    <div v-else-if="expandedSteps === 'market'"></div>
+                                    <div v-else-if="expandedSteps === 'technical'"></div>
+                                    <div v-else-if="expandedSteps === 'investment'"></div>
+                                    <div v-else-if="expandedSteps === 'government'"></div>
+                                    <div v-else-if="expandedSteps === 'timeline'"></div>
+                                    <div v-else-if="expandedSteps === 'documents'"></div>
+                                    <div v-else>
+                                        <!-- {{ profileStore.applicant?.project }} -->
+                                        Profile
+                                    </div>
+
+
+
                                 </div>
+                            </td>
+                        </tr>
+
+                        <tr v-if="loading">
+                            <td colspan="7" class="text-center py-6 text-zinc-500">
+                                No applicants found
                             </td>
                         </tr>
                     </template>
@@ -76,6 +103,23 @@
 <script setup>
 import { storeToRefs } from 'pinia';
 import { useAdminApplicantsStore } from '@/stores/adminApplicants';
+// import { useProfileStore } from '@/stores/profileStore'
+import { useStepStore } from '@/stores/useStepStore';
+
+// const profileStore = useProfileStore();
+const stepStore = useStepStore();
+
+const stepsSections = [
+    'profile',
+    'sponsorship',
+    'market',
+    'technical',
+    'investment',
+    'government',
+    'timeline',
+    'documents',
+]
+const steps = ref(null);
 
 const { checkAuth } = useAuth();
 
@@ -84,6 +128,7 @@ const store = useAdminApplicantsStore();
 const { applicants, loading, error } = storeToRefs(store);
 
 const expandedUserId = ref(null)
+const expandedSteps = ref(null)
 
 onMounted(async () => {
     await checkAuth();
@@ -116,30 +161,154 @@ const formatDate = (date) => {
     })
 }
 
-// const userDetils = (userId, projectId) => {
 
-//     if (projectId && userId) {
-//         console.log('user id', userId);
-//         console.log('project id', projectId);
-//     }
-
-// }
-
-const userDetails = async (userId, projectId) => {
+const userDetails = async (userId) => {
     expandedUserId.value =
         expandedUserId.value === userId ? null : userId
+}
 
-    if (expandedUserId.value) {
-        // await store.fetchApplicationSettings(userId)
+// const applicantStepsData = ref({})
+const sponsorshipData = ref({
+    technicalAssistance: {},
+    structureManagementDesc: {},
+    sponsorInfo: {},
+    sponsorBusinessHist: {},
+
+})
+
+const marketData = ref({
+    targetMarket: {},
+    productionAndSales: {},
+    marketEnvironment: {},
+})
+
+const technicalData = ref({
+    environmentalImpact: {},
+    humanResources: {},
+    infrastructure: {},
+    operatingCosts: {},
+    plantLocationSize: {},
+    rawMaterials: {},
+    technicalComplexity: {},
+
+})
+const investmentData = ref({
+    successFactors: {},
+    financialProjections: {},
+    financingType: {},
+    financingStructure: {},
+    totalInvestment: {},
+})
+
+const governmentData = ref({
+    economicImpact: {},
+    incentives: {}, 
+    regulatoryEnvironment: {},
+})
+
+const timelineData = ref({ implementationSchedule: {} })
+
+// const documentsData = ref({ documents: [] })
+
+
+const loadUserDetails = async (step, userId, projectId) => {
+    expandedSteps.value =
+        expandedSteps.value === step ? null : step
+
+    try {
+        if (projectId) {
+            await stepStore.fetchStep(step, projectId);
+            switch (step) {
+                case 'profile':
+                
+
+                    break;
+                case 'sponsorship':
+                    // Handle sponsorship step
+                    sponsorshipData.value = {
+                        technicalAssistance: stepStore.state?.technicalAssistance || {},
+                        structureManagementDesc: stepStore.state?.structureManagementDesc || {},
+                        sponsorInfo: stepStore.state?.sponsorInfo || {},
+                        sponsorBusinessHist: stepStore.state?.sponsorBusinessHist || {},
+                    }
+                    console.log('stepStore sponsorship', sponsorshipData.value);
+
+                    break;
+
+                case 'market':
+                    // Handle market step
+                    marketData.value = {
+                        targetMarket: stepStore.state?.targetMarket || {},
+                        productionAndSales: stepStore.state?.productionAndSales || {},
+                        marketEnvironment: stepStore.state?.marketEnvironment || {},
+                    }
+
+                    console.log('stepStore market', marketData.value);
+
+                    break;
+                case 'technical':
+                    // Handle technical step
+                    technicalData.value = {
+                        environmentalImpact: stepStore.state?.environmentalImpact || {},
+                        humanResources: stepStore.state?.humanResources || {},
+                        infrastructure: stepStore.state?.infrastructure || {},
+                        operatingCosts: stepStore.state?.operatingCosts || {},
+                        plantLocationSize: stepStore.state?.plantLocationSize || {},
+                        rawMaterials: stepStore.state?.rawMaterials || {},
+                        technicalComplexity: stepStore.state?.technicalComplexity || {},
+                    }
+                    break;
+                case 'investment':
+                    // Handle investment step
+                    investmentData.value = {
+                        successFactors: stepStore.state?.successFactors || {},
+                        financialProjections: stepStore.state?.financialProjections || {},
+                        financingType: stepStore.state?.financingType || {},
+                        financingStructure: stepStore.state?.financingStructure || {},
+                        totalInvestment: stepStore.state?.totalInvestment || {},
+                    }
+
+                    break;
+                case 'government':
+                    // Handle government step
+                    governmentData.value = {
+                        economicImpact: stepStore.state?.economicImpact || {},
+                        incentives: stepStore.state?.incentives || {},
+                        regulatoryEnvironment: stepStore.state?.regulatoryEnvironment || {},
+                    }
+
+                    break;
+                case 'timeline':
+                    // Handle timeline step
+                    timelineData.value = {
+                        implementationSchedule: stepStore.state?.implementationSchedule || {},
+                    }
+
+                    break;
+                case 'documents':
+                    // Handle documents step
+                    // documentsData.value = {
+                    //     documents: stepStore.state?.documents || [],
+                    // }
+
+                    break;
+
+                default:
+                    break;
+            }
+
+        }
+    } catch (error) {
+        console.error('Failed to load step data:', error);
     }
 }
 
 const printSection = (userId) => {
-  const el = document.getElementById(`print-${userId}`)
-  if (!el) return
+    const el = document.getElementById(`print-${userId}`)
+    if (!el) return
 
-  const printWindow = window.open('', '', 'width=900,height=600')
-  printWindow.document.write(`
+    const printWindow = window.open('', '', 'width=900,height=600')
+    printWindow.document.write(`
     <html>
       <head>
         <title>Application</title>
@@ -153,10 +322,10 @@ const printSection = (userId) => {
     </html>
   `)
 
-  printWindow.document.close()
-  printWindow.focus()
-  printWindow.print()
-  printWindow.close()
+    printWindow.document.close()
+    printWindow.focus()
+    printWindow.print()
+    printWindow.close()
 }
 
 </script>

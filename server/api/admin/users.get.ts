@@ -1,8 +1,6 @@
 import { prisma } from "~/server/lib/prisma";
 
 export default defineEventHandler(async (event) => {
-  // (optionnel mais recommandé)
-  // await requireAdmin(event)
 
   const users = await prisma.user.findMany({
     select: {
@@ -20,6 +18,7 @@ export default defineEventHandler(async (event) => {
           country: true,
           projectType: true,
           industrialSector: true,
+          projectDescription: true,
           createdAt: true,
         },
       },
