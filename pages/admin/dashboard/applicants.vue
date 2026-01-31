@@ -43,7 +43,7 @@
                             
                         <!-- ligne details -->
                         <tr v-if="expandedUserId === user.id">
-                            <td colspan="7" class="bg-zinc-100 p-4">
+                            <td colspan="7" class="bg-gray-100 p-4">
                                 <div :id="`print-${user.id}`">
                                     <div class="flex items-center justify-between mb-4">
                                         <h3 class="font-bold text-2xl text-primary">Application Details</h3>
@@ -61,16 +61,63 @@
                                         </span>
                                     </div>
 
-                                    <div v-if="expandedSteps === 'sponsorship'">sponsored</div>
-                                    <div v-else-if="expandedSteps === 'market'"></div>
-                                    <div v-else-if="expandedSteps === 'technical'"></div>
-                                    <div v-else-if="expandedSteps === 'investment'"></div>
-                                    <div v-else-if="expandedSteps === 'government'"></div>
-                                    <div v-else-if="expandedSteps === 'timeline'"></div>
-                                    <div v-else-if="expandedSteps === 'documents'"></div>
-                                    <div v-else>
-                                        <!-- {{ profileStore.applicant?.project }} -->
-                                        Profile
+                                    <div class="min-h-40 py-4">
+                                        <div v-if="expandedSteps === 'sponsorship'">
+                                            <AdminUiSponsorshipStep
+                                                :technical-assistance="sponsorshipData.technicalAssistance"
+                                                :structure-management-desc="sponsorshipData.structureManagementDesc"
+                                                :sponsor-info="sponsorshipData.sponsorInfo"
+                                                :sponsor-business-hist="sponsorshipData.sponsorBusinessHist"
+                                            />
+                                           
+                                        </div>
+                                        <div v-else-if="expandedSteps === 'market'">
+                                            <AdminUiMarketStep
+                                                :target-market="marketData.targetMarket"
+                                                :production-and-sales="marketData.productionAndSales"
+                                                :market-environment="marketData.marketEnvironment"
+                                            />
+                                        </div>
+                                        <div v-else-if="expandedSteps === 'technical'">
+                                            <AdminUiTechnicalStep
+                                                :environmental-impact="technicalData.environmentalImpact"
+                                                :human-resources="technicalData.humanResources"
+                                                :infrastructure="technicalData.infrastructure"
+                                                :operating-costs="technicalData.operatingCosts"
+                                                :plant-location-size="technicalData.plantLocationSize"
+                                                :raw-materials="technicalData.rawMaterials"
+                                                :technical-complexity="technicalData.technicalComplexity"
+                                            />
+                                        </div>
+                                        <div v-else-if="expandedSteps === 'investment'">
+                                            <AdminUiInvestmentStep
+                                                :success-factors="investmentData.successFactors"
+                                                :financial-projections="investmentData.financialProjections"
+                                                :financing-type="investmentData.financingType"
+                                                :financing-structure="investmentData.financingStructure"
+                                                :total-investment="investmentData.totalInvestment"
+                                            />
+                                        </div>
+                                        <div v-else-if="expandedSteps === 'government'">
+                                            <AdminUiGovernmentStep
+                                                :economic-impact="governmentData.economicImpact"
+                                                :incentives="governmentData.incentives"
+                                                :regulatory-environment="governmentData.regulatoryEnvironment"
+                                            />
+                                        </div>
+                                        <div v-else-if="expandedSteps === 'timeline'">
+                                            <!-- {{ timelineData?.implementationSchedule || '—' }} -->
+                                            <AdminUiTimelineStep
+                                                :implementation-schedule="timelineData.implementationSchedule"
+                                            />
+                                        </div>
+                                        <div v-else-if="expandedSteps === 'documents'"></div>
+                                        
+                                        <div v-else>
+                                            <AdminUiProjectInfo
+                                                :project="user.project"
+                                            />
+                                        </div>
                                     </div>
 
 
@@ -180,7 +227,6 @@ const sponsorshipData = ref({
     structureManagementDesc: {},
     sponsorInfo: {},
     sponsorBusinessHist: {},
-
 })
 
 const marketData = ref({
