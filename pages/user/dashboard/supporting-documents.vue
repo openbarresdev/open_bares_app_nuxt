@@ -237,6 +237,8 @@ import { useStepStore } from "~/stores/useStepStore";
 const { userId, projectId, checkAuth } = useAuth();
 const stepStore = useStepStore();
 
+const { $notyf } = useNuxtApp();
+
 // States
 const dragover = ref(null);
 const isSubmitting = ref(false);
@@ -438,11 +440,12 @@ const uploadFile = async (file, doc) => {
   try {
     // Vérifier/créer le SupportingDocuments
     if (!supportingDocId.value) {
+      // await checkAuth();
       const supportingDoc = await $fetch("/api/supporting-documents/init", {
         method: "POST",
         body: {
-          userId: userId.value,
-          projectId: projectId.value,
+          userId: userId,
+          projectId: projectId,
         },
       });
       supportingDocId.value = supportingDoc.id;
@@ -567,12 +570,12 @@ const submitDocuments = async () => {
         localStorage.removeItem(`document_${doc.id}_${projectId.value}`);
       });
 
-      alert("Application submitted successfully!");
+      $notyf.success("Application submitted successfully!");
       navigateTo("/user/dashboard");
     }
   } catch (error) {
     console.error("Submission failed:", error);
-    alert("Failed to submit application. Please try again.");
+    $notyf.error("Failed to submit application. Please try again.");
   } finally {
     isSubmitting.value = false;
   }

@@ -183,6 +183,9 @@ model SupportingDocuments {
   project           Project  @relation(fields: [projectId], references: [id])
 
   documents         Document[] // Relation 1:N avec Document
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   
   @@map("supporting_documents")
   

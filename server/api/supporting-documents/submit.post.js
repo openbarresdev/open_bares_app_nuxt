@@ -6,7 +6,13 @@ export default defineEventHandler(async (event) => {
     const { supportingDocId, projectId, documentIds } = body;
 
     // Vérifier les documents requis
-    const requiredDocTypes = ["business_license", "id_card", "tax_certificate"];
+    const requiredDocTypes = [
+      "company_registration_document",
+      "technical_specifications",
+      "business_plan",
+      "financial_projections",
+      "banking_reference",
+    ];
 
     // Récupérer les documents
     const uploadedDocs = await prisma.document.findMany({
@@ -47,30 +53,29 @@ export default defineEventHandler(async (event) => {
       where: { id: supportingDocId },
       data: {
         notes: "Documents submitted and verified",
-        updatedAt: new Date(),
       },
     });
 
     // Mettre à jour ApplicationSettings
-    const applicationSettings = await prisma.applicationSettings.findFirst({
-      where: {
-        userId: userId,
-        projectId: projectId,
-      },
-    });
+    // const applicationSettings = await prisma.applicationSettings.findFirst({
+    //   where: {
+    //     userId: userId,
+    //     projectId: projectId,
+    //   },
+    // });
 
-    if (applicationSettings) {
-      const steps = applicationSettings.steps || {};
-      steps.documentsPercent = true;
+    // if (applicationSettings) {
+    //   const steps = applicationSettings.steps || {};
+    //   steps.documentsPercent = true;
 
-      await prisma.applicationSettings.update({
-        where: { id: applicationSettings.id },
-        data: {
-          steps: steps,
-          updatedAt: new Date(),
-        },
-      });
-    }
+    //   await prisma.applicationSettings.update({
+    //     where: { id: applicationSettings.id },
+    //     data: {
+    //       steps: steps,
+    //       updatedAt: new Date(),
+    //     },
+    //   });
+    // }
 
     return {
       success: true,
