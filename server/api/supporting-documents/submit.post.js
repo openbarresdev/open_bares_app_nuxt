@@ -56,27 +56,6 @@ export default defineEventHandler(async (event) => {
       },
     });
 
-    // Mettre à jour ApplicationSettings
-    // const applicationSettings = await prisma.applicationSettings.findFirst({
-    //   where: {
-    //     userId: userId,
-    //     projectId: projectId,
-    //   },
-    // });
-
-    // if (applicationSettings) {
-    //   const steps = applicationSettings.steps || {};
-    //   steps.documentsPercent = true;
-
-    //   await prisma.applicationSettings.update({
-    //     where: { id: applicationSettings.id },
-    //     data: {
-    //       steps: steps,
-    //       updatedAt: new Date(),
-    //     },
-    //   });
-    // }
-
     return {
       success: true,
       message: "Documents submitted successfully",
