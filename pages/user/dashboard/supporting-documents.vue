@@ -72,17 +72,17 @@
         <!-- Zone d'upload -->
         <div v-if="!uploadedDocuments[doc.id]" class="mt-4">
           <div
-            class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors cursor-pointer"
+            class="relative border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors cursor-pointer"
             @dragover.prevent="dragover = doc.id"
             @dragleave="dragover = null"
             @drop.prevent="handleDrop($event, doc)"
-            @click="triggerFileInput(doc.id)"
             :class="{ 'border-blue-400 bg-blue-50': dragover === doc.id }"
           >
+            <!-- Make the input cover the whole drop zone but invisible so taps open file picker on mobile -->
             <input
-              :ref="`fileInput-${doc.id}`"
+              :id="`fileInput-${doc.id}`"
               type="file"
-              class="hidden"
+              class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
               :accept="getAcceptedTypes(doc.allowedTypes)"
               @change="handleFileSelect($event, doc)"
             />
@@ -357,13 +357,13 @@ const uploadedCount = computed(() => {
 
 const uploadPercentage = computed(() => {
   return Math.round(
-    (uploadedCount.value / requiredDocuments.value.length) * 100
+    (uploadedCount.value / requiredDocuments.value.length) * 100,
   );
 });
 
 const missingRequired = computed(() => {
   return requiredDocuments.value.filter(
-    (doc) => doc.required && !uploadedDocuments.value[doc.id]
+    (doc) => doc.required && !uploadedDocuments.value[doc.id],
   );
 });
 
@@ -390,7 +390,7 @@ const getAcceptedTypes = (types) => {
 };
 
 const triggerFileInput = (docId) => {
-  const input = document.querySelector(`input[ref="fileInput-${docId}"]`);
+  const input = document.getElementById(`fileInput-${docId}`);
   if (input) input.click();
 };
 
@@ -445,15 +445,14 @@ const uploadFile = async (file, doc) => {
   // Validation
   const fileExtension = file.name.split(".").pop().toLowerCase();
   if (!doc.allowedTypes.includes(fileExtension)) {
-    uploadErrors.value[
-      doc.id
-    ] = `File type not allowed. Allowed: ${doc.allowedTypes.join(", ")}`;
+    uploadErrors.value[doc.id] =
+      `File type not allowed. Allowed: ${doc.allowedTypes.join(", ")}`;
     return;
   }
 
   if (file.size > doc.maxSize) {
     uploadErrors.value[doc.id] = `File too large. Max size: ${formatFileSize(
-      doc.maxSize
+      doc.maxSize,
     )}`;
     return;
   }
@@ -498,10 +497,10 @@ const uploadFile = async (file, doc) => {
       formData,
       (progressEvent) => {
         const percentCompleted = Math.round(
-          (progressEvent.loaded * 100) / progressEvent.total
+          (progressEvent.loaded * 100) / progressEvent.total,
         );
         uploadProgress.value[doc.id] = percentCompleted;
-      }
+      },
     );
 
     if (response.success) {
@@ -511,7 +510,7 @@ const uploadFile = async (file, doc) => {
       // Store in local storage for persistence
       localStorage.setItem(
         `document_${doc.id}_${projectId.value}`,
-        JSON.stringify(response.document)
+        JSON.stringify(response.document),
       );
 
       // Clear progress
@@ -582,7 +581,7 @@ const submitDocuments = async () => {
         supportingDocId: supportingDocId.value,
         projectId: projectId.value,
         documentIds: Object.values(uploadedDocuments.value).map(
-          (doc) => doc.id
+          (doc) => doc.id,
         ),
       },
     });
@@ -598,7 +597,7 @@ const submitDocuments = async () => {
           uploadedDocuments: Object.keys(uploadedDocuments.value),
         },
         userId.value,
-        projectId.value
+        projectId.value,
       );
 
       // Clear localStorage
@@ -625,24 +624,23 @@ onMounted(async () => {
     // Load from localStorage
     requiredDocuments.value.forEach((doc) => {
       const saved = localStorage.getItem(
-        `document_${doc.id}_${projectId.value}`
+        `document_${doc.id}_${projectId.value}`,
       );
       if (saved) {
         uploadedDocuments.value[doc.id] = JSON.parse(saved);
       }
     });
 
-    
     // Fetch supporting documents record
     const supportingDoc = await $fetch(
-      `/api/supporting-documents?projectId=${projectId.value}`
+      `/api/supporting-documents?projectId=${projectId.value}`,
     );
 
     if (supportingDoc.success && supportingDoc.data) {
       supportingDocId.value = supportingDoc.data.id;
 
       const documents = await $fetch(
-        `/api/documents?supportingDocId=${supportingDoc.data.id}`
+        `/api/documents?supportingDocId=${supportingDoc.data.id}`,
       );
 
       if (documents.success && documents.data) {
