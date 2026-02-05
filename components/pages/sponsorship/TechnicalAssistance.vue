@@ -8,13 +8,14 @@
     <div class="lg:flex max-lg:flex-col items-center gap-4 w-full">
       <form @submit.prevent="submitTechnicalAssistance" class="mt-8 w-full">
         <div class="space-y-6 mx-1 lg:w-1/2 max-lg:w-full">
-          <div class="inline-flex items-center gap-2 w-full">
-            <div class="lg:text-base max-lg:text-sm w-1/2">
+          <div class="lg:inline-flex items-center gap-2 w-full">
+            <div class="lg:text-base max-lg:text-sm lg:w-1/2 self-start">
               Management Assistance
             </div>
-            <CommonInputsVariant
-              class="w-full"
-              type="text"
+        
+            <CommonTextArea
+              class="w-full max-lg:mt-4"
+              :rows="5"
               label="Management Assistance"
               placeholder="Describe management assistance needed"
               v-model="managementAssist"
@@ -23,13 +24,13 @@
             />
           </div>
 
-          <div class="inline-flex items-center gap-2 w-full">
-            <div class="lg:text-base max-lg:text-sm w-1/2">
+          <div class="lg:inline-flex items-center gap-2 w-full">
+            <div class="lg:text-base max-lg:text-sm lg:w-1/2 self-start">
               Production Assistance
             </div>
-            <CommonInputsVariant
-              class="w-full"
-              type="text"
+            <CommonTextArea
+              class="w-full max-lg:mt-4"
+              :rows="5"
               label="Production Assistance"
               placeholder="Describe production assistance needed"
               v-model="productionAssist"
@@ -37,13 +38,13 @@
               :errorMessage="productionAssistError"
             />
           </div>
-          <div class="inline-flex items-center gap-2 w-full">
-            <div class="lg:text-base max-lg:text-sm w-1/2">
+          <div class="lg:inline-flex items-center gap-2 w-full">
+            <div class="lg:text-base max-lg:text-sm lg:w-1/2 self-start">
               Marketing Assistance
             </div>
-            <CommonInputsVariant
-              class="w-full"
-              type="text"
+            <CommonTextArea
+              class="w-full max-lg:mt-4"
+              :rows="5"
               label="Marketing Assistance"
               placeholder="Describe marketing assistance needed"
               v-model="marketingAssist"
@@ -51,13 +52,13 @@
               :errorMessage="marketingAssistError"
             />
           </div>
-          <div class="inline-flex items-center gap-2 w-full">
-            <div class="lg:text-base max-lg:text-sm w-1/2">
+          <div class="lg:inline-flex items-center gap-2 w-full">
+            <div class="lg:text-base max-lg:text-sm lg:w-1/2 self-start">
               Financial Assistance
             </div>
-            <CommonInputsVariant
-              class="w-full"
-              type="text"
+            <CommonTextArea
+              class="w-full max-lg:mt-4"
+              :rows="5"
               label="Financial Assistance"
               placeholder="Describe financial assistance needed"
               v-model="financialAssist"
@@ -65,11 +66,11 @@
               :errorMessage="financialAssistError"
             />
           </div>
-          <div class="inline-flex items-center gap-2 w-full max-lg:mb-20">
-            <div class="lg:text-base max-lg:text-sm w-1/2">Others</div>
-            <CommonInputsVariant
-              class="w-full"
-              type="text"
+          <div class="lg:inline-flex items-center gap-2 w-full max-lg:mb-20">
+            <div class="lg:text-base max-lg:text-sm lg:w-1/2 self-start">Others</div>
+            <CommonTextArea
+              class="w-full max-lg:mt-4"
+              :rows="5"
               label="Others"
               placeholder="Any other assistance needed"
               v-model="others"

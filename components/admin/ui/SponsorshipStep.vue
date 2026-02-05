@@ -13,7 +13,7 @@
     <CommonInfoRow label="Date of Incorporation" :value="formatDate(sponsorInfo?.dateOfIncorporation)" />
 
     <h4 class="font-semibold text-primary mt-4">Business History</h4>
-    <CommonInfoRow label="Project Description" :value="sponsorBusinessHist?.projectDescription" />
+    <CommonInfoRow label="Project Description" :text-area="true" :value="sponsorBusinessHist?.projectDescription" />
     <CommonInfoRow label="Net Worth" :value="sponsorBusinessHist?.netWorth" />
     <CommonInfoRow label="Total Assets" :value="sponsorBusinessHist?.totalAssets" />
     <CommonInfoRow label="1st Year Revenue" :value="sponsorBusinessHist?.firstYearRevenue" />
@@ -27,12 +27,11 @@
     <CommonInfoRow label="CEO Previous Position" :value="structureManagementDesc?.ceoPreviousPosition" />
 
     <h4 class="font-semibold text-primary mt-4">Technical Assistance Needed</h4>
-    <CommonInfoRow label="Financial Assistance" :value="technicalAssistance?.financialAssist" />
-    <CommonInfoRow label="Management Assistance" :value="technicalAssistance?.managementAssist" />
-    <CommonInfoRow label="Marketing Assistance" :value="technicalAssistance?.marketingAssist" />
-    <CommonInfoRow label="Production Assistance" :value="technicalAssistance?.productionAssist" />
-    <CommonInfoRow label="Other Assistance" :value="technicalAssistance?.others" />
-
+    <CommonInfoRow label="Financial Assistance" :text-area="true" :value="technicalAssistance?.financialAssist" />
+    <CommonInfoRow label="Management Assistance" :text-area="true" :value="technicalAssistance?.managementAssist" />
+    <CommonInfoRow label="Marketing Assistance" :text-area="true" :value="technicalAssistance?.marketingAssist" />
+    <CommonInfoRow label="Production Assistance" :text-area="true" :value="technicalAssistance?.productionAssist" />
+    <CommonInfoRow label="Other Assistance" :text-area="true" :value="technicalAssistance?.others" />
   </div>
 </template>
 

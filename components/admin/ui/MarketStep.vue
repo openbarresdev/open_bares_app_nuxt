@@ -6,16 +6,16 @@
     </h3>
 
     <h4 class="font-semibold text-primary">Target Market</h4>
-  <CommonInfoRow label="Primary Customers" :value="targetMarket?.primaryCustomers" />
+  <CommonInfoRow label="Primary Customers" :text-area="true" :value="targetMarket?.primaryCustomers" />
   <CommonInfoRow label="Distribution Channels" :value="targetMarket?.distributionChannels" />
 
   <h4 class="font-semibold text-primary mt-4">Market Environment</h4>
-  <CommonInfoRow label="Source of Supply" :value="marketEnvironment?.sourceOfSupply" />
-  <CommonInfoRow label="Main Competitors" :value="marketEnvironment?.mainCompetitors" />
-  <CommonInfoRow label="Import Restrictions" :value="marketEnvironment?.importRestrictions" />
-  <CommonInfoRow label="Market Substitution" :value="marketEnvironment?.marketSubstitution" />
-  <CommonInfoRow label="Critical Factors" :value="marketEnvironment?.criticalFactors" />
-
+  <CommonInfoRow label="Source of Supply" :text-area="true" :value="marketEnvironment?.sourceOfSupply" />
+  <CommonInfoRow label="Main Competitors" :text-area="true" :value="marketEnvironment?.mainCompetitors" />
+  <CommonInfoRow label="Import Restrictions" :text-area="true" :value="marketEnvironment?.importRestrictions" />
+  <CommonInfoRow label="Market Substitution" :text-area="true" :value="marketEnvironment?.marketSubstitution" />
+  <CommonInfoRow label="Critical Factors" :text-area="true" :value="marketEnvironment?.criticalFactors" />
+  
   <h4 class="font-semibold text-primary mt-4">Production & Sales (Year 1)</h4>
   <CommonInfoRow label="Production Volume" :value="productionAndSales.yearOne?.productionVolume" />
   <CommonInfoRow label="Unit Price" :value="productionAndSales.yearOne?.unitPrice" />

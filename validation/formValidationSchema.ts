@@ -11,7 +11,7 @@ import {
 const sponsorInfoSchema = object({
   sponsor: string()
     .min(2, "Sponsor name must be at least 2 characters")
-    .max(100, "Sponsor name too long")
+    .max(2000, "Sponsor name too long")
     .required("Sponsor name is required"),
 
   regnumber: string()
@@ -110,26 +110,26 @@ const managementStructureSchema = object({
 const technicalAssistanceSchema = object({
   managementAssist: string()
     // .min(5, 'Management assistance must be at least 5 characters')
-    .max(500, 'Management assistance too long')
+    .max(2000, 'Management assistance too long')
     .required('Management assistance is required'),
   
   productionAssist: string()
     // .min(5, 'Production assistance must be at least 5 characters')
-    .max(500, 'Production assistance too long')
+    .max(2000, 'Production assistance too long')
     .required('Production assistance is required'),
   
   marketingAssist: string()
     // .min(5, 'Marketing assistance must be at least 5 characters')
-    .max(500, 'Marketing assistance too long')
+    .max(2000, 'Marketing assistance too long')
     .required('Marketing assistance is required'),
   
   financialAssist: string()
     // .min(5, 'Financial assistance must be at least 5 characters')
-    .max(500, 'Financial assistance too long')
+    .max(2000, 'Financial assistance too long')
     .required('Financial assistance is required'),
   
   others: string()
-    .max(500, 'Others field too long')
+    .max(2000, 'Others field too long')
     .optional()
 });
 
@@ -189,7 +189,7 @@ const productionAndSalesSchema = object({
 const targetMarketSchema = object({
   primaryCustomers: string()
     // .min(10, "Description must be at least 10 characters")
-    // .max(500, "Description too long"),
+    // .max(2000, "Description too long"),
     .required("Primary user description is required"),
 
   distributionChannels: string().required("Contribution channel is required"),
@@ -211,12 +211,12 @@ const marketEnvironmentSchema = object({
 const technicalSchema = object({
   specialTechComplexitiesDesc: string()
     // .min(10, "Description must be at least 10 characters")
-    .max(500, "Description too long"),
+    .max(2000, "Description too long"),
     // .required("Primary user description is required"),
 
   keyEquipementDesc: string()
     // .min(10, "Description must be at least 10 characters")
-    .max(500, "Description too long"),
+    .max(2000, "Description too long"),
     // .required("Primary user description is required"),
 });
 
@@ -247,7 +247,7 @@ const humanResources = object({
     //   10,
     //   "Please provide at least 10 characters describing skill availability"
     // )
-    .max(1000, "Description is too long"),
+    .max(20000, "Description is too long"),
 });
 
 const infrastructureRequirements= object({
@@ -351,22 +351,22 @@ const plantLocationAndSize = object({
   suppliersLocation: string()
     .required("Suppliers location is required")
     .min(2, "Suppliers location must be at least 2 characters")
-    .max(100, "Suppliers location is too long"),
+    .max(2000, "Suppliers location is too long"),
 
   marketsLocation: string()
     .required("Markets location is required")
     .min(2, "Markets location must be at least 2 characters")
-    .max(100, "Markets location is too long"),
+    .max(2000, "Markets location is too long"),
 
   infrastructureLocation: string()
     .required("Infrastructure location is required")
     .min(2, "Infrastructure location must be at least 2 characters")
-    .max(100, "Infrastructure location is too long"),
+    .max(2000, "Infrastructure location is too long"),
 
   workforceLocation: string()
     .required("Workforce location is required")
     .min(2, "Workforce location must be at least 2 characters")
-    .max(100, "Workforce location is too long"),
+    .max(2000, "Workforce location is too long"),
 
   plantSize: string()
     .required("Plant size is required")
@@ -529,7 +529,7 @@ const typeOfFinancingRequested = object({
   //         2,
   //         "Please provide at least 2 characters for the other financing type"
   //       )
-  //       .max(100, "Other financing type description is too long"),
+  //       .max(2000, "Other financing type description is too long"),
   //   otherwise: (schema) => schema.notRequired(),
   // }),
 
@@ -579,7 +579,7 @@ const percentageValidation = () =>
   number()
     .typeError("Must be a number")
     .min(0, "Percentage cannot be negative")
-    .max(100, "Percentage cannot exceed 100%");
+    .max(2000, "Percentage cannot exceed 100%");
 
 export const financialProjections = object({
   // Year 1 - Required
@@ -647,7 +647,7 @@ export const financialProjections = object({
 const criticalSuccessFactors = object({
   keyFactors: string()
     .required("Critical success factors description is required")
-    .max(5000, "Description is too long (maximum 5000 characters)"),
+    .max(20000, "Description is too long (maximum 5000 characters)"),
 });
 
 const incentivesValues = [
@@ -689,7 +689,7 @@ const governmentIncentives = object({
           //   2,
           //   "Please provide at least 2 characters for the other incentive"
           // )
-          .max(100, "Other incentive description is too long"),
+          .max(2000, "Other incentive description is too long"),
       otherwise: (schema: StringSchema) => schema.notRequired(),
     })
     .default(""),
