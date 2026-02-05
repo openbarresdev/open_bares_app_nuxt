@@ -584,6 +584,8 @@ const submitDocuments = async () => {
 onMounted(async () => {
   await checkAuth();
 
+  if (!projectId.value) return;
+  
   try {
     // Load from localStorage
     requiredDocuments.value.forEach((doc) => {
