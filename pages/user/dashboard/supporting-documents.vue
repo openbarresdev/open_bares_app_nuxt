@@ -394,6 +394,38 @@ const triggerFileInput = (docId) => {
   if (input) input.click();
 };
 
+// Use XMLHttpRequest for multipart upload to avoid $fetch serialization issues
+const uploadWithXHR = (url, formData, onProgress) =>
+  new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", url);
+
+    xhr.onload = () => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        try {
+          const json = JSON.parse(xhr.responseText);
+          resolve(json);
+        } catch (e) {
+          resolve({ success: true, document: null });
+        }
+      } else {
+        reject(new Error(xhr.statusText || `Upload failed (${xhr.status})`));
+      }
+    };
+
+    xhr.onerror = () => reject(new Error("Upload failed"));
+
+    if (xhr.upload && typeof onProgress === "function") {
+      xhr.upload.onprogress = (e) => {
+        if (e.lengthComputable) {
+          onProgress({ loaded: e.loaded, total: e.total });
+        }
+      };
+    }
+
+    xhr.send(formData);
+  });
+
 const handleDrop = (event, doc) => {
   dragover.value = null;
   const files = event.dataTransfer.files;
@@ -457,16 +489,20 @@ const uploadFile = async (file, doc) => {
     formData.append("supportingDocId", supportingDocId.value.toString());
     formData.append("originalName", file.name);
 
-    const response = await $fetch("/api/documents/upload", {
-      method: "POST",
-      body: formData,
-      onUploadProgress: (progressEvent) => {
+    // Use XHR to upload the FormData so we don't accidentally serialize
+    // Vue reactive objects with $fetch (which can cause circular JSON errors
+    // when incorrect options are passed). XHR provides reliable progress
+    // events in browsers.
+    const response = await uploadWithXHR(
+      "/api/documents/upload",
+      formData,
+      (progressEvent) => {
         const percentCompleted = Math.round(
           (progressEvent.loaded * 100) / progressEvent.total
         );
         uploadProgress.value[doc.id] = percentCompleted;
-      },
-    });
+      }
+    );
 
     if (response.success) {
       // Update uploaded documents
