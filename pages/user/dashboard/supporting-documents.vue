@@ -443,8 +443,8 @@ const uploadFile = async (file, doc) => {
       const supportingDoc = await $fetch("/api/supporting-documents/init", {
         method: "POST",
         body: {
-          userId: userId,
-          projectId: projectId,
+          userId: Number(userId.value),
+          projectId: Number(projectId.value),
         },
       });
       supportingDocId.value = supportingDoc.id;
