@@ -90,7 +90,7 @@ export default defineEventHandler(async (event) => {
       document = await prisma.document.update({
         where: { id: existingDoc.id },
         data: {
-          originalName: originalName,
+          originalName,
           cloudinaryId: uploadResult.public_id,
           publicId: uploadResult.public_id,
           url: uploadResult.secure_url,
@@ -98,8 +98,13 @@ export default defineEventHandler(async (event) => {
           size: uploadResult.bytes,
           uploadedAt: new Date(),
           metadata: {
-            cloudinary: uploadResult,
-            originalName: originalName,
+            cloudinary: {
+              public_id: uploadResult.public_id,
+              secure_url: uploadResult.secure_url,
+              format: uploadResult.format,
+              bytes: uploadResult.bytes,
+            },
+            originalName,
           },
         },
       });
@@ -114,17 +119,22 @@ export default defineEventHandler(async (event) => {
       // Créer un nouveau document
       document = await prisma.document.create({
         data: {
-          supportingDocId: supportingDocId,
-          docType: docType,
-          originalName: originalName,
+          supportingDocId,
+          docType,
+          originalName,
           cloudinaryId: uploadResult.public_id,
           publicId: uploadResult.public_id,
           url: uploadResult.secure_url,
           format: uploadResult.format,
           size: uploadResult.bytes,
           metadata: {
-            cloudinary: uploadResult,
-            originalName: originalName,
+            cloudinary: {
+              public_id: uploadResult.public_id,
+              secure_url: uploadResult.secure_url,
+              format: uploadResult.format,
+              bytes: uploadResult.bytes,
+            },
+            originalName,
           },
         },
       });
@@ -139,7 +149,7 @@ export default defineEventHandler(async (event) => {
     await prisma.supportingDocuments.update({
       where: { id: supportingDocId },
       data: {
-        documentLinks: JSON.stringify(documentLinks),
+        documentLinks: documentLinks,
       },
     });
 
