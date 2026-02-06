@@ -6,7 +6,7 @@
             <NuxtLink to="/admin/dashboard/applicants" class="bg-accent/30 rounded-md h-28 w-full flex flex-col justify-between p-4">
                 <div class="text-xl font-bold">Applicant(s)</div>                
                 <div class="text-lg">
-                    {{ applicants.length - 1 }}
+                    {{ applicants.length }}
                 </div>
             </NuxtLink>
             <div class="bg-secondary/50 rounded-md h-28 w-full flex flex-col justify-between p-4">
@@ -15,11 +15,11 @@
             </div>
             <div class="bg-primary/40 rounded-md h-28 w-full flex flex-col justify-between p-4">
                 <div class="text-xl font-bold">Completed</div>                
-                <div class="text-lg">0</div>
+                <div class="text-lg">-</div>
             </div>
             <div class="bg-warning/40 rounded-md h-28 w-full flex flex-col justify-between p-4">
                 <div class="text-xl font-bold">Incomplete</div>                
-                <div class="text-lg">0</div>
+                <div class="text-lg">-</div>
             </div>
         </div>
     </div>
