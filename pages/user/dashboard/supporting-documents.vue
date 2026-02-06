@@ -136,18 +136,17 @@
               <a
                 :href="uploadedDocuments[doc.id].url"
                 target="_blank"
-                class="btn btn-sm btn-ghost text-blue-600 hover:text-blue-800"
+                class="btn btn-sm btn-ghost text-white hover:text-primary"
                 title="View document"
               >
-                <span class="icon-[tabler--eye] size-5"></span>
+                <span class="icon-[tabler--eye] size-4"></span>
               </a>
-              <button
-                @click="downloadDocument(uploadedDocuments[doc.id])"
+              <!-- <button @click="downloadDocument(uploadedDocuments[doc.id])"
                 class="btn btn-sm btn-ghost text-green-600 hover:text-green-800"
                 title="Download"
               >
                 <span class="icon-[tabler--download] size-5"></span>
-              </button>
+              </button> -->
             </div>
           </div>
         </div>
@@ -253,7 +252,7 @@ const requiredDocuments = ref([
     name: "Company registration document",
     description: "Official company registration document",
     required: true,
-    maxSize: 5 * 1024 * 1024, // 5MB
+    maxSize: 10 * 1024 * 1024, // 10MB
     allowedTypes: ["pdf", "jpg", "png", "jpeg"],
     order: 1,
   },
@@ -262,7 +261,7 @@ const requiredDocuments = ref([
     name: "Technical Specifications Document",
     description: "Technical Specifications of Project",
     required: true,
-    maxSize: 20 * 1024 * 1024, // 20MB
+    maxSize: 10 * 1024 * 1024, // 10MB
     allowedTypes: ["pdf", "jpg", "png", "jpeg"],
     order: 2,
   },
@@ -271,7 +270,7 @@ const requiredDocuments = ref([
     name: "Preliminary Feasibility Business Plan",
     description: "Detailed business proposal and financial projections",
     required: true,
-    maxSize: 20 * 1024 * 1024, // 20MB
+    maxSize: 10 * 1024 * 1024, // 10MB
     allowedTypes: ["pdf", "jpg", "png", "jpeg"],
     order: 3,
   },
@@ -280,7 +279,7 @@ const requiredDocuments = ref([
     name: "Financial Projections Document",
     description: "Details of financial projections",
     required: true,
-    maxSize: 20 * 1024 * 1024, // 20MB
+    maxSize: 10 * 1024 * 1024, // 10MB
     allowedTypes: ["pdf", "jpg", "png", "jpeg"],
     order: 4,
   },
@@ -289,7 +288,7 @@ const requiredDocuments = ref([
     name: "Banking Reference",
     description: "Banking reference document",
     required: true,
-    maxSize: 20 * 1024 * 1024, // 20MB
+    maxSize: 10 * 1024 * 1024, // 10MB
     allowedTypes: ["pdf", "jpg", "png", "jpeg"],
     order: 5,
   },
@@ -298,7 +297,7 @@ const requiredDocuments = ref([
     name: "Audited Financial Statement",
     description: "Valid Audited Financial Statement document for last 3 years",
     required: false,
-    maxSize: 5 * 1024 * 1024, // 5MB
+    maxSize: 10 * 1024 * 1024, // 10MB
     allowedTypes: ["pdf", "jpg", "png", "jpeg"],
     order: 6,
   },
@@ -307,7 +306,7 @@ const requiredDocuments = ref([
     name: "Management CVs",
     description: "Management CVs document",
     required: false,
-    maxSize: 5 * 1024 * 1024,
+    maxSize: 10 * 1024 * 1024, // 10MB
     allowedTypes: ["pdf", "jpg", "png", "jpeg"],
     order: 7,
   },
@@ -316,7 +315,7 @@ const requiredDocuments = ref([
     name: "Environmental Impact Assessment",
     description: "Detailed business proposal and financial projections",
     required: false,
-    maxSize: 20 * 1024 * 1024, // 20MB
+    maxSize: 10 * 1024 * 1024, // 10MB
     allowedTypes: ["pdf", "jpg", "png", "jpeg"],
     order: 8,
   },
@@ -325,7 +324,7 @@ const requiredDocuments = ref([
     name: "Government Approvals",
     description: "Approvals or licence by Government",
     required: false,
-    maxSize: 20 * 1024 * 1024, // 20MB
+    maxSize: 10 * 1024 * 1024, // 10MB
     allowedTypes: ["pdf", "jpg", "png", "jpeg"],
     order: 9,
   },
@@ -334,7 +333,7 @@ const requiredDocuments = ref([
     name: "Market Research Reports",
     description: "Reports of current year market research",
     required: false,
-    maxSize: 20 * 1024 * 1024, // 20MB
+    maxSize: 10 * 1024 * 1024, // 10MB
     allowedTypes: ["pdf", "jpg", "png", "jpeg"],
     order: 10,
   },
@@ -343,7 +342,7 @@ const requiredDocuments = ref([
     name: "Other document",
     description: "Other required document",
     required: false,
-    maxSize: 20 * 1024 * 1024, // 20MB
+    maxSize: 10 * 1024 * 1024, // 10MB
     allowedTypes: ["pdf", "jpg", "png", "jpeg"],
     order: 11,
   },
@@ -517,22 +516,22 @@ const removeDocument = async (docId) => {
   }
 };
 
-const downloadDocument = async (document) => {
-  try {
-    const response = await fetch(document.url);
-    const blob = await response.blob();
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = document.originalName;
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(url);
-    document.body.removeChild(a);
-  } catch (error) {
-    console.error("Download failed:", error);
-  }
-};
+// const downloadDocument = async (document) => {
+//   try {
+//     const response = await fetch(document.url);
+//     const blob = await response.blob();
+//     const url = window.URL.createObjectURL(blob);
+//     const a = document.createElement("a");
+//     a.href = url;
+//     a.download = document.originalName;
+//     document.body.appendChild(a);
+//     a.click();
+//     window.URL.revokeObjectURL(url);
+//     document.body.removeChild(a);
+//   } catch (error) {
+//     console.error("Download failed:", error);
+//   }
+// };
 
 const submitDocuments = async () => {
   if (missingRequired.value.length > 0) return;
@@ -583,45 +582,31 @@ const submitDocuments = async () => {
 // Load existing documents on mount
 onMounted(async () => {
   await checkAuth();
-
   if (!projectId.value) return;
-  
-  try {
-    // Load from localStorage
-    requiredDocuments.value.forEach((doc) => {
-      const saved = localStorage.getItem(
-        `document_${doc.id}_${projectId.value}`
-      );
-      if (saved) {
-        uploadedDocuments.value[doc.id] = JSON.parse(saved);
-      }
-    });
 
-    
-    // Fetch supporting documents record
+  try {
     const supportingDoc = await $fetch(
       `/api/supporting-documents?projectId=${projectId.value}`
     );
 
-    if (supportingDoc.success && supportingDoc.data) {
-      supportingDocId.value = supportingDoc.data.id;
+    if (!supportingDoc?.success || !supportingDoc?.data) return;
 
-      const documents = await $fetch(
-        `/api/documents?supportingDocId=${supportingDoc.data.id}`
-      );
+    supportingDocId.value = supportingDoc.data.id;
 
-      if (documents.success && documents.data) {
-        const docsArray = Array.isArray(documents.data)
-          ? documents.data
-          : documents.data.documents || [];
+    const documents = await $fetch(
+      `/api/documents?supportingDocId=${supportingDoc.data.id}`
+    );
 
-        docsArray.forEach((doc) => {
-          uploadedDocuments.value[doc.docType] = doc;
-        });
-      }
-    }
+    if (!documents?.success || !documents?.data) return;
+
+    uploadedDocuments.value = {};
+
+    Object.values(documents.data).forEach((doc) => {
+      uploadedDocuments.value[doc.docType] = doc;
+    });
   } catch (error) {
     console.error("Failed to load documents:", error);
   }
 });
+
 </script>
