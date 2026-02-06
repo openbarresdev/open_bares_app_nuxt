@@ -18,6 +18,7 @@
         >
           <div
   class="progress-bar font-normal transition-all duration-300 flex items-center justify-center"
+  :class="dataStore.completedStepsCount === 8 ? 'bg-secondary text-black font-bold!' : ''"
   :style="{ width: dataStore.percentageProgress + '%' }"
 >
             {{ dataStore.completedStepsCount }}/{{ dataStore.totalSteps }} étapes

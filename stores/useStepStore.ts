@@ -96,10 +96,10 @@ export const useStepStore = defineStore("step", () => {
           sectionName === "marketEnvironment" ||
           sectionName === "environmentalImpact" ||
           sectionName === "successFactors" ||
-          sectionName ==="regulatoryEnvironment" ||
-          sectionName ==="implementationSchedule" ||
-          sectionName ==="documentLinks" ||
-          sectionName ==="technicalAssistance"
+          sectionName === "regulatoryEnvironment" ||
+          sectionName === "implementationSchedule" ||
+          sectionName === "documentLinks" ||
+          sectionName === "technicalAssistance"
         ) {
           const percentName = `${stepName}Percent`;
 
@@ -107,7 +107,7 @@ export const useStepStore = defineStore("step", () => {
             percentName,
             userId,
             projectId,
-            currency
+            currency,
           );
         }
       }

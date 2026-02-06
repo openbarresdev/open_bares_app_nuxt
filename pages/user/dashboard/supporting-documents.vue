@@ -5,7 +5,11 @@
       description="Please attach the following documents with your application"
     />
 
-    <div class="space-y-6 max-lg:mb-24 mt-4">
+    <div v-if="stepStore.isLoading" class="text-center py-4">
+      <span class="loading loading-spinner">Loading documents...</span>
+    </div>
+
+    <div v-else class="space-y-6 max-lg:mb-24 mt-4">
       <div
         v-for="doc in requiredDocuments"
         :key="doc.id"
@@ -553,9 +557,9 @@ const submitDocuments = async () => {
       // Update ApplicationSettings steps
       await stepStore.saveSection(
         "documents",
-        "supportingDocuments",
+        "documentLinks",
         {
-          isComplete: true,
+          // isComplete: true,
           submittedAt: new Date().toISOString(),
           uploadedDocuments: Object.keys(uploadedDocuments.value),
         },
