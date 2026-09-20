@@ -1094,7 +1094,7 @@
                   <input
                     type="text"
                     id="name"
-                    class="input input-lg w-full"
+                    class="input input-lg w-full rounded-2xl"
                     placeholder="Enter your name here..."
                   />
                 </div>
@@ -1103,7 +1103,7 @@
                   <input
                     type="email"
                     id="email"
-                    class="input input-lg w-full"
+                    class="input input-lg w-full rounded-2xl"
                     placeholder="Enter your Email here..."
                   />
                 </div>
@@ -1111,7 +1111,7 @@
                   <label class="label-text" for="message">Message</label>
                   <textarea
                     id="message"
-                    class="textarea h-28 w-full"
+                    class="textarea h-28 w-full rounded-2xl"
                     placeholder="Type here"
                   ></textarea>
                 </div>
@@ -1130,9 +1130,11 @@
       </section>
     </main>
 
-     <footer class="bg-base-300 py-1">
-         <p class="text-white text-center">
-            © 2026 CrowdHill Funding. All rights reserved.
+     <footer class="bg-base-300 py-1.5">
+         <p class="text-white text-center max-sm:text-sm">
+            © 2026 CrowdHill Funding. All rights reserved. <a href="https://github.com/Donaldmag" target="_blank" rel="noopener noreferrer" class="text-blue-200 hover:text-blue-300 hover:scale-105 text-sm transition duration-300">
+      Made with ❤️
+    </a>
           </p>
     </footer>
   </div>
