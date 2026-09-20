@@ -6,7 +6,7 @@ import {
   percentages,
   financeTypeData,
   govincentives,
-} from "../assets/data/data";
+} from "~/assets/data/data";
 
 const sponsorInfoSchema = object({
   sponsor: string()

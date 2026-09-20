@@ -84,7 +84,7 @@
 import { plantLocationAndSize } from '~/validation/formValidationSchema'
 import { useStepStore } from '@/stores/useStepStore'
 import { useForm, useField } from "vee-validate"
-import { plantSizeOptions } from "../assets/data/data";
+import { plantSizeOptions } from "~/assets/data/data";
 
 
 const { userId, projectId, checkAuth } = useAuth()

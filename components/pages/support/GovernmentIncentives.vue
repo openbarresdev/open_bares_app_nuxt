@@ -66,7 +66,7 @@
 import { governmentIncentives } from '~/validation/formValidationSchema'
 import { useStepStore } from '@/stores/useStepStore'
 import { useForm, useField } from "vee-validate"
-import { govincentives } from "../assets/data/data"
+import { govincentives } from "~/assets/data/data"
 
 const { userId, projectId, checkAuth } = useAuth()
 const stepStore = useStepStore()
